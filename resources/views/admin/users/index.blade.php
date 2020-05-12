@@ -50,12 +50,12 @@
                             @endif
                           </td>
                           <td>
-                            <form id="delete-user" action="{{ route('users.destroy',$user->id) }}" method="post">
+                            <form id="delete-form" action="{{ route('users.destroy',$user->id) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">@lang('general.Show')</a>
-                                <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">@lang('general.Edit')</a>
-                                <button type="button" class="btn btn-danger btn-xs" onclick="confirmDelete('delete-user')">delete</button>
+                                <a class="btn btn-info btn-sm" href="{{ route('users.show',$user->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
+                                <a class="btn btn-primary btn-sm" href="{{ route('users.edit',$user->id) }}"><i class="fa fa-edit fa-sm"></i> @lang('general.Edit')</a>
+                                <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('delete-form')"><i class="fa fa-trash fa-sm"></i> @lang('general.Delete')</button>
 
                             </form>
                           </td>

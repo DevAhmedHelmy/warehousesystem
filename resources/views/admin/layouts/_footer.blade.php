@@ -54,22 +54,22 @@ $.widget.bridge('uibutton', $.ui.button)
 {{--  <script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>  --}}
 {{-- AdminLTE for demo purposes --}}
 <script src="{{asset('admin/dist/js/demo.js')}}"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{{asset('admin/dist/js/sweetalert.min.js')}}"></script>
 
 <script>
     function confirmDelete(item_id) {
         swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover it!",
+            title: "{{ __('general.Are_you_sure') }}",
+            text: "{{ __('general.Once_deleted') }}",
             icon: "warning",
-            buttons: true,
+            buttons: ["{{ __('general.no') }}", "{{ __('general.Delete') }}"],
             dangerMode: true,
         })
             .then((willDelete) => {
                 if (willDelete) {
                     $('#'+item_id).submit();
                 } else {
-                    swal("Cancelled Successfully");
+                    swal("{{ __('general.Cancelled_Successfully') }}");
                 }
             });
     }

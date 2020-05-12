@@ -16,5 +16,10 @@ return[
     'Email' => 'البريد الالكترونى',
     'Roles' => 'الصلاحيات',
     'password' => 'الرقم السرى',
-    'password_confirmation' => 'اعادة كلمة السر'
+    'password_confirmation' => 'اعادة كلمة السر',
+    'Once_deleted' => 'بمجرد الحذف ، لن تتمكن من استعادته!',
+    'Are_you_sure' => ' هل أنت متأكد أنك تريد حذف هذا العنصر',
+    'Cancelled_Successfully' => 'تم الإلغاء بنجاح',
+
+    'no' => 'الغاء'
 ];
