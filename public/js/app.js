@@ -49940,8 +49940,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /media/ahmed/AhmedHelmy3/MY Projects/Laravel/finish project/warehousesystem/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /media/ahmed/AhmedHelmy3/MY Projects/Laravel/finish project/warehousesystem/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /media/ahmedhelmy/216e7f24-0bb6-4f60-87e2-6c0007e38179/laracast/ah_projects/warehousesystem/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /media/ahmedhelmy/216e7f24-0bb6-4f60-87e2-6c0007e38179/laracast/ah_projects/warehousesystem/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

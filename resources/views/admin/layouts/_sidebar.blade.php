@@ -28,7 +28,7 @@
                  with font-awesome or any other icon font library --}}
 
 
-            <li class="nav-item has-treeview">
+            <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
               <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-home"></i>
                 <p>
@@ -50,7 +50,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ route('roles.index') }}" class="nav-link">
+                  <a href="{{ route('roles.index') }}" class="nav-link @if(request()->is('roles')) active @endif">
                     <i class="fa fa-circle-o nav-icon"></i>
                     <p>الصلاحيات</p>
                   </a>
