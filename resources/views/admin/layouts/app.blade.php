@@ -28,6 +28,7 @@
     <section class="content">
       <div class="container-fluid">
         <div class="row">
+          @include('admin.layouts._messages')
         @yield('content')
 
         </div>  {{-- /.row (main row) --}}

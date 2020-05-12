@@ -7,8 +7,8 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="#">@lang('general.dashboard')</a></li>
-            <li class="breadcrumb-item active">@lang('permission.permission')</li>
+            <li class="breadcrumb-item"><a href="#">@lang('permission.permission')</a></li>
+            <li class="breadcrumb-item active">@if(!$role->id) @lang('permission.Create_New_Role') @else @lang('permission.update_Role') @endif</li>
             </ol>
         </div>
     </div>
@@ -35,7 +35,7 @@
 <div class="col-8 offset-2">
     <div class="card card-info">
         <div class="card-header">
-          <h3 class="card-title">@lang('permission.Create_New_Role')</h3>
+          <h3 class="card-title">@if(!$role->id) @lang('permission.Create_New_Role') @else @lang('permission.update_Role') @endif</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -65,10 +65,15 @@
 
                       @foreach($permission as $value)
 
-
-                          <input type="checkbox" @if(count($rolePermissions) > 0 || $rolePermissions[$value->id]) checked @endif name="permission[]" value="{{ $value->id }}" class="form-check-input" id="{{ $value->name }}">
+                        @if(count($rolePermissions) > 0 && array_key_exists($value->id, $rolePermissions))
+                          <input type="checkbox" @if($rolePermissions[$value->id]) checked @endif name="permission[]" value="{{ $value->id }}" class="form-check-input" id="{{ $value->name }}">
                           <label class="form-check-label" for="{{ $value->name }}">@lang('permission.'.$value->name)</label>
                           <br/>
+                          @else
+                          <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="form-check-input" id="{{ $value->name }}">
+                          <label class="form-check-label" for="{{ $value->name }}">@lang('permission.'.$value->name)</label>
+                          <br/>
+                          @endif
                       @endforeach
                      
 

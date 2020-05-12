@@ -41,8 +41,13 @@ $.widget.bridge('uibutton', $.ui.button)
 <script src="{{asset('admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js')}}"></script>
 {{-- Slimscroll --}}
 <script src="{{asset('admin/plugins/slimScroll/jquery.slimscroll.min.js')}}"></script>
+
+<!-- SweetAlert2 -->
+<script src="{{asset('admin/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
+<!-- Toastr -->
+<script src="{{asset('admin/plugins/toastr/toastr.min.js')}}"></script>
 {{-- FastClick --}}
-<script src="{{asset('admin/plugins/fastclick/fastclick.js')}}"></script>
+<script src="{{asset('admin/plugins/daterangepicker/daterangepicker.js')}}"></script>
 {{-- AdminLTE App --}}
 <script src="{{asset('admin/dist/js/adminlte.js')}}"></script>
 {{-- AdminLTE dashboard demo (This is only for demo purposes) --}}
