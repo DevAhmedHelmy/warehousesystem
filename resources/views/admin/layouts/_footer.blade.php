@@ -1,6 +1,6 @@
 {{-- /.content-wrapper --}}
 <footer class="main-footer">
-  <strong>CopyLeft &copy; 2018 
+  <strong>CopyLeft &copy; 2018
 </footer>
 
 {{-- Control Sidebar --}}
@@ -54,5 +54,26 @@ $.widget.bridge('uibutton', $.ui.button)
 {{--  <script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>  --}}
 {{-- AdminLTE for demo purposes --}}
 <script src="{{asset('admin/dist/js/demo.js')}}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    function confirmDelete(item_id) {
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover it!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $('#'+item_id).submit();
+                } else {
+                    swal("Cancelled Successfully");
+                }
+            });
+    }
+</script>
+
 </body>
 </html>

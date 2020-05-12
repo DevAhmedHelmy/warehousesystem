@@ -9,5 +9,12 @@ return[
     'Delete' => 'حذف',
     'dashboard' => 'الرئيسية',
     'save' => 'حفظ',
-    'back' => 'رجوع'
+    'back' => 'رجوع',
+    'Create_New_user' => 'اضافة مستخدم جديد',
+    'update_user' => 'تعديل مستخدم',
+    'users' => 'المستخدمين',
+    'Email' => 'البريد الالكترونى',
+    'Roles' => 'الصلاحيات',
+    'password' => 'الرقم السرى',
+    'password_confirmation' => 'اعادة كلمة السر'
 ];

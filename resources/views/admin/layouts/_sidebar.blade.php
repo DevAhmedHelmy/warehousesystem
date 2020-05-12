@@ -57,6 +57,14 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link @if(request()->is('users')) active @endif">
+                    <i class="nav-icon fa fa-users"></i>
+                    <p>
+                        @lang('general.users')
+                    </p>
+                </a>
+            </li>
             <li class="nav-item has-treeview">
               <a href="#" class="nav-link">
                 <i class="nav-icon fa fa-tree"></i>
