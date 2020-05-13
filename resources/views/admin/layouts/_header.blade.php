@@ -42,7 +42,7 @@
 
   </style>
   <script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
-    
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">

@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\User;
 
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
 use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
@@ -14,6 +14,13 @@ use Hash;
 
 class UserController extends Controller
 {
+    // function __construct()
+    // {
+    //     $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+    //     $this->middleware('permission:user-create', ['only' => ['create','store']]);
+    //     $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+    //     $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -66,7 +73,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+                        ->with('success',trans('general.created_Successfully'));
     }
 
 
@@ -132,7 +139,7 @@ class UserController extends Controller
 
 
         return redirect()->route('users.index')
-                        ->with('success','User updated successfully');
+                        ->with('success',trans('general.updated_Successfully'));
     }
 
 
@@ -144,8 +151,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::findOrFail($id)->delete();
-        return redirect()->route('users.index')
-                        ->with('success','User deleted successfully');
+        $user = User::findOrFail($id);
+
+        if($user->id==1)
+        {
+
+            return redirect()->route('users.index')
+                        ->with('error',trans('general.Can_not_delete_This_element'));
+        }else{
+
+            $user->delete();
+            return redirect()->route('users.index')
+                        ->with('success',trans('general.deleted_Successfully'));
+        }
+
     }
 }

@@ -23,130 +23,62 @@
         @endif
         {{-- Sidebar Menu --}}
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            {{-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library --}}
-
-
-            <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-home"></i>
-                <p>
-                    الرئيسية
-                  <i class="right fa fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="fa fa-pie-chart nav-icon"></i>
-                    <p>الاحصائيات</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="pages/charts/flot.html" class="nav-link">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>الإعدادات</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{ route('roles.index') }}" class="nav-link @if(request()->is('roles')) active @endif">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>الصلاحيات</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('users.index') }}" class="nav-link @if(request()->is('users')) active @endif">
-                    <i class="nav-icon fa fa-users"></i>
-                    <p>
-                        @lang('general.users')
-                    </p>
+            ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+             {{--  main pages  --}}
+                <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-home"></i>
+                        <p>
+                            الرئيسية
+                        <i class="right fa fa-angle-left"></i>
+                        </p>
                 </a>
-            </li>
-            <li class="nav-item has-treeview">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fa fa-tree"></i>
-                <p>
-                    البيانات الاساسية
-                  <i class="fa fa-angle-left right"></i>
-                </p>
-              </a>
-              {{--  <ul class="nav nav-treeview">
-                @if (\Auth::check() && auth()->user()->hasPermission('read_company'))
+                <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('dashboard.companies.index')}}" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>الشركات</p>
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-pie-chart nav-icon"></i>
+                            <p>الاحصائيات</p>
                         </a>
                     </li>
-                @endif
-                @if (\Auth::check() && auth()->user()->hasPermission('read_department'))
                     <li class="nav-item">
-                        <a href="{{route('dashboard.departments.index')}}" class="nav-link">
+                        <a href="pages/charts/flot.html" class="nav-link">
                             <i class="fa fa-circle-o nav-icon"></i>
-                            <p>الادارات</p>
+                            <p>الإعدادات</p>
                         </a>
                     </li>
-                @endif
-                @if (\Auth::check() && auth()->user()->hasPermission('read_job'))
                     <li class="nav-item">
-                        <a href="pages/UI/buttons.html" class="nav-link">
+                        <a href="{{ route('roles.index') }}" class="nav-link @if(request()->is('roles')) active @endif">
                             <i class="fa fa-circle-o nav-icon"></i>
-                            <p>الوظائق</p>
+                            <p>الصلاحيات</p>
                         </a>
                     </li>
-                @endif
-                @if (\Auth::check() && auth()->user()->hasPermission('read_category'))
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.categories.index')}}" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>الاصناف</p>
-                        </a>
-                    </li>
-                @endif
-                @if (\Auth::check() && auth()->user()->hasPermission('read_product'))
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.products.index')}}" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>المنتجات</p>
-                        </a>
-                    </li>
-                @endif
-                @if (\Auth::check() && auth()->user()->hasPermission('read_specialoffer'))
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.specialOffers.index')}}" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>عروض خاصة</p>
-                        </a>
-                    </li>
-                @endif
+                </ul>
+                </li>
+                {{--  !main pages  --}}
+                {{--  users link  --}}
+                <li class="nav-item">
+                    <a href="{{ route('users.index') }}" class="nav-link @if(request()->is('users')) active @endif">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>
+                            @lang('general.users')
+                        </p>
+                    </a>
+                </li>
+                {{--  ! users link  --}}
 
-                    {{--  <li class="nav-item">
-                        <a href="{{route('dashboard.categories.index')}}" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>الالوان</p>
-                        </a>
-                    </li>
+                {{--  logout link  --}}
+                <li class="nav-item">
+                    <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                        <i class="nav-icon fa fa-sign-out"></i>
+                        <p>@lang('general.Logout')</p>
 
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.categories.index')}}" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>البنوك</p>
-                        </a>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a href="{{route('dashboard.categories.index')}}" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>اعدادات نوع البطاقة</p>
-                        </a>
-                    </li>  --}}
-
-              </ul>  --}}
-            </li>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+                {{--  !users link  --}}
 
 
 
@@ -158,7 +90,11 @@
 
 
 
-          </ul>
+
+
+
+
+            </ul>
         </nav>
         {{-- /.sidebar-menu --}}
       </div>

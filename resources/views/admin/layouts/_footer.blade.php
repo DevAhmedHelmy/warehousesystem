@@ -67,7 +67,7 @@ $.widget.bridge('uibutton', $.ui.button)
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    $('#'+item_id).submit();
+                    $('.'+item_id).submit();
                 } else {
                     swal("{{ __('general.Cancelled_Successfully') }}");
                 }

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Role;
 
 
 use Illuminate\Http\Request;
@@ -18,13 +18,13 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
-    {
-        // $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-        // $this->middleware('permission:role-create', ['only' => ['create','store']]);
-        // $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-        // $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    }
+    // function __construct()
+    // {
+    //     $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+    //     $this->middleware('permission:role-create', ['only' => ['create','store']]);
+    //     $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+    //     $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    // }
 
 
     /**
@@ -34,7 +34,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        
+
         $roles = Role::orderBy('id','DESC')->paginate(5);
         return view('admin.roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
@@ -74,7 +74,7 @@ class RoleController extends Controller
 
 
         return redirect()->route('roles.index')
-                        ->with('success','Role created successfully');
+                        ->with('success',trans('general.created_Successfully'));
     }
     /**
      * Display the specified resource.
@@ -128,7 +128,7 @@ class RoleController extends Controller
         ]);
 
 
-        $role = Role::find($id);
+        $role = Role::findOrFail($id);
         $role->name = $request->input('name');
         $role->save();
 
@@ -137,7 +137,7 @@ class RoleController extends Controller
 
 
         return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
+                        ->with('success',trans('general.updated_Successfully'));
     }
     /**
      * Remove the specified resource from storage.
@@ -147,8 +147,13 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        if($id == 1)
+        {
+            return redirect()->route('roles.index')
+                        ->with('error',trans('general.Can_not_delete_This_element'));
+        }
         DB::table("roles")->where('id',$id)->delete();
         return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+                    ->with('success',trans('general.deleted_Successfully'));
     }
 }

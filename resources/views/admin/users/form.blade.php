@@ -72,7 +72,6 @@
                     <div class="form-group">
                         <label> @lang('general.Roles') </label>
                         <select multiple name="roles[]" class="form-control">
-
                             @foreach($roles as $role)
                                 @if(isset($userRole) && array_key_exists($role, $userRole))
                                     <option value="{{ $role }}" @if($userRole[$role]) selected @endif>{{ $role }}</option>
@@ -81,15 +80,10 @@
                                 @endif
                             @endforeach
 
-
                         </select>
                     </div>
                 </div>
             </div>
-
-
-
-
             <div class="card-footer">
                 <div class="col-8 offset-2">
                     <button type="submit" class="btn btn-info">@lang('general.save')</button>
@@ -97,7 +91,6 @@
                     <a class="float-left btn btn-danger" href="{{ route('users.index') }}"> @lang('general.back')</a>
                 </div>
             </div>
-
         </form>
     </div>
 </div>

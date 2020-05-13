@@ -16,12 +16,6 @@
 
 @section('content')
 
-{{--  @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-@endif  --}}
-
 <div class="col-8 offset-2">
     <div class="card">
         <div class="card-header">
@@ -45,15 +39,17 @@
                             <td>{{ ++$i }}</td>
                             <td>{{ $role->name }}</td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}"><i class="fa fa-eye"></i> @lang('general.Show')</a>
-                                @can('role-edit')
-                                    <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}"><i class="fa fa-edit"></i> @lang('general.Edit')</a>
-                                @endcan
-                                @can('role-delete')
-                                    {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                        {!! Form::submit(__('general.Delete'), ['class' => 'btn btn-danger']) !!}
-                                    {!! Form::close() !!}
-                                @endcan
+                                <form class="delete-form" action="{{ route('roles.destroy',$role->id) }}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <a class="btn btn-info btn-sm" href="{{ route('roles.show',$role->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
+                                    @can('role-edit')
+                                        <a class="btn btn-primary btn-sm" href="{{ route('roles.edit',$role->id) }}"><i class="fa fa-edit fa-sm"></i> @lang('general.Edit')</a>
+                                    @endcan
+                                    @can('role-delete')
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('delete-form')"><i class="fa fa-trash fa-sm"></i> @lang('general.Delete')</button>
+                                    @endcan
+                                </form>
                             </td>
                         </tr>
                     @endforeach
