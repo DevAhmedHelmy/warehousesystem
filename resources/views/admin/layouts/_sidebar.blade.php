@@ -23,7 +23,7 @@
         @endif
         {{-- Sidebar Menu --}}
         <nav class="mt-2">
-            ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
              {{--  main pages  --}}
                 <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
                     <a href="#" class="nav-link">
