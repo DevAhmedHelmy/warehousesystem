@@ -28,6 +28,7 @@
         @else
             <form class="form-horizontal" method="POST" action="{{ route('users.update',$user->id) }}">
             @method('patch')
+            <input type="hidden" name="id" value="{{ $user->id }}">
         @endif
             @csrf
             <div class="card-body">
@@ -87,7 +88,6 @@
             <div class="card-footer">
                 <div class="col-8 offset-2">
                     <button type="submit" class="btn btn-info">@lang('general.save')</button>
-
                     <a class="float-left btn btn-danger" href="{{ route('users.index') }}"> @lang('general.back')</a>
                 </div>
             </div>

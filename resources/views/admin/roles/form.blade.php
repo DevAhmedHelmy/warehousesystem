@@ -30,46 +30,62 @@
         <!-- /.card-header -->
         <!-- form start -->
         @if(!$role->id)
-        <form class="form-horizontal" method="POST" action="{{ route('roles.store') }}">
-          @else
-          <form class="form-horizontal" method="POST" action="{{ route('roles.update',$role->id) }}">
-            @method('patch')
-            @endif
+            <form class="form-horizontal" method="POST" action="{{ route('roles.store') }}">
+        @else
+            <form class="form-horizontal" method="POST" action="{{ route('roles.update',$role->id) }}">
+                @method('patch')
+                <input type="hidden" name="id" value="{{ $role->id }}">
+        @endif
             @csrf
           <div class="card-body">
             <div class="form-group">
               <label for="name" class="col-sm-2 control-label">@lang('general.name')</label>
 
               <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="name" value="{{old('name',$role->name)}}" placeholder="@lang('general.name')">
+                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{old('name',$role->name)}}" placeholder="@lang('general.name')" required>
+
+                @error('name')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
               </div>
+
             </div>
 
             <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <strong> @lang('permission.permission'):</strong>
-                <div class="form-check">
-                    <br/>
+                <div class="col-sm-offset-2 col-sm-10">
+                    <strong> @lang('permission.permission'):</strong>
+
+                    <div class="form-check">
+                        <br/>
 
 
 
-                      @foreach($permission as $value)
+                        @foreach($permission as $value)
 
-                        @if(count($rolePermissions) > 0 && array_key_exists($value->id, $rolePermissions))
-                          <input type="checkbox" @if($rolePermissions[$value->id]) checked @endif name="permission[]" value="{{ $value->id }}" class="form-check-input" id="{{ $value->name }}">
-                          <label class="form-check-label" for="{{ $value->name }}">@lang('permission.'.$value->name)</label>
-                          <br/>
-                          @else
-                          <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="form-check-input" id="{{ $value->name }}">
-                          <label class="form-check-label" for="{{ $value->name }}">@lang('permission.'.$value->name)</label>
-                          <br/>
-                          @endif
-                      @endforeach
+                            @if(count($rolePermissions) > 0 && array_key_exists($value->id, $rolePermissions))
+                            <input type="checkbox" @if($rolePermissions[$value->id]) checked @endif name="permission[]" value="{{ $value->id }}" class="form-check-input" id="{{ $value->name }}">
+                            <label class="form-check-label" for="{{ $value->name }}">@lang('permission.'.$value->name)</label>
+                            <br/>
+                            @else
+                            <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="form-check-input" id="{{ $value->name }}">
+                            <label class="form-check-label" for="{{ $value->name }}">@lang('permission.'.$value->name)</label>
+                            <br/>
+                            @endif
+                        @endforeach
 
 
+                    </div>
+                    @error('permission')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
-              </div>
+
             </div>
+
           </div>
           <!-- /.card-body -->
           <div class="card-footer">

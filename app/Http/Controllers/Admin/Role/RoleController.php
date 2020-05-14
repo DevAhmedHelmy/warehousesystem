@@ -4,11 +4,12 @@
 namespace App\Http\Controllers\Admin\Role;
 
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
-use Spatie\Permission\Models\Permission;
 use DB;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Requests\RoleRequeset;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 
 class RoleController extends Controller
@@ -18,13 +19,13 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    // function __construct()
-    // {
-    //     $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-    //     $this->middleware('permission:role-create', ['only' => ['create','store']]);
-    //     $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    //     $this->middleware('permission:role-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:role-create', ['only' => ['create','store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    }
 
 
     /**
@@ -61,18 +62,10 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RoleRequeset $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'permission' => 'required',
-        ]);
-
-
         $role = Role::create(['name' => $request->input('name')]);
         $role->syncPermissions($request->input('permission'));
-
-
         return redirect()->route('roles.index')
                         ->with('success',trans('general.created_Successfully'));
     }
@@ -120,22 +113,12 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequeset $request, $id)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'permission' => 'required',
-        ]);
-
-
         $role = Role::findOrFail($id);
         $role->name = $request->input('name');
         $role->save();
-
-
         $role->syncPermissions($request->input('permission'));
-
-
         return redirect()->route('roles.index')
                         ->with('success',trans('general.updated_Successfully'));
     }

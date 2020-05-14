@@ -2,25 +2,23 @@
 
 
 namespace App\Http\Controllers\Admin\User;
-
-
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
-
+use App\Models\User;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Requests\UserRequeset;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
-    // function __construct()
-    // {
-    //     $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
-    //     $this->middleware('permission:user-create', ['only' => ['create','store']]);
-    //     $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
-    //     $this->middleware('permission:user-delete', ['only' => ['destroy']]);
-    // }
+    function __construct()
+    {
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:user-create', ['only' => ['create','store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +41,6 @@ class UserController extends Controller
     {
         $user = new User();
         $roles = Role::pluck('name','name')->all();
-
         return view('admin.users.form',compact('roles','user'));
     }
 
@@ -54,24 +51,12 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequeset $request)
     {
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'roles' => 'required'
-        ]);
-
-
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-
-
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-
-
         return redirect()->route('users.index')
                         ->with('success',trans('general.created_Successfully'));
     }
@@ -88,7 +73,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         return view('admin.users.show',compact('user'));
     }
-
 
     /**
      * Show the form for editing the specified resource.
@@ -112,32 +96,18 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequeset $request, $id)
     {
-        $this->validate($request, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.$id],
-            'password' => ['confirmed'],
-            'roles' => 'required'
-        ]);
-
-
         $input = $request->all();
         if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
             $input = array_except($input,array('password'));
         }
-
-
         $user = User::findOrFail($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-
-
         $user->assignRole($request->input('roles'));
-
-
         return redirect()->route('users.index')
                         ->with('success',trans('general.updated_Successfully'));
     }
@@ -155,11 +125,9 @@ class UserController extends Controller
 
         if($user->id==1)
         {
-
             return redirect()->route('users.index')
                         ->with('error',trans('general.Can_not_delete_This_element'));
         }else{
-
             $user->delete();
             return redirect()->route('users.index')
                         ->with('success',trans('general.deleted_Successfully'));
