@@ -19,10 +19,16 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
+
 Route::get('/', 'Admin\Home\HomeController@index')->name('home');
-
-
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','Admin\Role\RoleController');
     Route::resource('users','Admin\User\UserController');
+    Route::resource('companies','Admin\Company\CompanyController');
+    // Route::get('companies/search','Admin\Company\CompanyController');
+    Route::resource('categories','Admin\Category\CategoryController');
+    Route::resource('products','Admin\Product\ProductController');
+    Route::resource('clients','Admin\OrdinaryUser\ClientController');
+    Route::resource('suppliers','Admin\OrdinaryUser\SupplierController');
 });

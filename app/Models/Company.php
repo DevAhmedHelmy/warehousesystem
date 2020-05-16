@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-
 use App\Models\Product;
-class Category extends Model
+
+
+
+class Company extends Model
 {
     public function products()
     {

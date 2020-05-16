@@ -1,7 +1,8 @@
 <?php
 
-use App\Models\User;
+use Carbon\Carbon;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -18,7 +19,11 @@ class CreateAdminUserSeeder extends Seeder
         $user = User::create([
         	'name' => 'Hardik Savani',
         	'email' => 'admin@gmail.com',
-        	'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'phone' => 01061353023,
+            'address' => 'Cairo',
+            'hire_date' => Carbon::now(),
+            'job' => 'manager'
         ]);
 
         $role = Role::create(['name' => 'Admin']);

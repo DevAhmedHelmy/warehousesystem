@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateProductsTable extends Migration
+class UpdateOrdinaryUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+        Schema::table('ordinary_users', function (Blueprint $table) {
+
             $table->foreign('company_id')->references('id')->on('companies')->onUpdate('cascade')->onDelete('cascade');
         });
     }
@@ -26,8 +26,8 @@ class UpdateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign(['category_id']);
+        Schema::table('ordinary_users', function (Blueprint $table) {
+
             $table->dropForeign(['company_id']);
         });
     }

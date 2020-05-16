@@ -46,26 +46,89 @@
                             <p>الإعدادات</p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('roles.index') }}" class="nav-link @if(request()->is('roles')) active @endif">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>الصلاحيات</p>
-                        </a>
-                    </li>
+                    @can('role-list')
+                        <li class="nav-item">
+                            <a href="{{ route('roles.index') }}" class="nav-link @if(request()->is('roles')) active @endif">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>الصلاحيات</p>
+                            </a>
+                        </li>
+                    @endcan
                 </ul>
                 </li>
                 {{--  !main pages  --}}
                 {{--  users link  --}}
-                <li class="nav-item">
-                    <a href="{{ route('users.index') }}" class="nav-link @if(request()->is('users')) active @endif">
-                        <i class="nav-icon fa fa-users"></i>
-                        <p>
-                            @lang('general.users')
-                        </p>
-                    </a>
-                </li>
+                @can('user-list')
+                    <li class="nav-item">
+                        <a href="{{ route('users.index') }}" class="nav-link @if(request()->is('users')) active @endif">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                @lang('general.users')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
                 {{--  ! users link  --}}
-
+                {{--  clients link  --}}
+                @can('product-list')
+                    <li class="nav-item">
+                        <a href="{{ route('clients.index') }}" class="nav-link @if(request()->is('clients')) active @endif">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                @lang('general.clients')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                {{--  ! clients link  --}}
+                {{--  suppliers link  --}}
+                @can('product-list')
+                    <li class="nav-item">
+                        <a href="{{ route('suppliers.index') }}" class="nav-link @if(request()->is('suppliers')) active @endif">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                @lang('general.suppliers')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                {{--  ! suppliers link  --}}
+                {{--  companies link  --}}
+                @can('company-list')
+                    <li class="nav-item">
+                        <a href="{{ route('companies.index') }}" class="nav-link @if(request()->is('companies')) active @endif">
+                            <i class="nav-icon fa fa-building"></i>
+                            <p>
+                                @lang('general.companies')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                {{--  ! companies link  --}}
+                {{--  categories link  --}}
+                @can('category-list')
+                    <li class="nav-item">
+                        <a href="{{ route('categories.index') }}" class="nav-link @if(request()->is('categories')) active @endif">
+                            <i class="nav-icon fa fa-th"></i>
+                            <p>
+                                @lang('general.categories')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                {{--  ! categories link  --}}
+                {{--  products link  --}}
+                @can('product-list')
+                    <li class="nav-item">
+                        <a href="{{ route('products.index') }}" class="nav-link @if(request()->is('products')) active @endif">
+                            <i class="nav-icon fa fa-product-hunt"></i>
+                            <p>
+                                @lang('general.products')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                {{--  ! products link  --}}
                 {{--  logout link  --}}
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
@@ -79,25 +142,10 @@
                     </form>
                 </li>
                 {{--  !users link  --}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             </ul>
         </nav>
         {{-- /.sidebar-menu --}}
       </div>
     </div>
     {{-- /.sidebar --}}
-  </aside>
+</aside>

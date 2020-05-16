@@ -54,7 +54,9 @@ class UserController extends Controller
     public function store(UserRequeset $request)
     {
         $input = $request->all();
+
         $input['password'] = Hash::make($input['password']);
+        $input['roles'] = '';
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
         return redirect()->route('users.index')

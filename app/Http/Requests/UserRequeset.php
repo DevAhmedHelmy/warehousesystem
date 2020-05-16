@@ -23,32 +23,40 @@ class UserRequeset extends FormRequest
      */
     public function rules()
     {
-        $id = request('id') ?: 'NULL'; //To identify if request is for add or edit just take autoincremented id parameter form request.
-
-        return [
-             'name' =>['required', 'string', 'max:255','unique:users,name,'.$id],
-             'email' =>['required', 'string', 'email', 'max:255' ,'unique:users,email,'.$id],
-             'roles' => 'required'
-         ];
-
-
-        // you can also customize your validation for different methods as below
-
-        switch ($this->method()){
-            case 'POST':
+        switch ($this->method())
+        {
+            case 'GET':
+            case 'DELETE': {
                 return [
-                    'password' => ['required', 'string', 'min:8', 'confirmed']
-
+                    'id'=>'required|exists:users,id'
                 ];
-            break;
-            case 'PATCH':
+            }
+            case 'POST': {
                 return [
-                    'password' => 'confirmed'
+                    'name' =>['required', 'string', 'max:255','unique:users'],
+                    'email' =>['required', 'string', 'email', 'max:255' ,'unique:users'],
+                    'password' => ['required','min:8','confirmed'],
+                    'roles' => 'required',
+                    'job' => 'required',
+                    'phone' => 'required',
+                    'address' => 'required',
                 ];
-            break;
+            }
+            case 'PUT':
+            case 'PATCH': {
+                return [
+                    'name' => 'required|unique:users,name,'.$this->user->id.',id',
+                    'code' => 'required|unique:users,email,'.$this->user->id.',id',
+                    'password' => 'confirmed',
+                    'roles' => 'required',
+                    'job' => 'required',
+                    'phone' => 'required',
+                    'address' => 'required',
+                ];
+            }
             default:
-                return [];
-            break;
+                break;
         }
+
     }
 }

@@ -7,7 +7,7 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="#">@lang('general.dashboard')</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
             <li class="breadcrumb-item active">@lang('general.users')</li>
             </ol>
         </div>

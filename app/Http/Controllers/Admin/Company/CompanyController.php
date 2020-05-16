@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Category;
+namespace App\Http\Controllers\Admin\Company;
 
-use App\Models\Category;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\CompanyRequest;
 
-class CategoryController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,10 @@ class CategoryController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:category-list|category-create|category-edit|category-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:category-create', ['only' => ['create','store']]);
-        $this->middleware('permission:category-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:category-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:company-list|company-create|company-edit|company-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:company-create', ['only' => ['create','store']]);
+        $this->middleware('permission:company-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:company-delete', ['only' => ['destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -28,8 +28,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::latest()->paginate(20);
-        return view('admin.basic_information.categories.index',['categories' => $categories]);
+        $companies = Company::latest()->paginate(20);
+        return view('admin.basic_information.companies.index',['companies' => $companies]);
     }
 
     /**
@@ -48,32 +48,32 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(CompanyRequest $request)
     {
         $data = $request->validated();
-        Category::create($data);
-        return redirect()->route('categories.index')
+        Company::create($data);
+        return redirect()->route('companies.index')
                         ->with('success',trans('general.created_Successfully'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Company $company)
     {
-        return view('admin.basic_information.categories.show',compact('category'));
+        return view('admin.basic_information.companies.show',compact('company'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Company $company)
     {
         //
     }
@@ -82,31 +82,31 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(Request $request, Company $company)
     {
         $data = $request->validated();
-        $category->update($data);
-        return redirect()->route('categories.index')
+        $company->update($data);
+        return redirect()->route('companies.index')
                         ->with('success',trans('general.updated_Successfully'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Company $company)
     {
-        if(count($category->products) > 0)
+        if(count($company->products) > 0)
         {
-            $category->products()->delete();
+            $company->products()->delete();
         }
-        $category->delete();
-        return redirect()->route('categories.index')
+        $company->delete();
+        return redirect()->route('companies.index')
                         ->with('success',trans('general.deleted_Successfully'));
     }
 }
