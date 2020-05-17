@@ -174,6 +174,14 @@ return[
     'product_data' => 'بيانات المنتج',
     'Create_New_Product' => 'اضافة منتج جديد',
     'update_product' => 'تحديث بيانات المنتج',
-    'suppliers' => 'الموردين'
+    'suppliers' => 'الموردين',
+    'Create_New_client' => 'اضافة عميل جديد',
+    'Create_New_supplier' => 'اضافة مورد جديد',
+
+    'tax_number' => 'الرقم الضريبى',
+    'client_type' => 'نوع العميل',
+    'cash' => 'نقدى',
+    'installment' => 'اجل',
+    'checks' => 'شيكات'
 
 ];

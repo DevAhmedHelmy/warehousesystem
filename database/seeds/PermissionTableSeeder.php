@@ -19,7 +19,7 @@ class PermissionTableSeeder extends Seeder
            'company-list','company-create','company-edit','company-delete','company-search','company-pdf','company-excel',
            'product-list','product-create','product-edit','product-delete','product-search','product-pdf','product-excel',
            'client-list','client-create','client-edit','client-delete','client-search','client-pdf','client-excel',
-           'suplier-list','suplier-create','suplier-edit','suplier-delete','suplier-search','suplier-pdf','suplier-excel',
+           'supplier-list','supplier-create','supplier-edit','supplier-delete','supplier-search','supplier-pdf','supplier-excel',
         ];
 
 

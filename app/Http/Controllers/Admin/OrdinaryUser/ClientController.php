@@ -16,7 +16,7 @@ class ClientController extends Controller
     public function index(Request $request)
     {
         $clients = OrdinaryUser::whereType('client')->paginate(25);
-        return view('admin.clients.index',['clients'=>$clients])->with('i', ($request->input('page', 1) - 1) * 5);;
+        return view('admin.clients.index',['clients'=>$clients])->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**

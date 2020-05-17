@@ -3,12 +3,12 @@
 @section('header')
     <div class="mb-2 row">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">@lang('general.clients')</h1>
+            <h1 class="m-0 text-dark">@lang('general.suppliers')</h1>
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
-            <li class="breadcrumb-item active">@lang('general.clients')</li>
+            <li class="breadcrumb-item active">@lang('general.suppliers')</li>
             </ol>
         </div>
     </div>
@@ -20,8 +20,8 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                @can('client-create')
-                    <a class="btn btn-success" href="{{ route('clients.create') }}"><i class="fa fa-plus"></i> @lang('general.Create_New_client')</a>
+                @can('supplier-create')
+                    <a class="btn btn-success" href="{{ route('suppliers.create') }}"><i class="fa fa-plus"></i> @lang('general.Create_New_supplier')</a>
                 @endcan
             </h3>
         </div>
@@ -34,25 +34,25 @@
                         <th>@lang('general.name')</th>
                         <th>@lang('general.address')</th>
                         <th>@lang('general.phone')</th>
-                        <th>@lang('general.client_type')</th>
+                        <th>@lang('general.user_type')</th>
                         <th>@lang('general.tax_number')</th>
                         <th>@lang('general.Action')</th>
-                    </tr>
-                        @foreach ($clients as $key => $client)
+                        </tr>
+                        @foreach ($suppliers as $key => $supplier)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $client->name }}</td>
-                            <td>{{ $client->email }}</td>
+                            <td>{{ $supplier->name }}</td>
+                            <td>{{ $supplier->email }}</td>
 
                             <td>
-                                <form class="delete-form" action="{{ route('clients.destroy',$client->id) }}" method="post">
+                                <form class="delete-form" action="{{ route('suppliers.destroy',$supplier->id) }}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <a class="btn btn-info btn-sm" href="{{ route('clients.show',$client->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
-                                    @can('client-edit')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('clients.edit',$client->id) }}"><i class="fa fa-edit fa-sm"></i> @lang('general.Edit')</a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('suppliers.show',$supplier->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
+                                    @can('supplier-edit')
+                                        <a class="btn btn-primary btn-sm" href="{{ route('suppliers.edit',$supplier->id) }}"><i class="fa fa-edit fa-sm"></i> @lang('general.Edit')</a>
                                     @endcan
-                                    @can('client-delete')
+                                    @can('supplier-delete')
                                         <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('delete-form')"><i class="fa fa-trash fa-sm"></i> @lang('general.Delete')</button>
                                     @endcan
                                 </form>
@@ -63,7 +63,7 @@
             </table>
         </div>
         <div class="clearfix card-footer">
-            {{ $clients->links() }}
+            {{ $suppliers->links() }}
         </div>
     </div>
 </div>
