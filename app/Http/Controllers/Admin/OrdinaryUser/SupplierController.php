@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\OrdinaryUser;
 
-use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\OrdinaryUser;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SuplierRequest;
 
 class SupplierController extends Controller
 {
@@ -13,9 +15,23 @@ class SupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:supplier-list|supplier-create|supplier-edit|supplier-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:supplier-create', ['only' => ['create','store']]);
+        $this->middleware('permission:supplier-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:supplier-delete', ['only' => ['destroy']]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
-        $suppliers = OrdinaryUser::whereType('suplier')->paginate(25);
+        $suppliers = OrdinaryUser::whereType('supplier')->paginate(25);
+
         return view('admin.suppliers.index',['suppliers'=>$suppliers])->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -26,7 +42,9 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        //
+        $supplier = new OrdinaryUser();
+        $companies = Company::all();
+        return view('admin.suppliers.form',['supplier'=>$supplier,'companies'=>$companies]);
     }
 
     /**
@@ -35,9 +53,13 @@ class SupplierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SuplierRequest $request)
     {
-        //
+
+        $data = $request->validated();
+        OrdinaryUser::create($data);
+        return redirect()->route('suppliers.index')
+                        ->with('success',trans('general.created_Successfully'));
     }
 
     /**
@@ -46,9 +68,10 @@ class SupplierController extends Controller
      * @param  \App\Models\OrdinaryUser  $ordinaryUser
      * @return \Illuminate\Http\Response
      */
-    public function show(OrdinaryUser $ordinaryUser)
+    public function show($id)
     {
-        //
+        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        return view('admin.suppliers.show',['supplier'=>$supplier]);
     }
 
     /**
@@ -57,9 +80,11 @@ class SupplierController extends Controller
      * @param  \App\Models\OrdinaryUser  $ordinaryUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(OrdinaryUser $ordinaryUser)
+    public function edit($id)
     {
-        //
+        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        $companies = Company::all();
+        return view('admin.suppliers.form',['supplier'=>$supplier,'companies'=>$companies]);
     }
 
     /**
@@ -69,9 +94,13 @@ class SupplierController extends Controller
      * @param  \App\Models\OrdinaryUser  $ordinaryUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OrdinaryUser $ordinaryUser)
+    public function update(SuplierRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        $supplier->update($data);
+        return redirect()->route('suppliers.index')
+                        ->with('success',trans('general.updated_Successfully'));
     }
 
     /**
@@ -80,8 +109,11 @@ class SupplierController extends Controller
      * @param  \App\Models\OrdinaryUser  $ordinaryUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrdinaryUser $ordinaryUser)
+    public function destroy($id)
     {
-        //
+        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        $supplier->delete();
+        return redirect()->route('suppliers.index')
+                        ->with('success',trans('general.deleted_Successfully'));
     }
 }

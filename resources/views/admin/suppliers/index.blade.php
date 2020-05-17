@@ -34,16 +34,17 @@
                         <th>@lang('general.name')</th>
                         <th>@lang('general.address')</th>
                         <th>@lang('general.phone')</th>
-                        <th>@lang('general.user_type')</th>
-                        <th>@lang('general.tax_number')</th>
+                        <th>@lang('general.supplier_type')</th>
+
                         <th>@lang('general.Action')</th>
-                        </tr>
+                    </tr>
                         @foreach ($suppliers as $key => $supplier)
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $supplier->name }}</td>
-                            <td>{{ $supplier->email }}</td>
-
+                            <td>@if(!is_null($supplier->address)){{ $supplier->address }}@else @lang('general.no_data_found')@endif</td>
+                            <td>{{ $supplier->phone }}</td>
+                            <td>{{ $supplier->user_type }}</td>
                             <td>
                                 <form class="delete-form" action="{{ route('suppliers.destroy',$supplier->id) }}" method="post">
                                     @csrf

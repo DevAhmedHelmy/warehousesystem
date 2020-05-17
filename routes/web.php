@@ -22,6 +22,8 @@ Auth::routes();
 
 
 Route::get('/', 'Admin\Home\HomeController@index')->name('home');
+
+
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles','Admin\Role\RoleController');
     Route::resource('users','Admin\User\UserController');

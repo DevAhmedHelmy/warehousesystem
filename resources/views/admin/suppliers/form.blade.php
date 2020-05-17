@@ -31,6 +31,7 @@
             <input type="hidden" name="id" value="{{ $supplier->id }}">
         @endif
             @csrf
+            <input type="hidden" name="type" value="supplier">
             <div class="card-body">
                     <div class="col-12">
                         <div class="mt-4 d-flex justify-content-between">
@@ -54,13 +55,17 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12">
                         <div class="mt-4 d-flex justify-content-between">
 
                             <div class="col form-group">
-                                <label for="address" class="col-sm-4 control-label">@lang('general.address')</label>
-                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" cols="30" rows="3">{{old('address',$supplier->address)}}</textarea>
+                                <label for="user_type" class="col-sm-4 control-label">@lang('general.supplier_type')</label>
+                                <select name="user_type" id="user_type" class="form-control">
+                                    <option value="">Choose</option>
+                                    <option @if($supplier->user_type == 'cash') selected @endif value="cash">cash</option>
+                                    <option @if($supplier->user_type == 'installment') selected @endif value="installment">installment</option>
+                                    <option @if($supplier->user_type == 'checks') selected @endif value="checks">checks</option>
+                                </select>
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -79,6 +84,51 @@
                         </div>
                     </div>
 
+                    <div class="col-12">
+                        <div class="mt-4 d-flex justify-content-between">
+                            <div class="col form-group">
+                                <label>@lang('general.companies')</label>
+                                <select class="form-control select2" name="company_id">
+                                    <option value="">@lang('general.choose')</option>
+                                    @foreach($companies as $company)
+                                        <option @if($company->id == old('company_id',$supplier->company_id) ) selected @endif value="{{$company->id}}">{{$company->name}}</option>
+                                    @endforeach
+
+                                </select>
+                                @error('company_id')
+                                    <span class="invalid-feedback" style="display:block;" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col form-group">
+                                <label for="tax_number" class="col-sm-4 control-label">@lang('general.tax_number')</label>
+                                <input type="text" name="tax_number" class="form-control @error('tax_number') is-invalid @enderror" id="tax_number" value="{{old('tax_number',$supplier->tax_number)}}" placeholder="@lang('general.tax_number')" required>
+                                @error('tax_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="mt-4 d-flex justify-content-between">
+                            <div class="col form-group">
+                                <label for="address" class="col-sm-4 control-label">@lang('general.address')</label>
+                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" cols="30" rows="3">{{old('address',$supplier->address)}}</textarea>
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
 
             </div>
             <div class="card-footer">

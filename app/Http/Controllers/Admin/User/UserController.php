@@ -1,6 +1,4 @@
 <?php
-
-
 namespace App\Http\Controllers\Admin\User;
 use DB;
 use Hash;
@@ -31,12 +29,11 @@ class UserController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
+    */
     public function create()
     {
         $user = new User();
@@ -44,13 +41,12 @@ class UserController extends Controller
         return view('admin.users.form',compact('roles','user'));
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+    */
     public function store(UserRequeset $request)
     {
         $input = $request->all();
@@ -62,26 +58,23 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success',trans('general.created_Successfully'));
     }
-
-
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
     public function show($id)
     {
         $user = User::findOrFail($id);
         return view('admin.users.show',compact('user'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
     public function edit($id)
     {
         $user = User::findOrFail($id);
@@ -89,15 +82,13 @@ class UserController extends Controller
         $userRole = $user->roles->pluck('name','name')->all();
         return view('admin.users.form',compact('user','roles','userRole'));
     }
-
-
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
     public function update(UserRequeset $request, $id)
     {
         $input = $request->all();
@@ -113,14 +104,13 @@ class UserController extends Controller
         return redirect()->route('users.index')
                         ->with('success',trans('general.updated_Successfully'));
     }
-
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */
+    */
+
     public function destroy($id)
     {
         $user = User::findOrFail($id);

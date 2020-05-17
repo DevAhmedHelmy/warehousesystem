@@ -35,15 +35,16 @@
                         <th>@lang('general.address')</th>
                         <th>@lang('general.phone')</th>
                         <th>@lang('general.client_type')</th>
-                        <th>@lang('general.tax_number')</th>
+
                         <th>@lang('general.Action')</th>
                     </tr>
                         @foreach ($clients as $key => $client)
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $client->name }}</td>
-                            <td>{{ $client->email }}</td>
-
+                            <td>@if(!is_null($client->address)){{ $client->address }}@else @lang('general.no_data_found')@endif</td>
+                            <td>{{ $client->phone }}</td>
+                            <td>{{ $client->user_type }}</td>
                             <td>
                                 <form class="delete-form" action="{{ route('clients.destroy',$client->id) }}" method="post">
                                     @csrf

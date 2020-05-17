@@ -2,12 +2,25 @@
 
 namespace App\Http\Controllers\Admin\OrdinaryUser;
 
-use App\Http\Controllers\Controller;
 use App\Models\OrdinaryUser;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\ClientRequest;
 
 class ClientController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+        $this->middleware('permission:client-list|client-create|client-edit|client-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:client-create', ['only' => ['create','store']]);
+        $this->middleware('permission:client-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:client-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -36,9 +49,12 @@ class ClientController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ClientRequest $request)
     {
-        //
+        $data = $request->validated();
+        OrdinaryUser::create($data);
+        return redirect()->route('clients.index')
+                        ->with('success',trans('general.created_Successfully'));
     }
 
     /**
@@ -47,9 +63,10 @@ class ClientController extends Controller
      * @param  \App\Models\OrdinaryUser  $ordinaryUser
      * @return \Illuminate\Http\Response
      */
-    public function show(OrdinaryUser $ordinaryUser)
+    public function show($id)
     {
-        //
+        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        return view('admin.clients.show',['client'=>$client]);
     }
 
     /**
@@ -58,9 +75,10 @@ class ClientController extends Controller
      * @param  \App\Models\OrdinaryUser  $ordinaryUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(OrdinaryUser $ordinaryUser)
+    public function edit($id)
     {
-        //
+        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        return view('admin.clients.form',['client'=>$client]);
     }
 
     /**
@@ -70,9 +88,13 @@ class ClientController extends Controller
      * @param  \App\Models\OrdinaryUser  $ordinaryUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OrdinaryUser $ordinaryUser)
+    public function update(ClientRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        $client->update($data);
+        return redirect()->route('clients.index')
+                        ->with('success',trans('general.updated_Successfully'));
     }
 
     /**
@@ -83,6 +105,9 @@ class ClientController extends Controller
      */
     public function destroy(OrdinaryUser $ordinaryUser)
     {
-        //
+        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        $client->delete();
+        return redirect()->route('clients.index')
+                        ->with('success',trans('general.deleted_Successfully'));
     }
 }

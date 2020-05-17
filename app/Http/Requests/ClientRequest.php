@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClientRequest extends FormRequest
@@ -13,7 +14,7 @@ class ClientRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,12 @@ class ClientRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string',
+            'phone' => 'required',
+            'address' => 'nullable|string',
+            'type' => ['required',Rule::in(['supplier', 'client'])],
+            'user_type' => ['required',Rule::in(['cash', 'installment','checks'])],
+            'balance' => 'nullable'
         ];
     }
 }

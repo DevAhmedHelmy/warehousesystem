@@ -70,7 +70,7 @@
                 @endcan
                 {{--  ! users link  --}}
                 {{--  clients link  --}}
-                @can('product-list')
+                @can('client-list')
                     <li class="nav-item">
                         <a href="{{ route('clients.index') }}" class="nav-link @if(request()->is('clients')) active @endif">
                             <i class="nav-icon fa fa-users"></i>
@@ -82,7 +82,7 @@
                 @endcan
                 {{--  ! clients link  --}}
                 {{--  suppliers link  --}}
-                @can('product-list')
+                @can('supplier-list')
                     <li class="nav-item">
                         <a href="{{ route('suppliers.index') }}" class="nav-link @if(request()->is('suppliers')) active @endif">
                             <i class="nav-icon fa fa-users"></i>

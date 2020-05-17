@@ -31,6 +31,7 @@
             <input type="hidden" name="id" value="{{ $client->id }}">
         @endif
             @csrf
+            <input type="hidden" name="type" value="client">
             <div class="card-body">
                     <div class="col-12">
                         <div class="mt-4 d-flex justify-content-between">
@@ -54,13 +55,17 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-12">
                         <div class="mt-4 d-flex justify-content-between">
 
                             <div class="col form-group">
-                                <label for="address" class="col-sm-4 control-label">@lang('general.address')</label>
-                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" cols="30" rows="3">{{old('address',$client->address)}}</textarea>
+                                <label for="user_type" class="col-sm-4 control-label">@lang('general.client_type')</label>
+                                <select name="user_type" id="user_type" class="form-control">
+                                    <option value="">Choose</option>
+                                    <option @if($client->user_type == 'cash') selected @endif value="cash">cash</option>
+                                    <option @if($client->user_type == 'installment') selected @endif value="installment">installment</option>
+                                    <option @if($client->user_type == 'checks') selected @endif value="checks">checks</option>
+                                </select>
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -76,6 +81,22 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mt-4 d-flex justify-content-between">
+
+                            <div class="col form-group">
+                                <label for="address" class="col-sm-4 control-label">@lang('general.address')</label>
+                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" cols="30" rows="3">{{old('address',$client->address)}}</textarea>
+                                @error('address')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
                         </div>
                     </div>
 
