@@ -18,7 +18,8 @@ class PermissionTableSeeder extends Seeder
            'category-list','category-create','category-edit','category-delete','category-search','category-pdf','category-excel',
            'company-list','company-create','company-edit','company-delete','company-search','company-pdf','company-excel',
            'product-list','product-create','product-edit','product-delete','product-search','product-pdf','product-excel',
-           'ordinary-user-list','ordinary-user-create','ordinary-user-edit','ordinary-user-delete','ordinary-user-search','ordinary-user-pdf','ordinary-user-excel',
+           'client-list','client-create','client-edit','client-delete','client-search','client-pdf','client-excel',
+           'suplier-list','suplier-create','suplier-edit','suplier-delete','suplier-search','suplier-pdf','suplier-excel',
         ];
 
 

@@ -13,9 +13,10 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $clients = OrdinaryUser::whereType('client')->paginate(25);
+        return view('admin.clients.index',['clients'=>$clients])->with('i', ($request->input('page', 1) - 1) * 5);;
     }
 
     /**
@@ -25,7 +26,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        $client = new OrdinaryUser();
+        return view('admin.clients.form',['client'=>$client]);
     }
 
     /**
