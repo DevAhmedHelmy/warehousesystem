@@ -28,7 +28,7 @@ class ClientRequest extends FormRequest
             'name' => 'required|string',
             'phone' => 'required',
             'address' => 'nullable|string',
-            'type' => ['required',Rule::in(['supplier', 'client'])],
+            'tax_number' => 'nullable',
             'user_type' => ['required',Rule::in(['cash', 'installment','checks'])],
             'balance' => 'nullable'
         ];

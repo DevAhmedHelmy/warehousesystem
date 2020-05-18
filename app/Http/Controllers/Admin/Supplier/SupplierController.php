@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin\OrdinaryUser;
+namespace App\Http\Controllers\Admin\Supplier;
 
 use App\Models\Company;
-use App\Models\OrdinaryUser;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SuplierRequest;
@@ -30,7 +30,7 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        $suppliers = OrdinaryUser::whereType('supplier')->paginate(25);
+        $suppliers = Supplier::paginate(25);
 
         return view('admin.suppliers.index',['suppliers'=>$suppliers])->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -42,7 +42,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $supplier = new OrdinaryUser();
+        $supplier = new Supplier();
         $companies = Company::all();
         return view('admin.suppliers.form',['supplier'=>$supplier,'companies'=>$companies]);
     }
@@ -57,7 +57,7 @@ class SupplierController extends Controller
     {
 
         $data = $request->validated();
-        OrdinaryUser::create($data);
+        Supplier::create($data);
         return redirect()->route('suppliers.index')
                         ->with('success',trans('general.created_Successfully'));
     }
@@ -65,24 +65,24 @@ class SupplierController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
         return view('admin.suppliers.show',['supplier'=>$supplier]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
         $companies = Company::all();
         return view('admin.suppliers.form',['supplier'=>$supplier,'companies'=>$companies]);
     }
@@ -91,13 +91,13 @@ class SupplierController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
     public function update(SuplierRequest $request, $id)
     {
         $data = $request->validated();
-        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
         $supplier->update($data);
         return redirect()->route('suppliers.index')
                         ->with('success',trans('general.updated_Successfully'));
@@ -106,12 +106,12 @@ class SupplierController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $supplier = OrdinaryUser::where('id',$id)->where('type','supplier')->first();
+        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
         $supplier->delete();
         return redirect()->route('suppliers.index')
                         ->with('success',trans('general.deleted_Successfully'));

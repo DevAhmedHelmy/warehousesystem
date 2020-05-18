@@ -52,7 +52,7 @@
                                         @can('company-edit')
                                         <span data-toggle="modal" data-target="#exampleModalCenter">
                                             <a data-url="{{route('companies.update',$company->id)}}"
-                                                                       data-code="{{$company->code}}" data-name="{{$company->name}}"
+                                                data-code="{{$company->code}}" data-name="{{$company->name}}" data-phone="{{$company->phone}}" data-email="{{$company->email}}" data-tax="{{$company->tax_number}}"
                                             href="{{route('companies.edit',$company->id)}}" class="btn btn-primary btn-sm editcompany"
                                                 data-toggle="tooltip" data-placement="top" title="@lang('general.Edit')">
                                                 <i class="fa fa-edit fa-sm"></i> @lang('general.Edit')
@@ -102,6 +102,9 @@
          e.preventDefault();
          $('input[name="code"]').val($(this).data('code'));
          $('input[name="name"]').val($(this).data('name'));
+         $('input[name="email"]').val($(this).data('email'));
+         $('input[name="phone"]').val($(this).data('phone'));
+         $('input[name="tax"]').val($(this).data('tax_number'));
          $('#exampleModalLongTitle').text("@lang('general.update')");
          $('.modal-body form').attr('action',$(this).data('url'));
          localStorage.setItem("prev_url", $(this).data('url'));

@@ -24,38 +24,38 @@
         {{-- Sidebar Menu --}}
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-             {{--  main pages  --}}
-                <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fa fa-home"></i>
-                        <p>
-                            الرئيسية
-                        <i class="right fa fa-angle-left"></i>
-                        </p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
+                {{--  main pages  --}}
+                    <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
                         <a href="#" class="nav-link">
-                            <i class="fa fa-pie-chart nav-icon"></i>
-                            <p>الاحصائيات</p>
+                            <i class="nav-icon fa fa-home"></i>
+                            <p>
+                                الرئيسية
+                            <i class="right fa fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="fa fa-pie-chart nav-icon"></i>
+                                    <p>الاحصائيات</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="pages/charts/flot.html" class="nav-link">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>الإعدادات</p>
+                                </a>
+                            </li>
+                            @can('role-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('roles.index') }}" class="nav-link @if(request()->is('roles')) active @endif">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>الصلاحيات</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
                     </li>
-                    <li class="nav-item">
-                        <a href="pages/charts/flot.html" class="nav-link">
-                            <i class="fa fa-circle-o nav-icon"></i>
-                            <p>الإعدادات</p>
-                        </a>
-                    </li>
-                    @can('role-list')
-                        <li class="nav-item">
-                            <a href="{{ route('roles.index') }}" class="nav-link @if(request()->is('roles')) active @endif">
-                                <i class="fa fa-circle-o nav-icon"></i>
-                                <p>الصلاحيات</p>
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-                </li>
                 {{--  !main pages  --}}
                 {{--  users link  --}}
                 @can('user-list')
@@ -69,30 +69,7 @@
                     </li>
                 @endcan
                 {{--  ! users link  --}}
-                {{--  clients link  --}}
-                @can('client-list')
-                    <li class="nav-item">
-                        <a href="{{ route('clients.index') }}" class="nav-link @if(request()->is('clients')) active @endif">
-                            <i class="nav-icon fa fa-users"></i>
-                            <p>
-                                @lang('general.clients')
-                            </p>
-                        </a>
-                    </li>
-                @endcan
-                {{--  ! clients link  --}}
-                {{--  suppliers link  --}}
-                @can('supplier-list')
-                    <li class="nav-item">
-                        <a href="{{ route('suppliers.index') }}" class="nav-link @if(request()->is('suppliers')) active @endif">
-                            <i class="nav-icon fa fa-users"></i>
-                            <p>
-                                @lang('general.suppliers')
-                            </p>
-                        </a>
-                    </li>
-                @endcan
-                {{--  ! suppliers link  --}}
+
                 {{--  companies link  --}}
                 @can('company-list')
                     <li class="nav-item">
@@ -129,6 +106,53 @@
                     </li>
                 @endcan
                 {{--  ! products link  --}}
+                {{--  clients link  --}}
+                @can('client-list')
+                    <li class="nav-item">
+                        <a href="{{ route('clients.index') }}" class="nav-link @if(request()->is('clients')) active @endif">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                @lang('general.clients')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                {{--  ! clients link  --}}
+                {{--  suppliers link  --}}
+                @can('supplier-list')
+                    <li class="nav-item">
+                        <a href="{{ route('suppliers.index') }}" class="nav-link @if(request()->is('suppliers')) active @endif">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                @lang('general.suppliers')
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                {{--  ! suppliers link  --}}
+                {{--  main pages  --}}
+                <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-home"></i>
+                        <p>
+                            @lang('general.stocks')
+                        <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        @can('stock-list')
+                            <li class="nav-item">
+                                <a href="{{ route('stocks.index') }}" class="nav-link">
+                                    <i class="fa fa-pie-chart nav-icon"></i>
+                                    <p>@lang('general.main_stocks')</p>
+                                </a>
+                            </li>
+                        @endcan
+
+
+                    </ul>
+                </li>
+            {{--  !main pages  --}}
                 {{--  logout link  --}}
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
