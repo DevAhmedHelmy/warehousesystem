@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Stock;
 
-use App\Http\Controllers\Controller;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use App\Http\Requests\StockRequest;
+use App\Http\Controllers\Controller;
 
 class StockController extends Controller
 {
@@ -35,9 +36,12 @@ class StockController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StockRequest $request)
     {
-        //
+        $data = $request->all();
+        Stock::create($data);
+        return redirect()->route('stocks.index')
+                        ->with('success',trans('general.created_Successfully'));
     }
 
     /**
