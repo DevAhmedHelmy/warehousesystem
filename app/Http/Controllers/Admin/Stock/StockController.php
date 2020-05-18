@@ -52,7 +52,7 @@ class StockController extends Controller
      */
     public function show(Stock $stock)
     {
-        //
+        return view('admin.stocks.show',['stock' => $stock]);
     }
 
     /**
@@ -63,7 +63,7 @@ class StockController extends Controller
      */
     public function edit(Stock $stock)
     {
-        return view('admin.stocks.form');
+
     }
 
     /**
@@ -75,7 +75,10 @@ class StockController extends Controller
      */
     public function update(Request $request, Stock $stock)
     {
-        //
+        $data = $request->all();
+        $stock->update($data);
+        return redirect()->route('stocks.index')
+                        ->with('success',trans('general.updated_Successfully'));
     }
 
     /**
@@ -86,6 +89,8 @@ class StockController extends Controller
      */
     public function destroy(Stock $stock)
     {
-        //
+        $stock->delete();
+        return redirect()->route('stocks.index')
+                        ->with('success',trans('general.deleted_Successfully'));
     }
 }
