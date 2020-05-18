@@ -35,6 +35,9 @@ class CompanyRequest extends FormRequest
                 return [
                     'name' => 'required|unique:companies,name',
                     'code' => 'required|unique:companies,code',
+                    'phone' => 'required|unique:companies,phone',
+                    'email' => 'nullable|unique:companies,email',
+                    'tax_number' => 'nullable|unique:companies,tax_number',
 
                 ];
             }
@@ -43,6 +46,9 @@ class CompanyRequest extends FormRequest
                 return [
                     'name' => 'required|unique:companies,name,'.$this->company->id.',id',
                     'code' => 'required|unique:companies,code,'.$this->company->id.',id',
+                    'phone' => 'required|unique:companies,phone,'.$this->company->id.',id',
+                    'email' => 'nullable|unique:companies,email,'.$this->company->id.',id',
+                    'tax_number' => 'nullable|unique:companies,tax_number,'.$this->company->id.',id',
                 ];
             }
             default:

@@ -5,7 +5,7 @@
     $(function() {
       const Toast = Swal.mixin({
         toast: true,
-        position: 'mid-center',
+        position: 'mid-end',
         showConfirmButton: false,
         timer: 1500
       });

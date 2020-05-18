@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Admin\OrdinaryUser;
+namespace App\Http\Controllers\Admin\Client;
 
-use App\Models\OrdinaryUser;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
@@ -28,7 +28,7 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = OrdinaryUser::whereType('client')->paginate(25);
+        $clients = Client::paginate(25);
         return view('admin.clients.index',['clients'=>$clients])->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
@@ -39,7 +39,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        $client = new OrdinaryUser();
+        $client = new Client();
         return view('admin.clients.form',['client'=>$client]);
     }
 
@@ -52,7 +52,7 @@ class ClientController extends Controller
     public function store(ClientRequest $request)
     {
         $data = $request->validated();
-        OrdinaryUser::create($data);
+        Client::create($data);
         return redirect()->route('clients.index')
                         ->with('success',trans('general.created_Successfully'));
     }
@@ -60,24 +60,24 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        $client = Client::where('id',$id)->where('type','client')->first();
         return view('admin.clients.show',['client'=>$client]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        $client = Client::where('id',$id)->where('type','client')->first();
         return view('admin.clients.form',['client'=>$client]);
     }
 
@@ -85,13 +85,13 @@ class ClientController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
     public function update(ClientRequest $request, $id)
     {
         $data = $request->validated();
-        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        $client = Client::where('id',$id)->where('type','client')->first();
         $client->update($data);
         return redirect()->route('clients.index')
                         ->with('success',trans('general.updated_Successfully'));
@@ -100,12 +100,12 @@ class ClientController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OrdinaryUser  $ordinaryUser
+     * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrdinaryUser $ordinaryUser)
+    public function destroy(Client $Client)
     {
-        $client = OrdinaryUser::where('id',$id)->where('type','client')->first();
+        $client = Client::where('id',$id)->where('type','client')->first();
         $client->delete();
         return redirect()->route('clients.index')
                         ->with('success',trans('general.deleted_Successfully'));

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrdinaryUsersTable extends Migration
+class CreateSuppliersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateOrdinaryUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('ordinary_users', function (Blueprint $table) {
+        Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->text('address')->nullable();
@@ -22,7 +22,7 @@ class CreateOrdinaryUsersTable extends Migration
             $table->enum('user_type', ['cash', 'installment','checks'])->default('cash');
             $table->string('tax_number')->nullable();
             $table->double('balance', 10, 2)->default(0);
-            $table->foreignId('company_id')->nullable();
+            $table->foreignId('company_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +35,6 @@ class CreateOrdinaryUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ordinary_users');
+        Schema::dropIfExists('suppliers');
     }
 }

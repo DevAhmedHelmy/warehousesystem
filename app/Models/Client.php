@@ -4,7 +4,7 @@ namespace App\Models;
 
 
 
-class OrdinaryUser extends Model
+class Client extends Model
 {
     //
 }

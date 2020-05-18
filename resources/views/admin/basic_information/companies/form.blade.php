@@ -47,6 +47,54 @@
                             </div>
 
                         </div>
+                        <div class="mt-4 d-flex justify-content-between">
+
+                            <div class="col form-group">
+                                <label>@lang('general.phone')</label>
+                                <input type="text" class="form-control"
+                                       name="phone"
+                                       value="{{old('phone')}}"
+                                       placeholder="@lang('general.phone')">
+                                @if($errors->has('phone'))
+                                <div class="invalid-feedback" style="display:block;">
+                                {{ $errors->first('phone') }}
+                                </div>
+                                @endif
+                            </div>
+
+                        </div>
+                        <div class="mt-4 d-flex justify-content-between">
+
+                            <div class="col form-group">
+                                <label>@lang('general.email')</label>
+                                <input type="email" class="form-control"
+                                       name="email"
+                                       value="{{old('email')}}"
+                                       placeholder="@lang('general.email')">
+                                @if($errors->has('email'))
+                                <div class="invalid-feedback" style="display:block;">
+                                {{ $errors->first('email') }}
+                                </div>
+                                @endif
+                            </div>
+
+                        </div>
+                        <div class="mt-4 d-flex justify-content-between">
+
+                            <div class="col form-group">
+                                <label>@lang('general.tax_number')</label>
+                                <input type="text" class="form-control"
+                                       name="tax_number"
+                                       value="{{old('tax_number')}}"
+                                       placeholder="@lang('general.tax_number')">
+                                @if($errors->has('tax_number'))
+                                <div class="invalid-feedback" style="display:block;">
+                                {{ $errors->first('tax_number') }}
+                                </div>
+                                @endif
+                            </div>
+
+                        </div>
                     </div>
 
 

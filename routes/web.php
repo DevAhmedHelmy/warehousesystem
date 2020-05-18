@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth']], function() {
     // Route::get('companies/search','Admin\Company\CompanyController');
     Route::resource('categories','Admin\Category\CategoryController');
     Route::resource('products','Admin\Product\ProductController');
-    Route::resource('clients','Admin\OrdinaryUser\ClientController');
-    Route::resource('suppliers','Admin\OrdinaryUser\SupplierController');
+    Route::resource('clients','Admin\Client\ClientController');
+    Route::resource('suppliers','Admin\Supplier\SupplierController');
+    Route::resource('stocks','Admin\Stock\StockController');
 });

@@ -21,7 +21,7 @@
                                 <label>@lang('general.category_code')</label>
                                 <input type="text" class="form-control"
                                        name="code" value="{{old('code')}}"
-                                       placeholder="@lang('general.category_code')">
+                                       placeholder="@lang('general.category_code')" required>
                                 @if($errors->has('code'))
                                 <div class="invalid-feedback" style="display:block;">
                                 {{ $errors->first('code') }}
@@ -38,7 +38,7 @@
                                 <input type="text" class="form-control"
                                        name="name"
                                        value="{{old('name')}}"
-                                       placeholder="@lang('general.name')">
+                                       placeholder="@lang('general.name')" required>
                                 @if($errors->has('name'))
                                 <div class="invalid-feedback" style="display:block;">
                                 {{ $errors->first('name') }}

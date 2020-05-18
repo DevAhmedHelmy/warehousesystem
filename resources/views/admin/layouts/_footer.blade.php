@@ -53,6 +53,7 @@ $.widget.bridge('uibutton', $.ui.button)
 {{-- AdminLTE dashboard demo (This is only for demo purposes) --}}
 {{--  <script src="{{asset('admin/dist/js/pages/dashboard.js')}}"></script>  --}}
 {{-- AdminLTE for demo purposes --}}
+<script src="{{asset('admin/dist/js/select2.min.js')}}"></script>
 <script src="{{asset('admin/dist/js/demo.js')}}"></script>
 <script src="{{asset('admin/dist/js/sweetalert.min.js')}}"></script>
 
@@ -73,6 +74,9 @@ $.widget.bridge('uibutton', $.ui.button)
                 }
             });
     }
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
 </script>
     @yield('js')
 </body>
