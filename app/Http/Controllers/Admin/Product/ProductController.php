@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Product;
 
+use App\Models\Stock;
 use App\Models\Company;
 use App\Models\Product;
 use App\Models\Category;
@@ -44,7 +45,8 @@ class ProductController extends Controller
         $product = new Product();
         $companies = Company::all();
         $categories = Category::all();
-        return view('admin.basic_information.products.form',compact('product','companies','categories'));
+        $stocks = Stock::all();
+        return view('admin.basic_information.products.form',compact('product','companies','categories','stocks'));
     }
 
     /**
@@ -56,8 +58,21 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
 
-        $request_data = $request->all();
-        Product::create($request_data);
+        $product = Product::create([
+            'code' => $request->code,
+            'name' =>$request->name,
+            'purchase_price' =>$request->purchase_price,
+            'sale_price' =>$request->sale_price,
+            'category_id' =>$request->category_id,
+            'company_id' =>$request->company_id,
+        ]);
+        if($product){
+            $product->stocks()->attach($product->id,[
+                'stock_id' => $request->stock_id,
+                'first_balance' => ($request->first_balance)??0,
+                'end_balance' => ($request->first_balance)??0
+            ]);
+        }
         return redirect()->route('products.index')
                         ->with('success',trans('general.created_Successfully'));
     }
@@ -83,7 +98,8 @@ class ProductController extends Controller
     {
         $companies = Company::all();
         $categories = Category::all();
-        return view('admin.basic_information.products.form',compact('product','companies','categories'));
+        $stocks = Stock::all();
+        return view('admin.basic_information.products.form',compact('product','companies','categories','stocks'));
     }
 
     /**

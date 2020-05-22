@@ -102,7 +102,34 @@
 
                             </div>
                         </div>
+                        <div class="col-12">
 
+                            <div class="mt-4 d-flex justify-content-between">
+
+                                <div class="col form-group">
+                                    <label>@lang('general.stocks')</label>
+                                    <select class="form-control select2" name="stock_id">
+                                        <option value="">@lang('general.choose')</option>
+                                        @foreach($stocks as $stock)
+                                            <option @if($stock->id == old('stock_id',$product->stock_id) ) selected @endif value="{{$stock->id}}">{{$stock->name}}</option>
+                                        @endforeach
+
+                                    </select>
+                                    @error('company_id')
+                                        <span class="invalid-feedback" style="display:block;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col form-group">
+                                    <label>@lang('general.stocks')</label>
+                                    <input type="number" name="first_balance" class="form-control">
+                                </div>
+
+
+
+                            </div>
+                        </div>
                         <div class="col-12">
                             <div class="mt-4 d-flex justify-content-between">
 
