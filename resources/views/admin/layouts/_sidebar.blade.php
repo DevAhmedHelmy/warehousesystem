@@ -130,7 +130,59 @@
                     </li>
                 @endcan
                 {{--  ! suppliers link  --}}
-                {{--  main pages  --}}
+                {{--  purchases pages  --}}
+                <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-home"></i>
+                        <p>
+                            @lang('general.purchases')
+                        <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-pie-chart nav-icon"></i>
+                                <p>@lang('general.purchases_bills')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/charts/flot.html" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>@lang('general.purchases_returns')</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                {{--  !purchases pages  --}}
+                {{--  sales pages  --}}
+                <li class="nav-item has-treeview @if(request()->is('salebills')) menu-open @endif">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fa fa-home"></i>
+                        <p>
+                            @lang('general.sales')
+                        <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('salebills.index') }}" class="nav-link">
+                                <i class="fa fa-pie-chart nav-icon"></i>
+                                <p>@lang('general.sales_bills')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="pages/charts/flot.html" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>@lang('general.Sales_returns')</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                {{--  !sales pages  --}}
+                {{--  stocks pages  --}}
                 <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
@@ -152,8 +204,9 @@
 
                     </ul>
                 </li>
-            {{--  !main pages  --}}
-                {{--  logout link  --}}
+            {{--  !stocks pages  --}}
+
+            {{--  logout link  --}}
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault();
                     document.getElementById('logout-form').submit();">
@@ -165,7 +218,7 @@
                         @csrf
                     </form>
                 </li>
-                {{--  !users link  --}}
+            {{--  !users link  --}}
             </ul>
         </nav>
         {{-- /.sidebar-menu --}}
