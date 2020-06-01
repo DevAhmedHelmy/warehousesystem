@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-sm-3 border-right">
                         <div class="description-block">
-                        <h5 class="description-header">@lang('general.stock_code')</h5>
+                        <h5 class="description-header">@lang('general.address')</h5>
                         <span class="description-text">{{$stock->address}}</span>
                         </div>
 
@@ -69,7 +69,7 @@
         {{-- /.card-body --}}
     </div>
     @if(isset($stock->products))
-    <div class="card card-outline card-success collapsed-card">
+    <div class="card card-outline card-success">
         <div class="card-header">
           <h3 class="card-title">@lang('general.products')</h3>
 
@@ -82,10 +82,10 @@
         {{-- /.card-header --}}
 
             <div class="card-body">
-                <table class="table">
+                <table class="table text-center">
                     <thead>
                         <tr>
-                            <th>@lang('general.id')</th>
+                            <th>@lang('general.No')</th>
                             <th>@lang('general.name')</th>
                             <th>@lang('general.first_balance')</th>
                             <th>@lang('general.additions')</th>
@@ -99,6 +99,7 @@
                         <tr>
                             <th scope="row">{{$product->id}}</th>
                             <td>{{$product->name}}</td>
+
                             <td>{{$product->pivot->first_balance}}</td>
                             <td>{{$product->pivot->additions}}</td>
                             <td>{{$product->pivot->outgoing}}</td>

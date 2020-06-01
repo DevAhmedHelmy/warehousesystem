@@ -13,14 +13,17 @@ class PermissionTableSeeder extends Seeder
     public function run()
     {
         $permissions = [
-           'role-list','role-create','role-edit','role-delete','role-search','role-pdf','role-excel',
-           'user-list','user-create','user-edit','user-delete','user-search','user-pdf','user-excel',
-           'category-list','category-create','category-edit','category-delete','category-search','category-pdf','category-excel',
-           'company-list','company-create','company-edit','company-delete','company-search','company-pdf','company-excel',
-           'product-list','product-create','product-edit','product-delete','product-search','product-pdf','product-excel',
-           'client-list','client-create','client-edit','client-delete','client-search','client-pdf','client-excel',
-           'supplier-list','supplier-create','supplier-edit','supplier-delete','supplier-search','supplier-pdf','supplier-excel',
-           'stock-list','stock-create','stock-edit','stock-delete','stock-search','stock-pdf','stock-excel',
+           'role-list','role-create','role-edit','role-delete',
+           'user-list','user-create','user-edit','user-delete',
+           'category-list','category-create','category-edit','category-delete',
+           'company-list','company-create','company-edit','company-delete',
+           'product-list','product-create','product-edit','product-delete',
+           'client-list','client-create','client-edit','client-delete',
+           'supplier-list','supplier-create','supplier-edit','supplier-delete',
+           'stock-list','stock-create','stock-edit','stock-delete',
+           'sale-bills-list','sale-bills-create','sale-bills-edit','sale-bills-delete',
+           'purchase-bills-list','purchase-bills-create','purchase-bills-edit','purchase-bills-delete',
+           'search','pdf','excel',
         ];
 
 
