@@ -11,6 +11,7 @@ use App\Http\Requests\SaleBillRequest;
 
 class SaleBillController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +48,13 @@ class SaleBillController extends Controller
      */
     public function store(SaleBillRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $saleBill = SaleBill::create(['bill_number' => $data['bill_number'],'client_id' =>$data['client_id']]);
+        if($saleBill)
+        {
+
+        }
     }
 
     /**
@@ -58,7 +65,7 @@ class SaleBillController extends Controller
      */
     public function show(SaleBill $saleBill)
     {
-        //
+
     }
 
     /**
