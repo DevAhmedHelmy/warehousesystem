@@ -15,6 +15,7 @@ class CreatePurchaseBillsTable extends Migration
     {
         Schema::create('purchase_bills', function (Blueprint $table) {
             $table->id();
+
             $table->timestamps();
         });
     }
