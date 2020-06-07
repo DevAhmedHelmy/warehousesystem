@@ -31,20 +31,24 @@
                 <tbody>
                     <tr>
                         <th style="width: 10%">@lang('general.No')</th>
-                        <th style="width: 45%;">@lang('general.name')</th>
-                        <th style="width: 45%;">@lang('general.Action')</th>
+                        <th style="width: 30%;">@lang('general.name')</th>
+                        <th style="width: 30%;">@lang('general.name')</th>
+                        <th style="width: 30%;">@lang('general.Action')</th>
                         </tr>
-                    @foreach ($salebills as $key => $role)
+
+                    @foreach ($salebills as $key => $value)
                         <tr>
+
                             <td>{{ ++$i }}</td>
-                            <td>{{ $role->name }}</td>
+                            <td>{{ $value->bill_number }}</td>
+                            <td>{{ $value->client->name }}</td>
                             <td>
-                                <form class="delete-form" action="{{ route('salebills.destroy',$role->id) }}" method="post">
+                                <form class="delete-form" action="{{ route('salebills.destroy',$value->id) }}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <a class="btn btn-info btn-sm" href="{{ route('salebills.show',$role->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
+                                    <a class="btn btn-info btn-sm" href="{{ route('salebills.show',$value->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
                                     @can('sale-bills-edit')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('salebills.edit',$role->id) }}"><i class="fa fa-edit fa-sm"></i> @lang('general.Edit')</a>
+                                        <a class="btn btn-primary btn-sm" href="{{ route('salebills.edit',$value->id) }}"><i class="fa fa-edit fa-sm"></i> @lang('general.Edit')</a>
                                     @endcan
                                     @can('sale-bills-delete')
                                         <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('delete-form')"><i class="fa fa-trash fa-sm"></i> @lang('general.Delete')</button>

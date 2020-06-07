@@ -61,7 +61,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 test">
+            <div class="col-12 products">
                 <div class="mt-4 d-flex justify-content-between">
 
                     <div class="col form-group">
@@ -183,7 +183,7 @@
                         </span>
                     @enderror
                 </div>
-                <div class="col form-group">
+                <div class="col form-group mt-3">
                     <button class="btn btn-primary remove_product" data-id="${counter}">add</button>
                </div>
             </div>
@@ -193,7 +193,7 @@
 
             e.preventDefault();
 
-            $(content).insertAfter('.test');
+            $(content).insertAfter('.products');
 
         });
         $(document).on('click','.remove_product',function(e){

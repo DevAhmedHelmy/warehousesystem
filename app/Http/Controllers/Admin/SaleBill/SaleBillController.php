@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Product;
 use App\Models\SaleBill;
 use Illuminate\Http\Request;
+use App\Models\InvoiceSaleBill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaleBillRequest;
 
@@ -17,10 +18,11 @@ class SaleBillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $salebills = SaleBill::paginate(5);
-        return view('admin.sales.salebills.index',['salebills' => $salebills]);
+        return view('admin.sales.salebills.index',['salebills' => $salebills])
+                ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -38,6 +40,8 @@ class SaleBillController extends Controller
                 'clients' => $clients,
                 'saleBill' => new SaleBill()
             ]);
+
+
     }
 
     /**
@@ -49,12 +53,24 @@ class SaleBillController extends Controller
     public function store(SaleBillRequest $request)
     {
         $data = $request->all();
-
         $saleBill = SaleBill::create(['bill_number' => $data['bill_number'],'client_id' =>$data['client_id']]);
-        if($saleBill)
+        if($saleBill && $request->product_id != '')
         {
+            foreach($request->product_id as $key => $value)
+            {
+                InvoiceSaleBill::create([
+                    'quantity' => $data['quantity'][$key],
+                    'discount' => $data['dicount'][$key],
+                    'tax' => $data['tax'][$key],
+                    'total' => $data['quantity'][$key],
+                    'product_id' => $data['product_id'][$key],
+                    'sales_bill_id' => $saleBill->id
+                ]);
+            }
 
         }
+        return redirect()->route('salebills.index')
+                        ->with('success',trans('general.created_Successfully'));
     }
 
     /**
@@ -63,9 +79,11 @@ class SaleBillController extends Controller
      * @param  \App\Models\SaleBill  $saleBill
      * @return \Illuminate\Http\Response
      */
-    public function show(SaleBill $saleBill)
+    public function show($id)
     {
+        $saleBill = SaleBill::findOrfail($id);
 
+        return view('admin.sales.salebills.show',['saleBill'=>$saleBill]);
     }
 
     /**
