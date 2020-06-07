@@ -132,7 +132,9 @@
 @section('js')
     <script>
 
-        var content = `<div class="col-12 test">
+
+        var counter = 1;
+        var content = `<div id="${counter}">
             <div class="mt-4 d-flex justify-content-between">
 
                 <div class="col form-group">
@@ -181,7 +183,9 @@
                         </span>
                     @enderror
                 </div>
-
+                <div class="col form-group">
+                    <button class="btn btn-primary remove_product" data-id="${counter}">add</button>
+               </div>
             </div>
         </div>`;
 
@@ -192,5 +196,10 @@
             $(content).insertAfter('.test');
 
         });
+        $(document).on('click','.remove_product',function(e){
+            e.preventDefault();
+            $('#'+$(this).data('id')).remove();
+        });
+
     </script>
 @endsection
