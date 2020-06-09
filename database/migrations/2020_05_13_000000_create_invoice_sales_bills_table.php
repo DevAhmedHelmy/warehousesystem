@@ -20,7 +20,8 @@ class CreateInvoiceSalesBillsTable extends Migration
             $table->double('tax', 4, 2)->nullable();
             $table->double('total', 8, 2)->nullable();
             $table->foreignId('product_id');
-            $table->foreignId('sales_bill_id');
+            $table->foreignId('sale_bill_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

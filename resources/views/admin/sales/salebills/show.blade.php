@@ -79,14 +79,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @dd($saleBill->invoiceSaleBills)
+
                         @foreach($saleBill->invoiceSaleBills as $item)
                         <tr>
-                            <th scope="row">{{$product->id}}</th>
+                            <th scope="row">{{$item->id}}</th>
 
                             <td>
 
-                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
+                                <a href="{{ route('products.show', $item->id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
                             </td>
                         </tr>
                         @endforeach

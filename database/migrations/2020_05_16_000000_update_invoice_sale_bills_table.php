@@ -16,7 +16,7 @@ class UpdateInvoiceSaleBillsTable extends Migration
         Schema::table('invoice_sales_bills', function (Blueprint $table) {
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('sales_bill_id')->references('id')->on('sale_bills')->onDelete('cascade');
+            $table->foreign('sale_bill_id')->references('id')->on('sale_bills')->onDelete('cascade');
         });
     }
 
@@ -30,7 +30,7 @@ class UpdateInvoiceSaleBillsTable extends Migration
         Schema::table('invoice_sales_bills', function (Blueprint $table) {
 
             $table->dropForeign('product_id');
-            $table->dropForeign('sales_bill_id');
+            $table->dropForeign('sale_bill_id');
         });
     }
 }

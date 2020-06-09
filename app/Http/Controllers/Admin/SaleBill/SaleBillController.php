@@ -54,6 +54,8 @@ class SaleBillController extends Controller
     {
         $data = $request->all();
         $saleBill = SaleBill::create(['bill_number' => $data['bill_number'],'client_id' =>$data['client_id']]);
+
+
         if($saleBill && $request->product_id != '')
         {
             foreach($request->product_id as $key => $value)
@@ -64,11 +66,13 @@ class SaleBillController extends Controller
                     'tax' => $data['tax'][$key],
                     'total' => $data['quantity'][$key],
                     'product_id' => $data['product_id'][$key],
-                    'sales_bill_id' => $saleBill->id
+                    'sale_bill_id' => $saleBill->id
                 ]);
             }
 
         }
+
+
         return redirect()->route('salebills.index')
                         ->with('success',trans('general.created_Successfully'));
     }
