@@ -149,7 +149,7 @@
 
 
         var counter = 1;
-        var content = `<div id="${counter}">
+        var content = `<div class="col-12 products" id="${counter}">
             <div class="mt-4 d-flex justify-content-between">
 
                 <div class="col form-group">
@@ -170,7 +170,7 @@
                 </div>
                 <div class="col form-group">
                     <label for="price" class="control-label">@lang('general.price')</label>
-                    <input type="number" name="price[]" class="form-control @error('price') is-invalid @enderror" id="price" value="" placeholder="@lang('general.price')" required>
+                    <input type="number" name="price[]" class="form-control price @error('price') is-invalid @enderror" id="price" value="" placeholder="@lang('general.price')" required>
 
                     @error('bill_number')
                         <span class="invalid-feedback" role="alert">
@@ -225,9 +225,12 @@
             e.preventDefault();
             $('#'+$(this).data('id')).remove();
         });
-        $(document).on('change','.change_price,.quantity, .tax, .dicount',function(e){
+        $(document).on('change','.change_price',function(e){
             var price = $(this).find(":selected").data('price');
-            $('.price').val(price);
+            console.log(price);
+
+            console.log($(this).closest('.products').find('.price').val(price));
+
 
             var quantity = $('.quantity').val();
             var tax = $('.tax').val();
@@ -238,6 +241,12 @@
             var net_total = total + (total*tax) - (total*dicount);
 
             console.log(total);
+
+
+
+        });
+
+        $(document).on('change','.quantity',function(e){
 
 
 
