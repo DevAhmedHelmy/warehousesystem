@@ -1,7 +1,5 @@
 <?php
 
-use CreateAdminUserSeeder;
-use PermissionTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(CreateAdminUserSeeder::class);
-        // $this->call(PermissionTableSeeder::class);
+        $this->call(PermissionTableSeeder::class);
+        $this->call(CreateAdminUserSeeder::class);
+
     }
 }
