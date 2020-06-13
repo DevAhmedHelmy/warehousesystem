@@ -17,6 +17,15 @@
 @section('content')
 
 <div class="col-12">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="card card-info">
         <div class="card-header">
           <h3 class="card-title">@if(!$saleBill->id) @lang('general.Create_New_bill') @else @lang('general.update_sale_bill') @endif</h3>
@@ -36,7 +45,7 @@
                 <div class="mt-4 d-flex justify-content-between">
                     <div class="col form-group">
                         <label for="bill_number" class="control-label">@lang('general.bill_number')</label>
-                        <input type="text" name="bill_number" class="form-control @error('bill_number') is-invalid @enderror" id="bill_number" value="{{old('bill_number',$saleBill->bill_number)}}" placeholder="@lang('general.bill_number')" required>
+                        <input type="text" name="bill_number" class="form-control @error('bill_number') is-invalid @enderror" id="bill_number" value="{{old('bill_number',$saleBill->bill_number)}}" placeholder="@lang('general.bill_number')">
 
                         @error('bill_number')
                             <span class="invalid-feedback" role="alert">
@@ -103,7 +112,7 @@
                         </div>
                         <div class="col form-group">
                             <label for="price" class="control-label">@lang('general.price')</label>
-                            <input type="number" name="price[]" class="form-control @error('price') is-invalid @enderror price" id="price" value="" placeholder="@lang('general.price')" required>
+                            <input type="number" name="price[]" class="form-control @error('price') is-invalid @enderror price" id="price" value="" placeholder="@lang('general.price')">
 
                             @error('bill_number')
                                 <span class="invalid-feedback" role="alert">
@@ -113,7 +122,7 @@
                         </div>
                         <div class="col form-group">
                             <label for="quantity" class="control-label">@lang('general.quantity')</label>
-                            <input type="number" name="quantity[]" class="form-control @error('quantity') is-invalid @enderror quantity" id="quantity" value="{{old('name',$saleBill->quantity)}}" placeholder="@lang('general.quantity')" required>
+                            <input type="number" name="quantity[]" class="form-control @error('quantity') is-invalid @enderror quantity" id="quantity" value="{{old('name',$saleBill->quantity)}}" placeholder="@lang('general.quantity')">
 
                             @error('bill_number')
                                 <span class="invalid-feedback" role="alert">
@@ -143,7 +152,7 @@
                         </div>
                         <div class="col form-group">
                             <label for="price" class="control-label">@lang('general.total')</label>
-                            <input type="number" name="total[]" class="form-control @error('total') is-invalid @enderror total" id="total" value="" placeholder="@lang('general.total')" required>
+                            <input type="number" name="total[]" class="form-control @error('total') is-invalid @enderror total" id="total" value="" placeholder="@lang('general.total')">
                         </div>
 
                     </div>
@@ -152,7 +161,7 @@
             <div class="col-12">
                 <div class="col form-group">
                     <label for="price" class="control-label">@lang('general.bill_total')</label>
-                    <input type="number" name="bill_total[]" class="form-control bill_total" id="total" value="" placeholder="@lang('general.bill_total')" required>
+                    <input type="number" name="bill_total[]" class="form-control bill_total" id="total" value="" placeholder="@lang('general.bill_total')">
                 </div>
             </div>
             <div class="col form-group">

@@ -99,7 +99,6 @@
                         <tr>
                             <th scope="row">{{$product->id}}</th>
                             <td>{{$product->name}}</td>
-
                             <td>{{$product->pivot->first_balance}}</td>
                             <td>{{$product->pivot->additions}}</td>
                             <td>{{$product->pivot->outgoing}}</td>

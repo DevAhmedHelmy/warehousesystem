@@ -55,10 +55,16 @@ class SaleBillController extends Controller
      */
     public function store(SaleBillRequest $request)
     {
+
         $data = $request->all();
 
-        $saleBill = SaleBill::create(['bill_number' => $data['bill_number'],'client_id' =>$data['client_id']]);
-
+        $saleBill = SaleBill::create([
+                'bill_number' => $data['bill_number'],
+                'discount' => $data['bill_discount'],
+                'tax' => $data['bill_tax'],
+                'total' => $data['bill_total'],
+                'client_id' =>$data['client_id']
+                ]);
 
         if($saleBill && $request->product_id != '')
         {
@@ -94,7 +100,6 @@ class SaleBillController extends Controller
                         abort(403);
                     }
                 }
-
                 \DB::table('stock_products')->insert($rows);
             });
         }
