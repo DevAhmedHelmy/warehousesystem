@@ -1,5 +1,5 @@
 {{-- Modal --}}
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 		  <div class="modal-content">
 			<div class="modal-header">
@@ -48,11 +48,7 @@
 
                         </div>
                     </div>
-
-
-
                 </div>
-
 			</div>
 			<div class="modal-footer">
                 <button type="button" class="ml-2 btn btn-danger close-companymodal" data-dismiss="modal">Close</button>
