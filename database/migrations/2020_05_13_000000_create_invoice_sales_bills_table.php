@@ -16,9 +16,9 @@ class CreateInvoiceSalesBillsTable extends Migration
         Schema::create('invoice_sales_bills', function (Blueprint $table) {
             $table->id('id');
             $table->integer('quantity');
-            $table->double('discount', 4, 2)->nullable();
-            $table->double('tax', 4, 2)->nullable();
-            $table->double('total', 8, 2)->nullable();
+            $table->double('discount', 4, 2)->default(0);
+            $table->double('tax', 4, 2)->default(0);
+            $table->double('total', 8, 2)->default(0);
             $table->foreignId('product_id');
             $table->foreignId('sale_bill_id');
             $table->softDeletes();
