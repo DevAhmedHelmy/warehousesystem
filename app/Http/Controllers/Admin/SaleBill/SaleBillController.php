@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\InvoiceSaleBill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaleBillRequest;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class SaleBillController extends Controller
 {

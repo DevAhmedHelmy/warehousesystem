@@ -169,6 +169,11 @@ return[
     'Sales_returns'                                     => 'مردودات المبيعات',
     'purchases_bills'                                   => 'فواتير المشتريات',
     'purchases_returns'                                 => 'مردودات المشتريات',
-    'Create_New_bill' => 'اضافة فاتورة جديدة'
+    'Create_New_bill'                                   => 'اضافة فاتورة جديدة',
+    'bill_number'                                       => 'رقم الفاتورة',
+    'tax'                                               => 'الضريبه',
+    'dicount'                                           => 'الخصم',
+    'add'                                               => 'اضافة',
+    'remove'                                            => 'حذف',
 
 ];
