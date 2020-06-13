@@ -59,6 +59,25 @@
                             </span>
                         @enderror
                     </div>
+
+                    <div class="col form-group">
+                        <label>@lang('general.stocks')</label>
+                        <select class="form-control select2" name="stock_id">
+                            <option value="">@lang('general.choose')</option>
+                            @foreach($stocks as $stock)
+                                <option data-products="{{ json_encode($stock->products) }}"
+                                 @if($stock->id == old('stock_id',$saleBill->stock_id) ) selected @endif value="{{$stock->id}}">{{$stock->name}}</option>
+                            @endforeach
+
+                        </select>
+                        @error('stock_id')
+                            <span class="invalid-feedback" style="display:block;" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+
+
                 </div>
             </div>
             <div class="main_product">
@@ -155,71 +174,70 @@
 @section('js')
     <script>
         var counter = 1;
-        var content = `<div class="col-12 products" id="${counter}">
-            <div class="mt-4 d-flex justify-content-between">
-                <div class="col form-group">
-                    <label>@lang('general.products')</label>
-                    <select class="form-control select2 change_price" name="product_id[]">
-                        <option value="">@lang('general.choose')</option>
-                        @foreach($products as $product)
-                            <option data-price="{{ $product->sale_price }}" @if($product->id == old('product_id',$product->product_id) ) selected @endif value="{{$product->id}}">
-                                {{$product->code}} - {{$product->name}}</option>
-                        @endforeach
-                    </select>
-                    @error('product_id')
-                        <span class="invalid-feedback" style="display:block;" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="col form-group">
-                    <label for="price" class="control-label">@lang('general.price')</label>
-                    <input type="number" name="price[]" class="form-control price @error('price') is-invalid @enderror price" id="price" value="" placeholder="@lang('general.price')" required>
-                    @error('bill_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="col form-group">
-                    <label for="quantity" class="control-label">@lang('general.quantity')</label>
-                    <input type="number" name="quantity[]" class="form-control @error('quantity') is-invalid @enderror quantity" id="quantity" value="{{old('name',$saleBill->quantity)}}" placeholder="@lang('general.quantity')" required>
-                    @error('bill_number')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="col form-group">
-                    <label for="tax" class="control-label">@lang('general.tax')</label>
-                    <input type="number" name="tax[]" class="form-control @error('tax') is-invalid @enderror tax" id="tax" value="{{old('name',$saleBill->tax)}}" placeholder="@lang('general.tax')">
-                    @error('tax')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="col form-group">
-                    <label for="dicount" class="control-label">@lang('general.dicount')</label>
-                    <input type="number" name="dicount[]" class="form-control @error('dicount') is-invalid @enderror dicount" id="dicount" value="{{old('name',$saleBill->dicount)}}" placeholder="@lang('general.dicount')">
-                    @error('dicount')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-                <div class="col form-group">
-                    <label for="total" class="control-label">@lang('general.total')</label>
-                    <input type="number" name="total[]" class="form-control @error('total') is-invalid @enderror total" id="total" value="" placeholder="@lang('general.total')" required>
-                </div>
-                <div class="col form-group">
-                    <label for="remove" class="control-label"></label>
-                    <button class="btn btn-danger btn-sm remove_product" data-id="${counter}"><i class="fa fa-window-close fa-sm"></i> @lang('general.remove')</button>
-               </div>
-            </div>
-        </div>`;
+        var stock_product_content='';
+
         $('#add_product').click(function(e){
             e.preventDefault();
+
+            var content = `<div class="col-12 products" id="${counter}">
+                <div class="mt-4 d-flex justify-content-between">
+                    <div class="col form-group">
+                        <label>@lang('general.products')</label>
+                        <select class="form-control select2 change_price" name="product_id[]">
+                            ${stock_product_content}
+                        </select>
+                        @error('product_id')
+                            <span class="invalid-feedback" style="display:block;" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col form-group">
+                        <label for="price" class="control-label">@lang('general.price')</label>
+                        <input type="number" name="price[]" class="form-control price @error('price') is-invalid @enderror price" id="price" value="" placeholder="@lang('general.price')" required>
+                        @error('bill_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col form-group">
+                        <label for="quantity" class="control-label">@lang('general.quantity')</label>
+                        <input type="number" name="quantity[]" class="form-control @error('quantity') is-invalid @enderror quantity" id="quantity" value="{{old('name',$saleBill->quantity)}}" placeholder="@lang('general.quantity')" required>
+                        @error('bill_number')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col form-group">
+                        <label for="tax" class="control-label">@lang('general.tax')</label>
+                        <input type="number" name="tax[]" class="form-control @error('tax') is-invalid @enderror tax" id="tax" value="{{old('name',$saleBill->tax)}}" placeholder="@lang('general.tax')">
+                        @error('tax')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col form-group">
+                        <label for="dicount" class="control-label">@lang('general.dicount')</label>
+                        <input type="number" name="dicount[]" class="form-control @error('dicount') is-invalid @enderror dicount" id="dicount" value="{{old('name',$saleBill->dicount)}}" placeholder="@lang('general.dicount')">
+                        @error('dicount')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="col form-group">
+                        <label for="total" class="control-label">@lang('general.total')</label>
+                        <input type="number" name="total[]" class="form-control @error('total') is-invalid @enderror total" id="total" value="" placeholder="@lang('general.total')" required>
+                    </div>
+                    <div class="col form-group">
+                        <label for="remove" class="control-label"></label>
+                        <button class="btn btn-danger btn-sm remove_product" data-id="${counter}"><i class="fa fa-window-close fa-sm"></i> @lang('general.remove')</button>
+                   </div>
+                </div>
+            </div>`;
             $(content).insertAfter('.main_product');
 
         });
@@ -264,6 +282,21 @@
                 }
             });
             console.log(bill_total);
+        });
+
+        $('select[name="stock_id"]').change(function(){
+            var stock_products = $(this).find(":selected").data('products');
+
+            let content = '<option value="">@lang('general.choose')</option>';
+
+            $.each(stock_products,function(key,item){
+             content = content +`<option data-price="${item.sale_price}" value="${item.id}">${item.code} - ${item.name}</option>`;
+            });
+
+            stock_product_content = content;
+
+            $('.change_price').html(content);
+
         });
     </script>
 @endsection

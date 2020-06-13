@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\InvoiceSaleBill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaleBillRequest;
+use App\Models\Stock;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\DB;
 
 class SaleBillController extends Controller
 {
@@ -35,14 +37,14 @@ class SaleBillController extends Controller
     {
         $products = Product::all();
         $clients = Client::all();
+        $stocks= Stock::with('products')->get();
         return view('admin.sales.salebills.form',
             [
                 'products' => $products,
                 'clients' => $clients,
+                'stocks' => $stocks,
                 'saleBill' => new SaleBill()
             ]);
-
-
     }
 
     /**
@@ -54,23 +56,47 @@ class SaleBillController extends Controller
     public function store(SaleBillRequest $request)
     {
         $data = $request->all();
+
         $saleBill = SaleBill::create(['bill_number' => $data['bill_number'],'client_id' =>$data['client_id']]);
 
 
         if($saleBill && $request->product_id != '')
         {
-            foreach($request->product_id as $key => $value)
-            {
-                InvoiceSaleBill::create([
+            $rows =[];
+            DB::transaction(function () use($data,$saleBill,$request){
+                foreach ($request->product_id as $key => $value) {
+                    InvoiceSaleBill::create([
                     'quantity' => $data['quantity'][$key],
                     'discount' => $data['dicount'][$key],
                     'tax' => $data['tax'][$key],
                     'total' => $data['quantity'][$key],
                     'product_id' => $data['product_id'][$key],
+                    'stock_id' => $data['stock_id'],
                     'sale_bill_id' => $saleBill->id
                 ]);
-            }
 
+                    $product = \DB::table('stock_products')
+                     ->where('stock_id', $data['stock_id'])
+                     ->where('product_id', $data['product_id'][$key])
+                     ->orderBy('created_at', 'desc')
+                     ->first();
+
+                    if ($product !== null) {
+                        $rows[] = ['first_balance'=>$product->end_balance,
+                              'outgoing'=>$data['quantity'][$key],
+                              'end_balance'=> $product->end_balance - $data['quantity'][$key],
+                              'product_id'=>$data['product_id'][$key],
+                              'stock_id'=>$data['stock_id'],
+                              'created_at'=>now(),
+                              'updated_at'=>now(),
+                             ];
+                    } else {
+                        abort(403);
+                    }
+                }
+
+                \DB::table('stock_products')->insert($rows);
+            });
         }
 
 
