@@ -55,7 +55,7 @@ class SaleBillController extends Controller
      */
     public function store(SaleBillRequest $request)
     {
-        dd('hello');
+
         $data = $request->all();
 
         $saleBill = SaleBill::create([
