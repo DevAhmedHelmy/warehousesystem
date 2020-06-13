@@ -60,11 +60,11 @@
 
                             <div class="col form-group">
                                 <label for="user_type" class="col-sm-4 control-label">@lang('general.client_type')</label>
-                                <select name="user_type" id="user_type" class="form-control">
-                                    <option value="">Choose</option>
-                                    <option @if($client->user_type == 'cash') selected @endif value="cash">cash</option>
-                                    <option @if($client->user_type == 'installment') selected @endif value="installment">installment</option>
-                                    <option @if($client->user_type == 'checks') selected @endif value="checks">checks</option>
+                                <select name="user_type" id="user_type" class="form-control select2">
+                                    <option value="">@lang('general.Choose')</option>
+                                    <option @if($client->user_type == 'cash') selected @endif value="cash">@lang('general.cash')</option>
+                                    <option @if($client->user_type == 'installment') selected @endif value="installment">@lang('general.installment')</option>
+                                    <option @if($client->user_type == 'checks') selected @endif value="checks">@lang('general.checks')</option>
                                 </select>
                                 @error('address')
                                     <span class="invalid-feedback" role="alert">

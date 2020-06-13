@@ -175,5 +175,11 @@ return[
     'dicount'                                           => 'الخصم',
     'add'                                               => 'اضافة',
     'remove'                                            => 'حذف',
+    'balance'                                           => 'الميزانية',
+    'Choose'                                            => 'اختر',
+    'cash'                                              => 'كاش',
+    'installment'                                       => 'اجل',
+    'checks'                                            => 'شيكات',
+
 
 ];
