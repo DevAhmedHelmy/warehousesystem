@@ -180,7 +180,8 @@ return[
     'cash'                                              => 'كاش',
     'installment'                                       => 'اجل',
     'checks'                                            => 'شيكات',
-    'bill_total'                                        => 'اجمالى الفاتورة'
+    'bill_total'                                        => 'اجمالى الفاتورة',
+    'supplier_type'                                     => 'نوع المورد'
 
 
 ];

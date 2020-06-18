@@ -1,17 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('header')
-    <div class="mb-2 row">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">@lang('general.suppliers')</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
-                <li class="breadcrumb-item"><a href="{{ route('suppliers.index') }}">@lang('general.suppliers')</a></li>
-                <li class="breadcrumb-item active">@if(!$supplier->id) @lang('general.Create_New_supplier') @else @lang('general.update_supplier') @endif</li>
-            </ol>
-        </div>
-    </div>
+    <x-admin.breadcrumb title="suppliers">
+        <li class="breadcrumb-item"><a href="{{ route('suppliers.index') }}">@lang('general.suppliers')</a></li>
+        <li class="breadcrumb-item active">@if(!$supplier->id) @lang('general.Create_New_supplier') @else @lang('general.update_supplier') @endif</li>
+    </x-admin.breadcrumb>
 @endsection
 
 @section('content')
