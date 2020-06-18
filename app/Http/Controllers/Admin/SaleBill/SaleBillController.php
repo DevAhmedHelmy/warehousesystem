@@ -15,6 +15,19 @@ use Illuminate\Support\Facades\DB;
 
 class SaleBillController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('permission:sale-bills-list|sale-bills-create|sale-bills-edit|sale-bills-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:sale-bills-create', ['only' => ['create','store']]);
+        $this->middleware('permission:sale-bills-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:sale-bills-delete', ['only' => ['destroy']]);
+    }
 
     /**
      * Display a listing of the resource.

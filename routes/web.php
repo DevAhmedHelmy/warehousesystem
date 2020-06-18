@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-
-
 Route::get('/', 'Admin\Home\HomeController@index')->name('home');
 
 
@@ -34,6 +32,7 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::resource('clients','Admin\Client\ClientController');
     Route::resource('suppliers','Admin\Supplier\SupplierController');
     Route::resource('salebills','Admin\SaleBill\SaleBillController');
+    Route::resource('purchasebills','Admin\PurchaseBill\PurchaseBillController');
     Route::resource('stocks','Admin\Stock\StockController');
 });
 
