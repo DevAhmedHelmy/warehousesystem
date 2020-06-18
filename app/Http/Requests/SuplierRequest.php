@@ -31,7 +31,7 @@ class SuplierRequest extends FormRequest
             'tax_number' => 'nullable',
             'user_type' => ['required',Rule::in(['cash', 'installment','checks'])],
             'company_id' => 'required|exists:companies,id',
-            'balance' => 'nullable'
+
         ];
     }
 }

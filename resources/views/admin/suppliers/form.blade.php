@@ -73,20 +73,7 @@
                                 @enderror
                             </div>
                             <div class="col form-group">
-                                <label for="balance" class="col-sm-4 control-label">@lang('general.balance')</label>
-                                <input type="text" name="balance" class="form-control @error('balance') is-invalid @enderror" id="balance" value="{{old('balance',$supplier->balance)}}" placeholder="@lang('general.balance')" required>
-                                @error('balance')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-12">
-                        <div class="mt-4 d-flex justify-content-between">
-                            <div class="col form-group">
                                 <label>@lang('general.companies')</label>
                                 <select class="form-control select2" name="company_id">
                                     <option value="">@lang('general.choose')</option>
@@ -101,6 +88,12 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mt-4 d-flex justify-content-between">
+
                             <div class="col form-group">
                                 <label for="tax_number" class="col-sm-4 control-label">@lang('general.tax_number')</label>
                                 <input type="text" name="tax_number" class="form-control @error('tax_number') is-invalid @enderror" id="tax_number" value="{{old('tax_number',$supplier->tax_number)}}" placeholder="@lang('general.tax_number')" required>
@@ -110,7 +103,15 @@
                                     </span>
                                 @enderror
                             </div>
-
+                            <div class="col form-group">
+                                {{-- <label for="balance" class="col-sm-4 control-label">@lang('general.balance')</label>
+                                <input type="text" name="balance" class="form-control @error('balance') is-invalid @enderror" id="balance" value="{{old('balance',$supplier->balance)}}" placeholder="@lang('general.balance')" required>
+                                @error('balance')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror --}}
+                            </div>
 
 
 
