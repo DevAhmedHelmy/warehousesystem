@@ -1,119 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>پنل مدیریت | صفحه ورود</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="{{asset('admin/plugins/font-awesome/css/font-awesome.min.css')}}">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{asset('admin/dist/css/adminlte.min.css')}}">
-  <!-- iCheck -->
-
-  <link rel="stylesheet" href="{{asset('admin/plugins/iCheck/square/blue.css')}}">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-  <!-- bootstrap rtl -->
-  <link rel="stylesheet" href="{{asset('admin/dist/css//bootstrap-rtl.min.css')}}">
-
-  <!-- template rtl version -->
-  <link rel="stylesheet" href="{{asset('admin/dist/css//custom-style.css')}}">
-
+  <title>نظام المخازن</title>
+  <link rel="stylesheet" href="{{asset('admin/dist/css/tailwind.min.css')}}">
 </head>
-<body class="hold-transition login-page">
-    <div class="login-box">
-    <div class="login-logo">
-        <a><b>@lang('general.login_page')</b></a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="card">
-        <div class="card-body login-card-body">
-        <p class="login-box-msg">@lang('general.login_page')</p>
+<body  class="bg-cover" style="background-image: url(https://cdn.hipwallpaper.com/i/37/5/shDrKc.jpg)">
+    <div class="w-full pt-2 p-4">
+        <div class="mx-auto md:p-6 md:w-1/3">
 
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="mb-3 input-group">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"required autocomplete="email" autofocus>
-                <div class="input-group-append">
-                    <span class="fa fa-envelope input-group-text"></span>
-                </div>
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="mb-3 input-group">
-                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                <div class="input-group-append">
-                    <span class="fa fa-lock input-group-text"></span>
-                </div>
-                @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="row">
-            <div class="col-8">
-                <div class="checkbox icheck">
-                <label>
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('general.Remember_Me') }}
-                </label>
-                </div>
-            </div>
-            <!-- /.col -->
-
-            </div>
-            <div class="mt-4 row">
-
-                <div class="col-md-6">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-sign-in"></i> {{ __('general.login') }}
-                    </button>
-
-
-                </div>
-                <div class="col-md-6">
-                    @if (Route::has('password.request'))
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                            {{ __('general.Forgot_Your_Password') }}
-                        </a>
-                    @endif
+            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="text-center">
+                    <h1 class="text-2xl text-gray-700 p-4">
+                        <i class="fas fa-sign-in-alt fa-fw fa-lg"></i>
+                        @lang('general.login_page')
+                    </h1>
                 </div>
 
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-8">
+                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">
+                            {{ __('general.email') }}
+                            <span class="text-red-500">&nbsp;*</span>
+
+                        </label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            </div>
+                            <input type="email" name="email" id="email" class="block shadow appearance-none border-2 border-orange-100 @error('email') border-red-500 @enderror rounded w-full py-2 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange-500 transition duration-500 ease-in-out" placeholder="you@example.com" required autocomplete="email" value="{{ old('email') }}"/>
+                        </div>
+                        @error('email')
+                            <strong class="text-red-500 text-xs italic">{{ $message }}</strong>
+                        @enderror
+                    </div>
+                    <div class="mb-8">
+                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2">
+                            {{ __('general.password') }}
+                            <span class="text-red-500">&nbsp;*</span>
+
+                        </label>
+                        <div class="mt-1 relative rounded-md shadow-sm">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <svg class="h-5 w-5 text-gray-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <input name="password" type="password" id="password" type="text" class="block shadow appearance-none border-2 border-orange-100 @error('password') border-red-500 @enderror rounded w-full py-2 px-4 text-gray-700 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-orange-500 transition duration-500 ease-in-out" required autocomplete="current-password">
+                        </div>
+                        @error('password')
+                            <strong class="text-red-500 text-xs italic">{{ $message }}</strong>
+                        @enderror
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <label class="block text-gray-500 font-bold" for="remember">
+                                    <input class="ml-2 leading-tight" type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <span class="text-sm">
+                                        {{ __('general.Remember_Me') }}
+                                    </span>
+                                </label>
+                            </div>
+                            <div>
+                                @if (Route::has('password.request'))
+                                    <a class="font-bold text-sm text-blue-500 hover:text-blue-800" href="{{ route('password.request') }}">
+                                        {{ __('general.Forgot_Your_Password') }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4 text-center">
+                        <button class="transition duration-500 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            {{ __('general.login') }}
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
+            {{-- /.login-card-body --}}
+
         </div>
-        <!-- /.login-card-body -->
     </div>
-    </div>
-<!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="{{asset('admin/plugins/jquery/jquery.min.js')}}"></script>
 
-<!-- Bootstrap 4 -->
-<script src="{{asset('admin/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-
-<!-- iCheck -->
-<script src="{{asset('admin/plugins/iCheck/icheck.min.js')}}"></script>
-
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass   : 'iradio_square-blue',
-      increaseArea : '20%' // optional
-    })
-  })
-</script>
 </body>
 </html>
 

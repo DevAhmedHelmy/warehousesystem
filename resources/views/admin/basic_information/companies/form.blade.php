@@ -18,10 +18,11 @@
                         <div class="mt-4 d-flex justify-content-between">
 
                             <div class="col form-group">
-                                <label>@lang('general.company_code')</label>
+                                <label>@lang('general.company_code') <span class="text-red-500">&nbsp;*</span></label>
                                 <input type="text" class="form-control"
                                        name="code" value="{{old('code')}}"
-                                       placeholder="@lang('general.company_code')">
+                                       placeholder="@lang('general.company_code')"
+                                       required>
                                 @if($errors->has('code'))
                                 <div class="invalid-feedback" style="display:block;">
                                 {{ $errors->first('code') }}
@@ -34,11 +35,12 @@
                         <div class="mt-4 d-flex justify-content-between">
 
                             <div class="col form-group">
-                                <label>@lang('general.name')</label>
+                                <label>@lang('general.name') <span class="text-red-500">&nbsp;*</span></label>
                                 <input type="text" class="form-control"
                                        name="name"
                                        value="{{old('name')}}"
-                                       placeholder="@lang('general.name')">
+                                       placeholder="@lang('general.name')"
+                                       required>
                                 @if($errors->has('name'))
                                 <div class="invalid-feedback" style="display:block;">
                                 {{ $errors->first('name') }}
@@ -50,11 +52,12 @@
                         <div class="mt-4 d-flex justify-content-between">
 
                             <div class="col form-group">
-                                <label>@lang('general.phone')</label>
+                                <label>@lang('general.phone') <span class="text-red-500">&nbsp;*</span></label>
                                 <input type="text" class="form-control"
                                        name="phone"
                                        value="{{old('phone')}}"
-                                       placeholder="@lang('general.phone')">
+                                       placeholder="@lang('general.phone')"
+                                       required>
                                 @if($errors->has('phone'))
                                 <div class="invalid-feedback" style="display:block;">
                                 {{ $errors->first('phone') }}

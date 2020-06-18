@@ -36,6 +36,7 @@
   {{-- template rtl version --}}
   <link rel="stylesheet" href="{{asset('admin/dist/css/custom-style.css')}}">
   <link rel="stylesheet" href="{{asset('admin/dist/css/select2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('admin/dist/css/style.css')}}">
   <style>
       body{
         font-family: 'Tajawal', sans-serif !important;

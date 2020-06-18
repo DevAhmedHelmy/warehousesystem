@@ -20,21 +20,21 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PermissionTableSeeder::class);
         $this->call(CreateAdminUserSeeder::class);
-        factory(Category::class, 3)->create();
-        factory(Client::class, 3)->create();
-        factory(Company::class, 3)->create();
-        factory(Stock::class, 3)->create();
-        factory(Product::class, 3)->create();
+        factory(Category::class, 1000)->create();
+        factory(Client::class, 1000)->create();
+        factory(Company::class, 1000)->create();
+        factory(Stock::class, 1000)->create();
+        factory(Product::class, 1000)->create();
         $products = Product::all();
         // Populate the pivot table
         Stock::all()->each(function ($stock) use ($products) {
             $stock->products()->attach(
-                $products->random(rand(1, 3))->pluck('id')->toArray(),
+                $products->random(rand(1, 1000))->pluck('id')->toArray(),
                 ['first_balance' => 10,'end_balance'=>10]
             );
         });
-        factory(SaleBill::class, 3)->create();
-        factory(InvoiceSaleBill::class, 3)->create();
+        factory(SaleBill::class, 1000)->create();
+        factory(InvoiceSaleBill::class, 1000)->create();
 
 
     }

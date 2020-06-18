@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class CreateInvoiceSalesBillsTable extends Migration
+class CreateInvoiceSaleBillsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateInvoiceSalesBillsTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_sales_bills', function (Blueprint $table) {
+        Schema::create('invoice_sale_bills', function (Blueprint $table) {
             $table->id('id');
             $table->integer('quantity');
             $table->double('discount', 4, 2)->default(0);
@@ -34,6 +34,6 @@ class CreateInvoiceSalesBillsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoice_sales_bills');
+        Schema::dropIfExists('invoice_sale_bills');
     }
 }

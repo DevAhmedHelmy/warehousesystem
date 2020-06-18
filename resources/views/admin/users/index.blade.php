@@ -1,17 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('header')
-    <div class="mb-2 row">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">@lang('general.users')</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
-            <li class="breadcrumb-item active">@lang('general.users')</li>
-            </ol>
-        </div>
-    </div>
+    <x-admin.breadcrumb title="users">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
+        <li class="breadcrumb-item active">@lang('general.users')</li>
+    </x-admin.breadcrumb>
 @endsection
 
 @section('content')
@@ -21,7 +14,9 @@
         <div class="card-header">
             <h3 class="card-title">
                 @can('user-create')
-                    <a class="btn btn-success" href="{{ route('users.create') }}"><i class="fa fa-plus"></i> @lang('general.Create_New_user')</a>
+                <x-admin.actions.add_new url="users.create" class="bg-green-600 text-white rounded py-2 px-3">
+                      @lang('general.Create_New_user')
+                </x-admin.actions.add_new>
                 @endcan
             </h3>
         </div>

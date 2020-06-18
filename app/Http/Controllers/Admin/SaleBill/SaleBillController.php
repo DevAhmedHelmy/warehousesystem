@@ -73,7 +73,7 @@ class SaleBillController extends Controller
                 foreach ($request->product_id as $key => $value) {
                     InvoiceSaleBill::create([
                     'quantity' => $data['quantity'][$key],
-                    'discount' => $data['dicount'][$key],
+                    'discount' => $data['discount'][$key],
                     'tax' => $data['tax'][$key],
                     'total' => $data['quantity'][$key],
                     'product_id' => $data['product_id'][$key],
@@ -117,8 +117,11 @@ class SaleBillController extends Controller
      */
     public function show($id)
     {
-        $saleBill = SaleBill::findOrfail($id);
-
+        $saleBill = SaleBill::where('id',$id)
+                    ->leftJoin('invoice_sale_bills','sale_bills.id','=','invoice_sale_bills.sale_bill_id')
+                    ->select('sale_bills.id','invoice_sale_bills.*')
+                    ->first();
+        dd($saleBill);
         return view('admin.sales.salebills.show',['saleBill'=>$saleBill]);
     }
 

@@ -1,17 +1,11 @@
 @extends('admin.layouts.app')
 
 @section('header')
-    <div class="mb-2 row">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">@lang('general.sales')</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="#">@lang('general.sales_bills')</a></li>
+
+    <x-admin.breadcrumb title="sales">
+        <li class="breadcrumb-item"><a href="#">@lang('general.sales_bills')</a></li>
             <li class="breadcrumb-item active">@if(!$saleBill->id) @lang('general.Create_New_bill') @else @lang('general.update_sale_bill') @endif</li>
-            </ol>
-        </div>
-    </div>
+    </x-admin.breadcrumb>
 @endsection
 
 @section('content')
@@ -141,10 +135,10 @@
                             @enderror
                         </div>
                         <div class="col form-group">
-                            <label for="dicount" class="control-label">@lang('general.dicount')</label>
-                            <input type="number" name="dicount[]" class="form-control @error('dicount') is-invalid @enderror dicount" id="dicount" value="{{old('name',$saleBill->dicount)}}" placeholder="@lang('general.dicount')">
+                            <label for="discount" class="control-label">@lang('general.discount')</label>
+                            <input type="number" name="discount[]" class="form-control @error('discount') is-invalid @enderror discount" id="discount" value="{{old('name',$saleBill->discount)}}" placeholder="@lang('general.discount')">
 
-                            @error('dicount')
+                            @error('discount')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -158,15 +152,16 @@
                     </div>
                 </div>
             </div>
+            <div class="col form-group">
+                <button class="btn btn-primary btn-sm" id="add_product"><i class="fa fa-plus fa-sm"></i> @lang('general.add')</button>
+           </div>
             <div class="col-12">
                 <div class="col form-group">
                     <label for="price" class="control-label">@lang('general.bill_total')</label>
                     <input type="number" name="bill_total[]" class="form-control bill_total" id="total" value="" placeholder="@lang('general.bill_total')">
                 </div>
             </div>
-            <div class="col form-group">
-                <button class="btn btn-primary btn-sm" id="add_product"><i class="fa fa-plus fa-sm"></i> @lang('general.add')</button>
-           </div>
+
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
@@ -229,9 +224,9 @@
                         @enderror
                     </div>
                     <div class="col form-group">
-                        <label for="dicount" class="control-label">@lang('general.dicount')</label>
-                        <input type="number" name="dicount[]" class="form-control @error('dicount') is-invalid @enderror dicount" id="dicount" value="{{old('name',$saleBill->dicount)}}" placeholder="@lang('general.dicount')">
-                        @error('dicount')
+                        <label for="discount" class="control-label">@lang('general.discount')</label>
+                        <input type="number" name="discount[]" class="form-control @error('discount') is-invalid @enderror discount" id="discount" value="{{old('name',$saleBill->discount)}}" placeholder="@lang('general.discount')">
+                        @error('discount')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -273,10 +268,10 @@
             var total_after_tax =  total + (total * tax);
             $(this).closest('.products').find('.total').val(total_after_tax);
         });
-        $(document).on('change','.dicount',function(){
+        $(document).on('change','.discount',function(){
             var price = $(this).closest('.products').find('.price').val();
-            var dicount = $('.dicount').val();
-            var total =  total - (total * dicount);
+            var discount = $('.discount').val();
+            var total =  total - (total * discount);
             $(this).closest('.products').find('.total').val(total);
         });
 

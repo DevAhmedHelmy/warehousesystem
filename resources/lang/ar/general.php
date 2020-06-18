@@ -172,7 +172,7 @@ return[
     'Create_New_bill'                                   => 'اضافة فاتورة جديدة',
     'bill_number'                                       => 'رقم الفاتورة',
     'tax'                                               => 'الضريبه',
-    'dicount'                                           => 'الخصم',
+    'discount'                                          => 'الخصم',
     'add'                                               => 'اضافة',
     'remove'                                            => 'حذف',
     'balance'                                           => 'الميزانية',
@@ -180,6 +180,7 @@ return[
     'cash'                                              => 'كاش',
     'installment'                                       => 'اجل',
     'checks'                                            => 'شيكات',
+    'bill_total'                                        => 'اجمالى الفاتورة'
 
 
 ];

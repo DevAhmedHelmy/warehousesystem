@@ -73,7 +73,7 @@
                 {{--  companies link  --}}
                 @can('company-list')
                     <li class="nav-item">
-                        <a href="{{ route('companies.index') }}" class="nav-link @if(request()->is('companies')) active @endif">
+                        <a href="{{ route('companies.index') }}" class="nav-link @if(request()->is('companies') || request()->is('companies/*')) active @endif">
                             <i class="nav-icon fa fa-building"></i>
                             <p>
                                 @lang('general.companies')
@@ -85,7 +85,7 @@
                 {{--  categories link  --}}
                 @can('category-list')
                     <li class="nav-item">
-                        <a href="{{ route('categories.index') }}" class="nav-link @if(request()->is('categories')) active @endif">
+                        <a href="{{ route('categories.index') }}" class="nav-link @if(request()->is('categories') || request()->is('categories/*')) active @endif">
                             <i class="nav-icon fa fa-th"></i>
                             <p>
                                 @lang('general.categories')
@@ -97,7 +97,7 @@
                 {{--  products link  --}}
                 @can('product-list')
                     <li class="nav-item">
-                        <a href="{{ route('products.index') }}" class="nav-link @if(request()->is('products')) active @endif">
+                        <a href="{{ route('products.index') }}" class="nav-link @if(request()->is('products') || request()->is('products/*')) active @endif">
                             <i class="nav-icon fa fa-product-hunt"></i>
                             <p>
                                 @lang('general.products')
@@ -109,7 +109,7 @@
                 {{--  clients link  --}}
                 @can('client-list')
                     <li class="nav-item">
-                        <a href="{{ route('clients.index') }}" class="nav-link @if(request()->is('clients')) active @endif">
+                        <a href="{{ route('clients.index') }}" class="nav-link @if(request()->is('clients') || request()->is('clients/*')) active @endif">
                             <i class="nav-icon fa fa-users"></i>
                             <p>
                                 @lang('general.clients')
@@ -121,7 +121,7 @@
                 {{--  suppliers link  --}}
                 @can('supplier-list')
                     <li class="nav-item">
-                        <a href="{{ route('suppliers.index') }}" class="nav-link @if(request()->is('suppliers')) active @endif">
+                        <a href="{{ route('suppliers.index') }}" class="nav-link @if(request()->is('suppliers') || request()->is('suppliers/*')) active @endif">
                             <i class="nav-icon fa fa-users"></i>
                             <p>
                                 @lang('general.suppliers')
@@ -131,7 +131,7 @@
                 @endcan
                 {{--  ! suppliers link  --}}
                 {{--  purchases pages  --}}
-                <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
+                <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
@@ -157,7 +157,7 @@
                 </li>
                 {{--  !purchases pages  --}}
                 {{--  sales pages  --}}
-                <li class="nav-item has-treeview @if(request()->is('salebills')) menu-open @endif">
+                <li class="nav-item has-treeview {{active_menu('salebills')[0]}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
@@ -165,9 +165,10 @@
                         <i class="right fa fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+
+                    <ul class="nav nav-treeview {{active_menu('salebills')[1]}}">
                         <li class="nav-item">
-                            <a href="{{ route('salebills.index') }}" class="nav-link">
+                            <a href="{{ route('salebills.index') }}" class="nav-link {{active_menu('salebills')[2]}}">
                                 <i class="fa fa-pie-chart nav-icon"></i>
                                 <p>@lang('general.sales_bills')</p>
                             </a>
@@ -183,7 +184,7 @@
                 </li>
                 {{--  !sales pages  --}}
                 {{--  stocks pages  --}}
-                <li class="nav-item has-treeview @if(request()->is('roles')) menu-open @endif">
+                <li class="nav-item has-treeview {{active_menu('stocks')[0]}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
@@ -191,10 +192,10 @@
                         <i class="right fa fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview {{active_menu('stocks')[1]}}">
                         @can('stock-list')
                             <li class="nav-item">
-                                <a href="{{ route('stocks.index') }}" class="nav-link">
+                                <a href="{{ route('stocks.index') }}" class="nav-link {{active_menu('stocks')[2]}}">
                                     <i class="fa fa-pie-chart nav-icon"></i>
                                     <p>@lang('general.main_stocks')</p>
                                 </a>

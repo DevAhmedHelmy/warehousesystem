@@ -1,17 +1,9 @@
 @extends('admin.layouts.app')
 
 @section('header')
-    <div class="mb-2 row">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">@lang('permission.permission')</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
-            <li class="breadcrumb-item active">@lang('permission.permission')</li>
-            </ol>
-        </div>
-    </div>
+<x-admin.breadcrumb title="sales">
+    <li class="breadcrumb-item"><a href="#">@lang('general.sales_bills')</a></li>
+</x-admin.breadcrumb>
 @endsection
 
 @section('content')
