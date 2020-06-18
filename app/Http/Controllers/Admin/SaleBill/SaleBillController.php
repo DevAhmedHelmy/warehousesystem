@@ -131,9 +131,9 @@ class SaleBillController extends Controller
      * @param  \App\Models\SaleBill  $saleBill
      * @return \Illuminate\Http\Response
      */
-    public function edit(SaleBill $saleBill)
+    public function edit($id)
     {
-        //
+
     }
 
     /**

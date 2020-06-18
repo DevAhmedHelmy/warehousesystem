@@ -15,7 +15,12 @@ class CreatePurchaseBillsTable extends Migration
     {
         Schema::create('purchase_bills', function (Blueprint $table) {
             $table->id();
-
+            $table->integer('bill_number')->unique();
+            $table->double('discount', 4, 2)->default(0);
+            $table->double('tax', 4, 2)->default(0);
+            $table->double('total', 8, 2)->default(0);
+            $table->foreignId('suuplier_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

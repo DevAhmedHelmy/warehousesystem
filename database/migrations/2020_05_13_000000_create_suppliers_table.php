@@ -18,10 +18,8 @@ class CreateSuppliersTable extends Migration
             $table->string('name');
             $table->text('address')->nullable();
             $table->string('phone');
-            $table->enum('type', ['supplier', 'client'])->default('supplier');
             $table->enum('user_type', ['cash', 'installment','checks'])->default('cash');
             $table->string('tax_number')->nullable();
-            $table->double('balance', 10, 2)->default(0);
             $table->foreignId('company_id');
             $table->softDeletes();
             $table->timestamps();

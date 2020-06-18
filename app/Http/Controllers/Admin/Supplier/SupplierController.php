@@ -44,6 +44,7 @@ class SupplierController extends Controller
     {
         $supplier = new Supplier();
         $companies = Company::all();
+
         return view('admin.suppliers.form',['supplier'=>$supplier,'companies'=>$companies]);
     }
 
@@ -70,7 +71,7 @@ class SupplierController extends Controller
      */
     public function show($id)
     {
-        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
+        $supplier = Supplier::findOrFail($id);
         return view('admin.suppliers.show',['supplier'=>$supplier]);
     }
 
@@ -82,7 +83,7 @@ class SupplierController extends Controller
      */
     public function edit($id)
     {
-        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
+        $supplier = Supplier::findOrFail($id);
         $companies = Company::all();
         return view('admin.suppliers.form',['supplier'=>$supplier,'companies'=>$companies]);
     }
@@ -97,7 +98,7 @@ class SupplierController extends Controller
     public function update(SuplierRequest $request, $id)
     {
         $data = $request->validated();
-        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
+        $supplier = Supplier::findOrFail($id);
         $supplier->update($data);
         return redirect()->route('suppliers.index')
                         ->with('success',trans('general.updated_Successfully'));
@@ -111,8 +112,8 @@ class SupplierController extends Controller
      */
     public function destroy($id)
     {
-        $supplier = Supplier::where('id',$id)->where('type','supplier')->first();
-        $supplier->delete();
+        Supplier::findOrFail($id)->delete();
+
         return redirect()->route('suppliers.index')
                         ->with('success',trans('general.deleted_Successfully'));
     }
