@@ -131,7 +131,7 @@
                 @endcan
                 {{--  ! suppliers link  --}}
                 {{--  purchases pages  --}}
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview {{active_menu('purchasebills')[0]}}">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fa fa-home"></i>
                         <p>
@@ -139,9 +139,9 @@
                         <i class="right fa fa-angle-left"></i>
                         </p>
                     </a>
-                    <ul class="nav nav-treeview">
+                    <ul class="nav nav-treeview {{active_menu('purchasebills')[1]}}">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('purchasebills.index') }}" class="nav-link {{active_menu('purchasebills')[2]}}">
                                 <i class="fa fa-pie-chart nav-icon"></i>
                                 <p>@lang('general.purchases_bills')</p>
                             </a>
