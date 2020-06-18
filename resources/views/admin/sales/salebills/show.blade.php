@@ -1,97 +1,97 @@
 @extends('admin.layouts.app')
 @section('header')
-    <div class="mb-2 row">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">@lang('general.permission')</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="#">@lang('general.permission')</a></li>
-            <li class="breadcrumb-item active">@lang('general.Create_New_Role')</li>
-            </ol>
-        </div>
-    </div>
+
+    <x-admin.breadcrumb title="sales">
+        <li class="breadcrumb-item"><a href="{{route('salebills.index')}}">@lang('general.sales_bills')</a></li>
+        <li class="breadcrumb-item active">{{ $saleBill->bill_number }}</li>
+    </x-admin.breadcrumb>
 @endsection
 @section('content')
 <div class="col-12">
 
 
     @if(isset($saleBill) && !is_null($saleBill->invoiceSaleBills))
-    <div class="card card-outline card-success">
-        <div class="card-header">
-          <h3 class="card-title">@lang('general.products')</h3>
 
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-          </div>
-          {{-- /.card-tools --}}
-        </div>
-        {{-- /.card-header --}}
+    <div class="card card-outline card-success">
+        {{--  <div class="card-header">
+          <h3 class="card-title"></h3>
+
+
+
+        </div>  --}}
+
 
             <div class="card-body">
                 <div class="row mb-5">
 
 
-                    <div class="col-sm-3 border-right">
+                    <div class="col-sm-4 border-right">
                         <div class="description-block">
-                        <h5 class="description-header">@lang('general.category_name')</h5>
-                        <span class="description-text"> </span>
+                        <h5 class="description-header">@lang('general.name')</h5>
+                        <span class="description-text"> {{ $saleBill->client->name }} </span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                        <h5 class="description-header">@lang('general.bill_number')</h5>
+                        <span class="description-text"> {{ $saleBill->bill_number }} </span>
                         </div>
 
                     </div>
-                    <div class="col-sm-3 border-right">
-                        <div class="description-block">
-                        <h5 class="description-header">@lang('general.category_code')</h5>
-                        <span class="description-text"> </span>
-                        </div>
 
-                    </div>
-                    <div class="col-sm-3 border-right">
+                    <div class="col-sm-4 border-right">
                         <div class="description-block">
                         <h5 class="description-header">@lang('general.created_at')</h5>
-                        <span class="description-text"> </span>
+                        <span class="description-text"> {{ $saleBill->created_at->format('Y/m/d') }} </span>
                         </div>
-
                     </div>
-                    <div class="col-sm-3 border-right">
-                        <div class="description-block">
-                        <h5 class="description-header">@lang('general.updated_at')</h5>
-                        <span class="description-text"> </span>
-                        </div>
 
-                    </div>
-                    <hr>
+
                 </div>
 
                 <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>@lang('general.No')</th>
+                                <th>@lang('general.product_code')</th>
+                                <th>@lang('general.name')</th>
+                                <th>@lang('general.purchase_price')</th>
+                                <th>@lang('general.quantity')</th>
+                                <th>@lang('general.discount')</th>
+                                <th>@lang('general.tax')</th>
+                                <th>@lang('general.total')</th>
 
+                                <th>@lang('general.controll')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>@lang('general.No')</th>
-                            <th>@lang('general.product_code')</th>
-                            <th>@lang('general.name')</th>
-                            <th>@lang('general.purchase_price')</th>
+                            @foreach($saleBill->invoiceSaleBills as $item)
+                            @dd($item->products)
+                            <tr>
+                                <th scope="row">{{$item->id}}</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th scope="row">{{$item->quantity}}</th>
+                                <th scope="row">{{$item->discount}}</th>
+                                <th scope="row">{{$item->tax}}</th>
+                                <th scope="row">{{$item->total}}</th>
+                                <td>
 
-                            <th>@lang('general.controll')</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach($saleBill->invoiceSaleBills as $item)
-                        <tr>
-                            <th scope="row">{{$item->id}}</th>
-
-                            <td>
-
-                                <a href="{{ route('products.show', $item->id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                    <a href="{{ route('products.show', $item->id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
+                                </td>
+                            </tr>
+                            @endforeach
+                            <tr>
+                                <td colspan="5">@lang('general.total')</td>
+                                <td>{{$saleBill->discount}}</td>
+                                <td>{{$saleBill->tax}}</td>
+                                <td colspan="2">{{$saleBill->total}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

@@ -7,7 +7,7 @@ use App\Models\SaleBill;
 
 class InvoiceSaleBill extends Model
 {
-    protected $table = 'invoice_sales_bills';
+
     public function saleBill()
     {
         return $this->belongsTo(SaleBill::class, 'sales_bill_id');
@@ -16,7 +16,7 @@ class InvoiceSaleBill extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'product_id');
+        return $this->hasMany(Product::class, 'id');
     }
 
 

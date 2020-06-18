@@ -1,17 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('header')
-<div class="mb-2 row">
-    <div class="col-sm-6">
-      <h1 class="m-0 text-dark">@lang('general.dashboard')</h1>
-    </div>{{-- /.col --}}
-    <div class="col-sm-6">
-      <ol class="breadcrumb float-sm-left">
+    <x-admin.breadcrumb title="users">
         <li class="breadcrumb-item"><a href="{{route('users.index')}}">@lang('general.users')</a></li>
         <li class="breadcrumb-item active">{{$user->name}}</li>
-      </ol>
-    </div>{{-- /.col --}}
-  </div>{{-- /.row --}}
+    </x-admin.breadcrumb>
 @endsection
 @section('content')
 <div class="col-12">

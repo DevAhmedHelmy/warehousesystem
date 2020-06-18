@@ -1,17 +1,10 @@
 @extends('admin.layouts.app')
 
 @section('header')
-    <div class="mb-2 row">
-        <div class="col-sm-6">
-            <h1 class="m-0 text-dark">@lang('general.companies')</h1>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
-            <li class="breadcrumb-item active">@lang('general.companies')</li>
-            </ol>
-        </div>
-    </div>
+    <x-admin.breadcrumb title="companies">
+        <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
+        <li class="breadcrumb-item active">@lang('general.companies')</li>
+    </x-admin.breadcrumb>
 @endsection
 
 @section('content')
@@ -21,8 +14,8 @@
             <div class="card-header">
                 <h3 class="card-title">
                     @can('company-create')
-                    <button type="button" class="btn btn-success addcompany" data-toggle="modal" data-target="#exampleModalCenter">
-                        <i class="fa fa-plus-circle"></i> @lang('general.Create_New_company')
+                    <button type="button" class="bg-green-600 text-white rounded py-2 px-3 addcompany" data-toggle="modal" data-target="#exampleModalCenter">
+                        <i class="fa fa-plus"></i> @lang('general.Create_New_company')
 					</button>
                     @endcan
                 </h3>

@@ -13,7 +13,7 @@ class UpdateInvoiceSaleBillsTable extends Migration
      */
     public function up()
     {
-        Schema::table('invoice_sales_bills', function (Blueprint $table) {
+        Schema::table('invoice_sale_bills', function (Blueprint $table) {
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade');
@@ -28,7 +28,7 @@ class UpdateInvoiceSaleBillsTable extends Migration
      */
     public function down()
     {
-        Schema::table('invoice_sales_bills', function (Blueprint $table) {
+        Schema::table('invoice_sale_bills', function (Blueprint $table) {
 
             $table->dropForeign('product_id');
             $table->dropForeign('sale_bill_id');

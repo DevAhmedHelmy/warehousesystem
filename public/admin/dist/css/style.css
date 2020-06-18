@@ -1,5 +1,6 @@
 
 
+@import url('tailwind.min.css');
 
 .delete_form{
     display: inline;
