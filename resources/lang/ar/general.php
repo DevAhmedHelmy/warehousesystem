@@ -184,5 +184,8 @@ return[
     'supplier_type'                                     => 'نوع المورد',
     'bill_tax'                                          => 'الضريبه على الفاتورة',
     'bill_discount'                                     => 'خصم على الفاتورة',
+    'notices'                                           => 'الاذونات',
+    'add_notices'                                       => 'إذن اضافة',
+    'dismissal_notices'                                 => 'إذن صرف',
 
 ];
