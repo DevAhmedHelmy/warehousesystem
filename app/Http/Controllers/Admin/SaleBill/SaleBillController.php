@@ -66,15 +66,14 @@ class SaleBillController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaleBillRequest $request)
     {
 
         $data = $request->all();
-
         $saleBill = SaleBill::create([
                 'bill_number' => $data['bill_number'],
-                'discount' => $data['bill_discount'],
-                'tax' => $data['bill_tax'],
+                'discount' => ($data['bill_discount'])??0,
+                'tax' => ($data['bill_tax'])??0,
                 'total' => $data['bill_total'],
                 'client_id' =>$data['client_id']
                 ]);
@@ -86,8 +85,8 @@ class SaleBillController extends Controller
                 foreach ($request->product_id as $key => $value) {
                     InvoiceSaleBill::create([
                     'quantity' => $data['quantity'][$key],
-                    'discount' => $data['discount'][$key],
-                    'tax' => $data['tax'][$key],
+                    'discount' => ($data['discount'][$key])??0,
+                    'tax' => ($data['tax'][$key])??0,
                     'total' => $data['quantity'][$key],
                     'product_id' => $data['product_id'][$key],
                     'stock_id' => $data['stock_id'],
@@ -132,7 +131,6 @@ class SaleBillController extends Controller
     {
 
         $saleBill = SaleBill::with(['invoiceSaleBills','invoiceSaleBills.product'])->findOrFail($id);
-
         return view('admin.sales.salebills.show',['saleBill'=>$saleBill]);
     }
 
@@ -154,7 +152,7 @@ class SaleBillController extends Controller
      * @param  \App\Models\SaleBill  $saleBill
      * @return \Illuminate\Http\Response
      */
-    public function update(SaleBillRequest $request, SaleBill $saleBill)
+    public function update(SaleBillRequest $request, $id)
     {
         //
     }
@@ -165,8 +163,10 @@ class SaleBillController extends Controller
      * @param  \App\Models\SaleBill  $saleBill
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SaleBill $saleBill)
+    public function destroy($id)
     {
-        //
+        SaleBill::findOrFail($id)->delete();
+        return redirect()->route('salebills.index')
+                        ->with('success',trans('general.deleted_Successfully'));
     }
 }
