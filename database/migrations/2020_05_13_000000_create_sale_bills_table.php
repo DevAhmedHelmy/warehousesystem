@@ -20,6 +20,7 @@ class CreateSaleBillsTable extends Migration
             $table->double('tax', 4, 2)->default(0);
             $table->double('total', 8, 2)->default(0);
             $table->foreignId('client_id');
+            $table->foreignId('stock_id');
             $table->softDeletes();
             $table->timestamps();
         });
