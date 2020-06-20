@@ -130,14 +130,9 @@ class SaleBillController extends Controller
      */
     public function show($id)
     {
-        // $saleBill = SaleBill::where('sale_bills.id',$id)
-        //             ->leftJoin('invoice_sale_bills','sale_bills.id','=','invoice_sale_bills.sale_bill_id')
-        //             ->select('sale_bills.id','invoice_sale_bills.*')
-        //             ->first();
 
-        $saleBill = SaleBill::with('invoiceSaleBills')
-                            ->findOrFail($id);
-        dd($saleBill);
+        $saleBill = SaleBill::with(['invoiceSaleBills','invoiceSaleBills.product'])->findOrFail($id);
+
         return view('admin.sales.salebills.show',['saleBill'=>$saleBill]);
     }
 
