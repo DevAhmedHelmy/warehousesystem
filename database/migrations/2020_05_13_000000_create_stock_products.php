@@ -17,6 +17,7 @@ class CreateStockProducts extends Migration
             $table->id();
             $table->unsignedBigInteger('stock_id');
             $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('saleBill_id')->nullable();
             $table->integer('first_balance');
             $table->integer('additions')->default(0);
             $table->integer('outgoing')->default(0);

@@ -48,14 +48,11 @@ class SaleBillController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
-        $clients = Client::all();
-        $stocks= Stock::with('products')->get();
+        // $products = Product::all();
+        // $clients = Client::all();
+        // $stocks= Stock::with('products')->get();
         return view('admin.sales.salebills.form',
             [
-                'products' => $products,
-                'clients' => $clients,
-                'stocks' => $stocks,
                 'saleBill' => new SaleBill()
             ]);
     }
@@ -70,12 +67,14 @@ class SaleBillController extends Controller
     {
 
         $data = $request->all();
+
         $saleBill = SaleBill::create([
                 'bill_number' => $data['bill_number'],
                 'discount' => ($data['bill_discount'])??0,
                 'tax' => ($data['bill_tax'])??0,
                 'total' => $data['bill_total'],
-                'client_id' =>$data['client_id']
+                'client_id' =>$data['client_id'],
+                'stock_id' =>$data['stock_id'],
                 ]);
 
         if($saleBill && $request->product_id != '')
@@ -87,7 +86,8 @@ class SaleBillController extends Controller
                     'quantity' => $data['quantity'][$key],
                     'discount' => ($data['discount'][$key])??0,
                     'tax' => ($data['tax'][$key])??0,
-                    'total' => $data['quantity'][$key],
+                    'total' => $data['total'][$key],
+                    'price'=> $data['price'][$key],
                     'product_id' => $data['product_id'][$key],
                     'stock_id' => $data['stock_id'],
                     'sale_bill_id' => $saleBill->id
@@ -142,6 +142,14 @@ class SaleBillController extends Controller
      */
     public function edit($id)
     {
+        $saleBill = SaleBill::with(['invoiceSaleBills','invoiceSaleBills.product'])->findOrFail($id);
+
+        session()->flash('saleBill',$saleBill);
+
+        return view('admin.sales.salebills.form',
+            [
+                'saleBill' => $saleBill
+            ]);
 
     }
 
@@ -154,7 +162,68 @@ class SaleBillController extends Controller
      */
     public function update(SaleBillRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+
+        $saleBill = SaleBill::findOrFail($id);
+
+        $saleBill->update([
+                'bill_number' => $data['bill_number'],
+                'discount' => ($data['bill_discount'])??0,
+                'tax' => ($data['bill_tax'])??0,
+                'total' => $data['bill_total'],
+                'client_id' =>$data['client_id'],
+                'stock_id' =>$data['stock_id'],
+                ]);
+
+        if($saleBill && $request->product_id != '')
+        {
+            $saleBill->invoiceSaleBills()->delete();
+
+            // delete transations of product in stock
+
+             \DB::table('stock_products')
+             ->where('stock_id', $data['stock_id'])
+             ->where('saleBill_id', $saleBill->id)
+             ->delete();
+
+            $rows =[];
+            DB::transaction(function () use($data,$saleBill,$request){
+                foreach ($request->product_id as $key => $value) {
+                    InvoiceSaleBill::create([
+                    'quantity' => $data['quantity'][$key],
+                    'discount' => ($data['discount'][$key])??0,
+                    'tax' => ($data['tax'][$key])??0,
+                    'total' => $data['total'][$key],
+                    'price'=> $data['price'][$key],
+                    'product_id' => $data['product_id'][$key],
+                    'stock_id' => $data['stock_id'],
+                    'sale_bill_id' => $saleBill->id
+                ]);
+
+
+                    $product = \DB::table('stock_products')
+                     ->where('stock_id', $data['stock_id'])
+                     ->where('product_id', $data['product_id'][$key])
+                     ->orderBy('created_at', 'desc')
+                     ->first();
+
+                    if ($product !== null) {
+                        $rows[] = ['first_balance'=>$product->end_balance,
+                              'outgoing'=>$data['quantity'][$key],
+                              'end_balance'=> $product->end_balance - $data['quantity'][$key],
+                              'product_id'=>$data['product_id'][$key],
+                              'stock_id'=>$data['stock_id'],
+                              'created_at'=>now(),
+                              'updated_at'=>now(),
+                             ];
+                    } else {
+                        abort(403);
+                    }
+                }
+                \DB::table('stock_products')->insert($rows);
+            });
+        }
     }
 
     /**

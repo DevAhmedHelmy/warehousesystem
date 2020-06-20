@@ -19,6 +19,7 @@ class CreateInvoiceSaleBillsTable extends Migration
             $table->double('discount', 4, 2)->default(0);
             $table->double('tax', 4, 2)->default(0);
             $table->double('total', 8, 2)->default(0);
+            $table->double('price', 8, 2)->default(0);
             $table->foreignId('product_id');
             $table->foreignId('stock_id');
             $table->foreignId('sale_bill_id');
