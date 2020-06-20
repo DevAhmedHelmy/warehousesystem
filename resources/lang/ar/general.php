@@ -181,7 +181,8 @@ return[
     'installment'                                       => 'اجل',
     'checks'                                            => 'شيكات',
     'bill_total'                                        => 'اجمالى الفاتورة',
-    'supplier_type'                                     => 'نوع المورد'
-
+    'supplier_type'                                     => 'نوع المورد',
+    'bill_tax'                                          => 'الضريبه على الفاتورة',
+    'bill_discount'                                     => 'خصم على الفاتورة',
 
 ];
