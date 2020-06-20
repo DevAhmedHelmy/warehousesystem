@@ -48,14 +48,11 @@ class SaleBillController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
-        $clients = Client::all();
-        $stocks= Stock::with('products')->get();
+        // $products = Product::all();
+        // $clients = Client::all();
+        // $stocks= Stock::with('products')->get();
         return view('admin.sales.salebills.form',
             [
-                'products' => $products,
-                'clients' => $clients,
-                'stocks' => $stocks,
                 'saleBill' => new SaleBill()
             ]);
     }
@@ -147,20 +144,10 @@ class SaleBillController extends Controller
     {
         $saleBill = SaleBill::with(['invoiceSaleBills','invoiceSaleBills.product'])->findOrFail($id);
 
-        $clients = Client::all();
-
-        $stocks= Stock::with('products')->get();
-
-        $invoice_stock = $stocks->where('id',$saleBill->stock_id)->first();
-
-        $products = Product::whereIn('id',$invoice_stock->products->pluck('id'))->get();
-
+        session()->flash('saleBill',$saleBill);
 
         return view('admin.sales.salebills.form',
             [
-                'products' => $products,
-                'clients' => $clients,
-                'stocks' => $stocks,
                 'saleBill' => $saleBill
             ]);
 
