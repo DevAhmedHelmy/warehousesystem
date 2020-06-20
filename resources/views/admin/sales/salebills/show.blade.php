@@ -1,6 +1,5 @@
 @extends('admin.layouts.app')
 @section('header')
-
     <x-admin.breadcrumb title="sales">
         <li class="breadcrumb-item"><a href="{{route('salebills.index')}}">@lang('general.sales_bills')</a></li>
         <li class="breadcrumb-item active">{{ $saleBill->bill_number }}</li>
@@ -8,23 +7,13 @@
 @endsection
 @section('content')
 <div class="col-12">
-
-
     @if(isset($saleBill) && !is_null($saleBill->invoiceSaleBills))
-
-    <div class="card card-outline card-success">
-        {{--  <div class="card-header">
-          <h3 class="card-title"></h3>
-
-
-
-        </div>  --}}
-
-
+        <div class="card card-outline card-success">
+            {{--  <div class="card-header">
+            <h3 class="card-title"></h3>
+            </div>  --}}
             <div class="card-body">
                 <div class="row mb-5">
-
-
                     <div class="col-sm-4 border-right">
                         <div class="description-block">
                         <h5 class="description-header">@lang('general.name')</h5>
@@ -68,12 +57,11 @@
                         <tbody>
 
                             @foreach($saleBill->invoiceSaleBills as $item)
-                            @dd($item->products)
                             <tr>
                                 <th scope="row">{{$item->id}}</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th>{{$item->product->code}}</th>
+                                <th>{{$item->product->name}}</th>
+                                <th>{{$item->product->purchase_price}}</th>
                                 <th scope="row">{{$item->quantity}}</th>
                                 <th scope="row">{{$item->discount}}</th>
                                 <th scope="row">{{$item->tax}}</th>
@@ -94,19 +82,16 @@
                     </table>
                 </div>
             </div>
-
-        {{-- /.card-body --}}
-    </div>
+        </div>
     @else
-    <div class="card card-outline card-danger">
-        <div class="card-header">
-          <h3 class="card-title">@lang('general.products')</h3>
+        <div class="card card-outline card-danger">
+            <div class="card-header">
+            <h3 class="card-title">@lang('general.products')</h3>
+            </div>
+            <div class="card-body">
+                @lang('general.no_data_found')
+            </div>
         </div>
-        <div class="card-body">
-            @lang('general.no_data_found')
-        </div>
-        <!-- /.card-body -->
-      </div>
 
     @endif
 </div>
