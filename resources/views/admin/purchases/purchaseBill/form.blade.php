@@ -156,20 +156,21 @@
                 <button class="btn btn-primary btn-sm" id="add_product"><i class="fa fa-plus fa-sm"></i> @lang('general.add')</button>
            </div>
             <div class="col-12">
-                <div class="col form-group">
-                    <label for="bill_discount" class="control-label">@lang('general.bill_discount')</label>
-                    <input type="number" name="bill_discount" class="form-control bill_discount" id="total" value="" placeholder="@lang('general.bill_discount')">
-                </div>
-                <div class="col form-group">
-                    <label for="bill_tax" class="control-label">@lang('general.bill_tax')</label>
-                    <input type="number" name="bill_tax" class="form-control bill_tax" id="total" value="" placeholder="@lang('general.bill_tax')">
-                </div>
-                <div class="col form-group">
-                    <label for="price" class="control-label">@lang('general.bill_total')</label>
-                    <input type="number" name="bill_total" class="form-control bill_total" id="total" value="" placeholder="@lang('general.bill_total')">
+                <div class="mt-4 d-flex justify-content-between">
+                    <div class="col form-group">
+                        <label for="bill_discount" class="control-label">@lang('general.bill_discount')</label>
+                        <input type="number" name="bill_discount" class="form-control bill_discount" id="total" value="" placeholder="@lang('general.bill_discount')">
+                    </div>
+                    <div class="col form-group">
+                        <label for="bill_tax" class="control-label">@lang('general.bill_tax')</label>
+                        <input type="number" name="bill_tax" class="form-control bill_tax" id="total" value="" placeholder="@lang('general.bill_tax')">
+                    </div>
+                    <div class="col form-group">
+                        <label for="price" class="control-label">@lang('general.bill_total')</label>
+                        <input type="number" name="bill_total" class="form-control bill_total" id="total" value="" placeholder="@lang('general.bill_total')">
+                    </div>
                 </div>
             </div>
-
           </div>
           <!-- /.card-body -->
           <div class="card-footer">
