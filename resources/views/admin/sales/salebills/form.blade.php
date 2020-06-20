@@ -52,7 +52,7 @@
                         <select class="form-control select2" name="client_id">
                             <option value="">@lang('general.choose')</option>
                             @foreach($clients as $client)
-                                <option @if($client->id == old('client_id',$client->client_id) ) selected @endif value="{{$client->id}}">{{$client->name}}</option>
+                                <option @if($client->id == old('client_id',$saleBill->client_id) ) selected @endif value="{{$client->id}}">{{$client->name}}</option>
                             @endforeach
 
                         </select>
@@ -83,6 +83,80 @@
 
                 </div>
             </div>
+            @forelse ($saleBill->invoiceSaleBills as $item)
+
+            <div class="main_product">
+                <div class="col-12 products">
+                    <div class="mt-4 d-flex justify-content-between">
+
+                        <div class="col form-group">
+                            <label>@lang('general.products')</label>
+                            <select class="form-control select2 change_price" name="product_id[]">
+                                <option value="">@lang('general.choose')</option>
+                                @foreach($products as $product)
+                                    <option data-price="{{ $product->sale_price }}"
+                                    @if($product->id == old('product_id',$item->product_id) ) selected @endif value="{{$product->id}}">
+                                        {{$product->code}} - {{$product->name}}</option>
+                                @endforeach
+
+                            </select>
+                            @error('product_id')
+                                <span class="invalid-feedback" style="display:block;" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col form-group">
+                            <label for="price" class="control-label">@lang('general.price')</label>
+                            <input type="number" name="price[]" class="form-control @error('price') is-invalid @enderror price" id="price" value="{{ $item->price }}" placeholder="@lang('general.price')">
+
+                            @error('bill_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col form-group">
+                            <label for="quantity" class="control-label">@lang('general.quantity')</label>
+                            <input type="number" name="quantity[]" class="form-control @error('quantity') is-invalid @enderror quantity" id="quantity" value="{{old('name',$item->quantity)}}" placeholder="@lang('general.quantity')">
+
+                            @error('bill_number')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col form-group">
+                            <label for="tax" class="control-label">@lang('general.tax')</label>
+                            <input type="number" name="tax[]" class="form-control @error('tax') is-invalid @enderror tax" id="tax" value="{{old('name',$item->tax)}}" placeholder="@lang('general.tax')">
+
+                            @error('tax')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col form-group">
+                            <label for="discount" class="control-label">@lang('general.discount')</label>
+                            <input type="number" name="discount[]" class="form-control @error('discount') is-invalid @enderror discount" id="discount" value="{{old('name',$item->discount)}}" placeholder="@lang('general.discount')">
+
+                            @error('discount')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col form-group">
+                            <label for="price" class="control-label">@lang('general.total')</label>
+                            <input type="number" name="total[]" class="form-control @error('total') is-invalid @enderror total" id="total" value="{{ $item->total }}" placeholder="@lang('general.total')">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @empty
+
             <div class="main_product">
                 <div class="col-12 products">
                     <div class="mt-4 d-flex justify-content-between">
@@ -152,6 +226,9 @@
                     </div>
                 </div>
             </div>
+
+            @endforelse
+
             <div class="col form-group">
                 <button class="btn btn-primary btn-sm" id="add_product"><i class="fa fa-plus fa-sm"></i> @lang('general.add')</button>
            </div>
@@ -159,15 +236,15 @@
                 <div class="mt-4 d-flex justify-content-between">
                     <div class="col form-group">
                         <label for="bill_discount" class="control-label">@lang('general.bill_discount')</label>
-                        <input type="number" name="bill_discount" class="form-control bill_discount" id="total" value="" placeholder="@lang('general.bill_discount')">
+                        <input type="number" name="bill_discount" class="form-control bill_discount" id="total" value="{{ $saleBill->bill_discount }}" placeholder="@lang('general.bill_discount')">
                     </div>
                     <div class="col form-group">
                         <label for="bill_tax" class="control-label">@lang('general.bill_tax')</label>
-                        <input type="number" name="bill_tax" class="form-control bill_tax" id="total" value="" placeholder="@lang('general.bill_tax')">
+                        <input type="number" name="bill_tax" class="form-control bill_tax" id="total" value="{{ $saleBill->bill_tax }}" placeholder="@lang('general.bill_tax')">
                     </div>
                     <div class="col form-group">
                         <label for="price" class="control-label">@lang('general.bill_total')</label>
-                        <input type="number" name="bill_total" class="form-control bill_total" id="total" value="" placeholder="@lang('general.bill_total')">
+                        <input type="number" name="bill_total" class="form-control bill_total" id="total" value="{{ $saleBill->total }}" placeholder="@lang('general.bill_total')">
                     </div>
                 </div>
             </div>
@@ -189,6 +266,15 @@
     <script>
         var counter = 1;
         var stock_product_content='';
+
+        @if($saleBill->id)
+
+        $.each({!! json_encode($products) !!},function(key,item){
+            stock_product_content = stock_product_content +`<option data-price="${item.sale_price}" value="${item.id}">${item.code} - ${item.name}</option>`;
+           });
+
+        @endif
+
 
         $('#add_product').click(function(e){
             e.preventDefault();
