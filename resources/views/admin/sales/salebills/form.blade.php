@@ -266,6 +266,7 @@
     <script>
         var counter = 1;
         var stock_product_content='';
+        var bill_total_price = 0;
 
         @if($saleBill->id)
 
@@ -364,11 +365,19 @@
             var total_after_tax =  total + (total * tax);
             $(this).closest('.products').find('.total').val(total_after_tax);
         });
+
+
         $(document).on('change','.discount',function(){
             var price = $(this).closest('.products').find('.price').val();
             var discount = $('.discount').val();
-            var total =  total - (total * discount);
-            $(this).closest('.products').find('.total').val(total);
+            var total = $(this).closest('.products').find('.total').val();
+            if( !isNaN( total )){
+                total =  total - (total * discount) / 100;
+            $(this).closest('.products').find('.total').val(total.toFixed(2));
+            update_bill_total_price();
+            }else{
+                $(this).closest('.products').find('.total').val(0);
+            }
         });
 
         $('.quantity').on('change', function(){
@@ -398,5 +407,23 @@
             $('.change_price').html(content);
 
         });
+
+        function update_bill_total_price()
+        {
+
+            $('.total').each(function(index,item){
+
+                if( !isNaN(item.value) )
+                   {
+                       let val = parseFloat(item.value);
+                       console.log(val);
+                       bill_total_price += val;
+                   }
+
+                   $('.bill_total').val(bill_total_price);
+            });
+
+            bill_total_price = 0;
+        }
     </script>
 @endsection
