@@ -54,7 +54,7 @@
                                     @can('stock-edit')
                                         <span data-toggle="modal" data-target="#exampleModalCenter">
                                             <a data-url="{{route('stocks.update',$stock->id)}}"
-                                               data-name="{{$stock->name}}" data-phone="{{$stock->phone}}" data-address="{{$stock->address}}"
+                                               data-name="{{$stock->name}}" data-phone="{{$stock->phone}}" data-branch="{{$stock->branch_id}}" data-address="{{$stock->address}}"
                                                 href="{{route('stocks.edit',$stock->id)}}" class="btn btn-primary btn-sm edit"
                                                 data-toggle="tooltip" data-placement="top" title="@lang('general.Edit')">
                                                 <i class="fa fa-edit fa-sm"></i> @lang('general.Edit')
@@ -96,6 +96,7 @@
          $('input[name="address"]').val($(this).data('address'));
          $('input[name="name"]').val($(this).data('name'));
          $('input[name="phone"]').val($(this).data('phone'));
+         $('select[name="branch_id"]').val($(this).data('branch'));
          $('#exampleModalLongTitle').text("@lang('general.update')");
          $('.modal-body form').attr('action',$(this).data('url'));
          localStorage.setItem("prev_url", $(this).data('url'));

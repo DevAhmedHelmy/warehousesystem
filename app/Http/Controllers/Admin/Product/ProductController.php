@@ -9,6 +9,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Unit;
 
 class ProductController extends Controller
 {
@@ -45,8 +46,9 @@ class ProductController extends Controller
         $product = new Product();
         $companies = Company::all();
         $categories = Category::all();
+        $units = Unit::all();
         $stocks = Stock::all();
-        return view('admin.basic_information.products.form',compact('product','companies','categories','stocks'));
+        return view('admin.basic_information.products.form',compact('product','companies','categories','stocks','units'));
     }
 
     /**
@@ -65,6 +67,7 @@ class ProductController extends Controller
             'sale_price' =>$request->sale_price,
             'category_id' =>$request->category_id,
             'company_id' =>$request->company_id,
+            'unit_id' =>$request->unit_id,
         ]);
         if($product){
             $product->stocks()->attach($product->id,[

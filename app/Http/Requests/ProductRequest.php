@@ -31,7 +31,8 @@ class ProductRequest extends FormRequest
             'purchase_price' => 'required',
             'sale_price' => 'required',
             'category_id' => 'required|exists:categories,id',
-            'company_id' => 'required|exists:companies,id'
+            'company_id' => 'required|exists:companies,id',
+            'unit_id' => 'required|exists:units,id'
          ];
 
 

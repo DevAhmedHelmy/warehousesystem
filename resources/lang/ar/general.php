@@ -187,5 +187,13 @@ return[
     'notices'                                           => 'الاذونات',
     'add_notices'                                       => 'إذن اضافة',
     'dismissal_notices'                                 => 'إذن صرف',
+    'branches'                                          => 'الفروع',
+    'units'                                             => 'الوحدات',
+    'Create_New_branch'                                 => 'اضافة فرع جديد',
+    'create_new'                                        => 'اضافة جديد',
+    'Create_New_unit'                                   => 'اضافة وحدة جديد',
+    'basic_information'                                 => 'المعلومات الاساسية',
+    'reports'                                           => 'التقارير',
+    'financial'                                         => 'المالية',
 
 ];

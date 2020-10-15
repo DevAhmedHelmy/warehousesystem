@@ -37,7 +37,7 @@
                         <div class="col-12">
                             <div class="mt-4 d-flex justify-content-between">
 
-                                <div class="col-4 form-group">
+                                <div class="col form-group">
                                     <label>@lang('general.product_code')</label>
                                     <input type="text" class="form-control"
                                            name="code" value="{{old('code',$product->code)}}"
@@ -48,7 +48,23 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-4 form-group">
+                                <div class="col form-group">
+                                    <label>@lang('general.barcode')</label>
+                                    <input type="text" class="form-control"
+                                           name="barcode" value="{{old('code',$product->barcode)}}"
+                                           placeholder="@lang('general.barcode')">
+                                    @error('barcode')
+                                        <span class="invalid-feedback" style="display:block;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mt-4 d-flex justify-content-between">
+                                <div class="col form-group">
                                     <label>@lang('general.categories')</label>
                                     <select class="form-control select2" name="category_id">
                                         <option value="">@lang('general.choose')</option>
@@ -62,26 +78,22 @@
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-4 form-group">
-                                    <label>@lang('general.companies')</label>
-                                    <select class="form-control select2" name="company_id">
-                                        <option value="">@lang('general.choose')</option>
-                                        @foreach($companies as $company)
-                                            <option @if($company->id == old('company_id',$product->company_id) ) selected @endif value="{{$company->id}}">{{$company->name}}</option>
-                                        @endforeach
+                            <div class="col form-group">
+                                <label>@lang('general.companies')</label>
+                                <select class="form-control select2" name="company_id">
+                                    <option value="">@lang('general.choose')</option>
+                                    @foreach($companies as $company)
+                                        <option @if($company->id == old('company_id',$product->company_id) ) selected @endif value="{{$company->id}}">{{$company->name}}</option>
+                                    @endforeach
 
-                                    </select>
-                                    @error('company_id')
-                                        <span class="invalid-feedback" style="display:block;" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-
-
-
-
+                                </select>
+                                @error('company_id')
+                                    <span class="invalid-feedback" style="display:block;" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
+                        </div>
                         </div>
                         <div class="col-12">
 
@@ -98,7 +110,20 @@
                                         </span>
                                     @enderror
                                 </div>
-
+                                <div class="col form-group">
+                                    <label>@lang('general.units')</label>
+                                    <select class="form-control select2" name="unit_id">
+                                        <option value="">@lang('general.choose')</option>
+                                        @foreach($units as $unit)
+                                            <option @if($unit->id == old('unit_id',$product->unit_id)) selected @endif value="{{$unit->id}}">{{$unit->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('unit_id')
+                                        <span class="invalid-feedback" style="display:block;" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
 
                             </div>
                         </div>
@@ -115,14 +140,14 @@
                                         @endforeach
 
                                     </select>
-                                    @error('company_id')
+                                    @error('stock_id')
                                         <span class="invalid-feedback" style="display:block;" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
                                 <div class="col form-group">
-                                    <label>@lang('general.stocks')</label>
+                                    <label>@lang('general.first_balance')</label>
                                     <input type="number" name="first_balance" class="form-control">
                                 </div>
 

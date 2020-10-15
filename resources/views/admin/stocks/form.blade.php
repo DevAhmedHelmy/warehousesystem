@@ -34,6 +34,26 @@
                         <div class="mt-4 d-flex justify-content-between">
 
                             <div class="col form-group">
+                                <label>@lang('general.branches')</label>
+                                <select class="form-control" name="branch_id">
+                                    <option value="">@lang('general.choose')</option>
+                                    @foreach($branches as $branch)
+                                        <option @if($branch->id == old('branch_id',$stock->branch_id) ) selected @endif value="{{$branch->id}}">{{$branch->name}}</option>
+                                    @endforeach
+
+                                </select>
+
+                                @if($errors->has('branch_id'))
+                                    <span class="invalid-feedback" style="display:block;" role="alert">
+                                        <strong>{{ $errors->first('branch_id') }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                        </div>
+                        <div class="mt-4 d-flex justify-content-between">
+
+                            <div class="col form-group">
                                 <label>@lang('general.address')</label>
                                 <input type="text" class="form-control"
                                        name="address"

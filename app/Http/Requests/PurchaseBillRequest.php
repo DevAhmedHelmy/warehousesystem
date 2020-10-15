@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class PurchaseBillRequest extends FormRequest
 {
     /**
@@ -34,16 +34,16 @@ class PurchaseBillRequest extends FormRequest
             case 'POST': {
                 return [
                     'bill_number' => ['required', Rule::unique('purchase_bills')],
-                    'client_id' => ['required','exists:clients,id'],
-                    'bill_discount' => ['nullable','numeric'],
-                    'bill_tax' => ['nullable','numeric'],
-                    'bill_total' => ['required','numeric'],
-                    'discount' => ['nullable','numeric'],
-                    'tax' => ['nullable','numeric'],
-                    'quantity'=> ['required','numeric'],
+                    'supplier_id' => ['required','exists:clients,id'],
+                    'bill_discount' => ['nullable'],
+                    'bill_tax' => ['nullable'],
+                    'bill_total' => ['required'],
+                    'discount' => ['nullable'],
+                    'tax' => ['nullable'],
+                    'quantity'=> ['required'],
                     'product_id' => ['required','exists:products,id'],
                     'stock_id' => ['required','exists:stocks,id'],
-                    'total' => ['required','numeric'],
+                    'total' => ['required'],
                 ];
             }
             case 'PUT':
@@ -51,15 +51,15 @@ class PurchaseBillRequest extends FormRequest
                 return [
                     'bill_number' =>['required',Rule::unique('purchase_bills')->ignore($this->purchasebill->id)],
                     'supplier_id' => ['required','exists:suppliers,id'],
-                    'bill_discount' => ['nullable','numeric'],
-                    'bill_tax' => ['nullable','numeric'],
-                    'bill_total' => ['required','numeric'],
-                    'discount' => ['nullable','numeric'],
-                    'tax' => ['nullable','numeric'],
-                    'quantity'=> ['required','numeric'],
+                    'bill_discount' => ['nullable'],
+                    'bill_tax' => ['nullable'],
+                    'bill_total' => ['required'],
+                    'discount' => ['nullable'],
+                    'tax' => ['nullable'],
+                    'quantity'=> ['required'],
                     'product_id' => ['required','exists:products,id'],
                     'stock_id' => ['required','exists:stocks,id'],
-                    'total' => ['required','numeric']
+                    'total' => ['required']
                 ];
             }
             default:

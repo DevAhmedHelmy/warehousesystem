@@ -13,11 +13,12 @@ class CreateStocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('stocks', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) { 
             $table->id();
             $table->string('name');
             $table->string('phone')->unique();
             $table->string('address');
+            $table->foreignId('branch_id');
             $table->softDeletes();
             $table->timestamps();
         });
