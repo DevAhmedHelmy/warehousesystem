@@ -16,6 +16,7 @@ class UpdateProductsTable extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('company_id')->references('id')->on('companies')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('unit_id')->references('id')->on('units')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,7 @@ class UpdateProductsTable extends Migration
         Schema::table('products', function (Blueprint $table) {
             $table->dropForeign(['category_id']);
             $table->dropForeign(['company_id']);
+            $table->dropForeign(['unit_id']);
         });
     }
 }

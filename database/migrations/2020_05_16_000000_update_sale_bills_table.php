@@ -16,6 +16,7 @@ class UpdateSaleBillsTable extends Migration
         Schema::table('sale_bills', function (Blueprint $table) {
 
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('stock_id')->references('id')->on('stocks')->onDelete('cascade');
         });
     }
 
@@ -29,6 +30,7 @@ class UpdateSaleBillsTable extends Migration
         Schema::table('sale_bills', function (Blueprint $table) {
 
             $table->dropForeign('client_id');
+            $table->dropForeign('stock_id');
         });
     }
 }

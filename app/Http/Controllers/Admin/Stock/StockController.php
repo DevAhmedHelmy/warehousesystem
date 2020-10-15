@@ -6,6 +6,7 @@ use App\Models\Stock;
 use Illuminate\Http\Request;
 use App\Http\Requests\StockRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 
 class StockController extends Controller
 {
@@ -17,7 +18,8 @@ class StockController extends Controller
     public function index(Request $request)
     {
         $stocks = Stock::all();
-        return view('admin.stocks.index',['stocks' => $stocks])->with('i', ($request->input('page', 1) - 1) * 5);;
+        $branches = Branch::all();
+        return view('admin.stocks.index',['stocks' => $stocks,'branches'=>$branches])->with('i', ($request->input('page', 1) - 1) * 5);;
     }
 
     /**
@@ -27,7 +29,8 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('admin.stocks.form');
+        $branches = Branch::all();
+        return view('admin.stocks.form',['branches'=>$branches]);
     }
 
     /**
@@ -52,6 +55,8 @@ class StockController extends Controller
      */
     public function show(Stock $stock)
     {
+        $products = $stock->getProducts();
+         dd($products);
         return view('admin.stocks.show',['stock' => $stock]);
     }
 

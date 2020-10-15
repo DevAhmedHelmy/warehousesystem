@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::resource('companies','Admin\Company\CompanyController');
     // Route::get('companies/search','Admin\Company\CompanyController');
     Route::resource('categories','Admin\Category\CategoryController');
+    Route::resource('branches','Admin\Branch\BranchController');
+    Route::resource('units','Admin\Unit\UnitController');
     Route::resource('products','Admin\Product\ProductController');
     Route::resource('clients','Admin\Client\ClientController');
     Route::resource('suppliers','Admin\Supplier\SupplierController');
