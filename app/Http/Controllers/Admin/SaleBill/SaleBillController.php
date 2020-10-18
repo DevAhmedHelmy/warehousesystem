@@ -13,7 +13,7 @@ use App\Models\Stock;
 use App\Models\ClientAccount;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\AccountTransaction;
 class SaleBillController extends Controller
 {
     /**
@@ -119,11 +119,18 @@ class SaleBillController extends Controller
 
                 if($saleBill->bill_type == 'cash')
                 {
-                    ClientAccount::create([
+                    $account =  ClientAccount::create([
                         'client_id' => $saleBill->client_id,
-                        'sale_bill_id' => $saleBill->id,
-                        'total' => $saleBill->total
+                        
+                         
                     ]);
+                    if($account){
+                        AccountTransaction::create([
+                            'client_account_id' => $account->id,
+                            'sale_bill_id' => $saleBill->id,
+                            'total' => $saleBill->total
+                        ]);
+                    }
                 } 
             });
         }

@@ -16,7 +16,7 @@ class CreateSupplierAccountsTable extends Migration
         Schema::create('supplier_accounts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('supplier_id');
-            $table->foreignId('purchase_bill_id');
+            
             $table->softDeletes();
             $table->timestamps();
         });

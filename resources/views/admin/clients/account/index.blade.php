@@ -38,33 +38,21 @@
 
                         <th>@lang('general.Action')</th>
                     </tr>
-                        @foreach ($clients as $key => $client)
-                        <tr>
-                            <td>{{ ++$i }}</td>
-                            <td>{{ $client->name }}</td>
-                            <td>@if(!is_null($client->address)){{ $client->address }}@else @lang('general.no_data_found')@endif</td>
-                            <td>{{ $client->phone }}</td>
-                            <td>{{ $client->user_type }}</td>
-                            <td>
-                                <form class="delete-form" action="{{ route('clients.destroy',$client->id) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <a class="btn btn-info btn-sm" href="{{ route('clients.show',$client->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
-                                    @can('client-edit')
-                                        <a class="btn btn-primary btn-sm" href="{{ route('clients.edit',$client->id) }}"><i class="fa fa-edit fa-sm"></i> @lang('general.Edit')</a>
-                                    @endcan
-                                    @can('client-delete')
-                                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete('delete-form')"><i class="fa fa-trash fa-sm"></i> @lang('general.Delete')</button>
-                                    @endcan
-                                </form>
-                            </td>
-                        </tr>
+                        @foreach ($accounts as $key => $account)
+                            <tr>
+                                <td>{{ ++$i }}</td>
+                                <td>{{ $account->client->name }}</td>
+                                <td>{{ $account->client->name }}</td> 
+                                <td>
+                                    <a class="btn btn-info btn-sm" href="{{ route('clients_account.show',$account->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
+                                </td>
+                            </tr>
                        @endforeach
                 </tbody>
             </table>
         </div>
         <div class="clearfix card-footer">
-            {{ $clients->links() }}
+            {{ $accounts->links() }}
         </div>
     </div>
 </div>
