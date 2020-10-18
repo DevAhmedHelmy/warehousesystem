@@ -15,7 +15,7 @@ class ClientAccountController extends Controller
     public function index(Request $request)
     {
         $clients = ClientAccount::with(['client','saleBill'])->paginate(25);
-        dd($clients);
+
         return view('admin.clients.account.index',['clients'=>$clients])->with('i', ($request->input('page', 1) - 1) * 5);
     }
 }

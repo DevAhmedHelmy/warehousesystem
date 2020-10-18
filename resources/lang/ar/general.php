@@ -200,5 +200,7 @@ return[
     'transactions'                                      => 'العمليات',
     'client'                                            => 'العميل',
     'client_data'                                       => 'بيانات العميل',
+    'clients_account' => 'حسابات العملاء',
+    'suppliers_account' => 'حسابات الموردين',
 
 ];
