@@ -28,6 +28,7 @@ class SaleBillRequest extends FormRequest
             'product_id.*' => ['required','exists:products,id'],
             'stock_id' => ['required','exists:stocks,id'],
             'total.*' => ['required','numeric'],
+            'bill_type' => ['required']
         ];
     }
 

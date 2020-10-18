@@ -63,9 +63,9 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        $client = Client::where('id',$id)->where('type','client')->first();
+    public function show(Client $client)
+    { 
+        $client = $client->load('salesBills'); 
         return view('admin.clients.show',['client'=>$client]);
     }
 
@@ -75,9 +75,8 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $client = Client::where('id',$id)->where('type','client')->first();
+    public function edit(Client $client)
+    { 
         return view('admin.clients.form',['client'=>$client]);
     }
 
@@ -88,10 +87,9 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function update(ClientRequest $request, $id)
+    public function update(ClientRequest $request, Client $client)
     {
-        $data = $request->validated();
-        $client = Client::where('id',$id)->where('type','client')->first();
+        $data = $request->validated(); 
         $client->update($data);
         return redirect()->route('clients.index')
                         ->with('success',trans('general.updated_Successfully'));
@@ -103,9 +101,8 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $Client
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Client $Client)
+    public function destroy(Client $client)
     {
-        $client = Client::where('id',$id)->where('type','client')->first();
         $client->delete();
         return redirect()->route('clients.index')
                         ->with('success',trans('general.deleted_Successfully'));

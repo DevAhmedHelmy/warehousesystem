@@ -34,6 +34,7 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::resource('products','Admin\Product\ProductController');
     
     Route::resource('clients','Admin\Client\ClientController');
+    Route::resource('clients_account','Admin\Client\ClientAccountController');
     Route::resource('suppliers','Admin\Supplier\SupplierController');
     Route::resource('salebills','Admin\SaleBill\SaleBillController');
     Route::resource('purchasebills','Admin\PurchaseBill\PurchaseBillController');

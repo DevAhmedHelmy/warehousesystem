@@ -2,20 +2,19 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Client;
-use App\Models\SaleBill;
+use App\Model;
 use App\Models\Stock;
+use App\Models\Supplier;
+use App\Models\PurchaseBill;
 use Faker\Generator as Faker;
 
-$factory->define(SaleBill::class, function (Faker $faker) {
-    $totalClients = Client::count();
+$factory->define(PurchaseBill::class, function (Faker $faker) {
+    $totalSuppliers = Supplier::count();
     $stocks = Stock::count();
     return [
         'bill_number' => $faker->ean8,
         'total' => $faker->numberBetween($min = 2000, $max = 9000),
-        'client_id' => rand(1,$totalClients),
+        'supplier_id' => rand(1,$totalSuppliers),
         'stock_id' => rand(1,$stocks),
-
-
     ];
 });

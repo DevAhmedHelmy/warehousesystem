@@ -35,28 +35,45 @@
                         <tr>
                             <th>@lang('general.No')</th>
                             <th>@lang('general.name')</th>
+                            <th>@lang('general.transaction_type')</th>
                             <th>@lang('general.first_balance')</th>
                             <th>@lang('general.additions')</th>
                             <th>@lang('general.outgoing')</th>
                             <th>@lang('general.end_balance')</th>
-                            <th>@lang('general.controll')</th>
+                            <th>@lang('general.created_at')</th>
+                            <th>@lang('general.bill_details')</th>
+                            {{--  <th>@lang('general.controll')</th>  --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($transactions as $product)
-                        <tr>
-                            <th scope="row">{{$product->id}}</th>
-                            <td>{{$product->name}}</td>
-                            <td>{{$product->pivot->first_balance}}</td>
-                            <td>{{$product->pivot->additions}}</td>
-                            <td>{{$product->pivot->outgoing}}</td>
-                            <td>{{$product->pivot->end_balance}}</td>
-                            <td>
-                                <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
+                            <tr>
+                                <th scope="row">{{$product->id}}</th>
+                                <td>{{$product->name}}</td>
+                                <td>
+                                    @if($product->pivot->saleBill_id)
+                                        @lang('general.sales')
+                                    @elseif($product->pivot->purchaseBill_id)
+                                        @lang('general.purchases')
+                                    @endif
+                                </td>
+                                <td>{{$product->pivot->first_balance}}</td>
+                                <td>{{$product->pivot->additions}}</td>
+                                <td>{{$product->pivot->outgoing}}</td>
+                                <td>{{$product->pivot->end_balance}}</td>
+                                <td>{{$product->pivot->created_at->format('h:m Y-m-d')}}</td>
+                                <td>
+                                    @if($product->pivot->saleBill_id)
+                                        <a href="{{ route('salebills.show', $product->pivot->saleBill_id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
+                                    @elseif($product->pivot->purchaseBill_id)
+                                        <a href="{{ route('purchasebills.show', $product->pivot->purchaseBill_id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
+                                    @endif 
+                                </td>
+                                {{--  <td>
+                                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
+                                </td>  --}}
                                 
-                                 
-                            </td>
-                        </tr>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

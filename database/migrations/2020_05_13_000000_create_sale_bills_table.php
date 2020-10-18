@@ -19,6 +19,8 @@ class CreateSaleBillsTable extends Migration
             $table->double('discount', 4, 2)->default(0);
             $table->double('tax', 4, 2)->default(0);
             $table->double('total', 8, 2)->default(0);
+            $table->string('transaction_type')->default('sales');
+            $table->enum('bill_type',['cash','installment'])->default('cash');
             $table->foreignId('client_id');
             $table->foreignId('stock_id');
             $table->softDeletes();

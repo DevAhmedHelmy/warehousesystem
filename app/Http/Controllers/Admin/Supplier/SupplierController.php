@@ -69,9 +69,9 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Supplier $supplier)
     {
-        $supplier = Supplier::findOrFail($id);
+        $supplier =  $supplier->load('purchasesBills'); 
         return view('admin.suppliers.show',['supplier'=>$supplier]);
     }
 
@@ -81,9 +81,8 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        $supplier = Supplier::findOrFail($id);
+    public function edit(Supplier $supplier)
+    { 
         $companies = Company::all();
         return view('admin.suppliers.form',['supplier'=>$supplier,'companies'=>$companies]);
     }
@@ -95,10 +94,10 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
-    public function update(SuplierRequest $request, $id)
+    public function update(SuplierRequest $request, Supplier $supplier)
     {
         $data = $request->validated();
-        $supplier = Supplier::findOrFail($id);
+       
         $supplier->update($data);
         return redirect()->route('suppliers.index')
                         ->with('success',trans('general.updated_Successfully'));
@@ -110,10 +109,9 @@ class SupplierController extends Controller
      * @param  \App\Models\Supplier  $Supplier
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Supplier $supplier)
     {
-        Supplier::findOrFail($id)->delete();
-
+        $supplier->delete(); 
         return redirect()->route('suppliers.index')
                         ->with('success',trans('general.deleted_Successfully'));
     }

@@ -15,9 +15,10 @@ class CreateStockProducts extends Migration
     {
         Schema::create('stock_products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('stock_id');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('saleBill_id')->nullable();
+            $table->foreignId('stock_id');
+            $table->foreignId('product_id');
+            $table->foreignId('saleBill_id')->nullable();
+            $table->foreignId('purchaseBill_id')->nullable();
             $table->integer('first_balance');
             $table->integer('additions')->default(0);
             $table->integer('outgoing')->default(0);

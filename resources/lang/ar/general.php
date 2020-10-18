@@ -195,5 +195,10 @@ return[
     'basic_information'                                 => 'المعلومات الاساسية',
     'reports'                                           => 'التقارير',
     'financial'                                         => 'المالية',
+    'transaction_type'                                  => 'نوع العملية',
+    'bill_details'                                      => 'تفاصيل الفاتورة',
+    'transactions'                                      => 'العمليات',
+    'client'                                            => 'العميل',
+    'client_data'                                       => 'بيانات العميل',
 
 ];
