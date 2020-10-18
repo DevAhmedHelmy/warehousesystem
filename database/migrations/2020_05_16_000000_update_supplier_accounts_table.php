@@ -16,7 +16,7 @@ class UpdateSupplierAccountsTable extends Migration
         Schema::table('supplier_accounts', function (Blueprint $table) {
 
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-            $table->foreign('purchase_bill_id')->references('id')->on('purchase_bills')->onDelete('cascade');
+            
         });
     }
 
@@ -30,7 +30,7 @@ class UpdateSupplierAccountsTable extends Migration
         Schema::table('supplier_accounts', function (Blueprint $table) {
 
             $table->dropForeign('supplier_id');
-            $table->dropForeign('purchase_bill_id');
+            
         });
     }
 }

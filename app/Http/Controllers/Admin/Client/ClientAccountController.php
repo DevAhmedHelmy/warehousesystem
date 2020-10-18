@@ -14,8 +14,17 @@ class ClientAccountController extends Controller
      */
     public function index(Request $request)
     {
-        $clients = ClientAccount::with(['client','saleBill'])->paginate(25);
+ 
+        $accounts = ClientAccount::with(['accounts'])->paginate(25);
+ 
+        return view('admin.clients.account.index',['accounts'=>$accounts])->with('i', ($request->input('page', 1) - 1) * 5);
+    }
 
-        return view('admin.clients.account.index',['clients'=>$clients])->with('i', ($request->input('page', 1) - 1) * 5);
+    public function show(ClientAccount $clients_account)
+    {
+        $clients_account =$clients_account->load(['accounts','accounts.saleBill']);
+       
+        return view('admin.clients.account.show',['clients_account'=>$clients_account]);
+ 
     }
 }

@@ -15,7 +15,8 @@ class UpdateAccountTransactionsTable extends Migration
     {
         Schema::table('account_transactions', function (Blueprint $table) {
 
-             
+            $table->foreign('purchase_bill_id')->references('id')->on('purchase_bills')->onDelete('cascade');
+            $table->foreign('sale_bill_id')->references('id')->on('sale_bills')->onDelete('cascade');
             $table->foreign('client_account_id')->references('id')->on('client_accounts')->onDelete('cascade');
             $table->foreign('supplier_account_id')->references('id')->on('supplier_accounts')->onDelete('cascade'); 
         });
@@ -32,7 +33,8 @@ class UpdateAccountTransactionsTable extends Migration
 
             $table->dropForeign('client_account_id');
             $table->dropForeign('supplier_account_id');
-            
+            $table->dropForeign('sale_bill_id');
+            $table->dropForeign('purchase_bill_id');
             
         });
     }

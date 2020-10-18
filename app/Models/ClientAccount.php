@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
- 
+use App\Models\AccountTransaction;
+
+
 
 class ClientAccount extends Model
 {
@@ -10,8 +12,9 @@ class ClientAccount extends Model
     {
         return $this->belongsTo(Client::class, 'client_id', 'id');
     }
-    public function saleBill()
+    
+    public function accounts()
     {
-        return $this->belongsTo(SaleBill::class, 'sale_bill_id', 'id');
+        return $this->hasMany(AccountTransaction::class, 'client_account_id', 'id');
     }
 }

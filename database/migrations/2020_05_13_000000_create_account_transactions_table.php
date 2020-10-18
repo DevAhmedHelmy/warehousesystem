@@ -17,6 +17,8 @@ class CreateAccountTransactionsTable extends Migration
             $table->id();
             $table->foreignId('client_account_id')->nullable();
             $table->foreignId('supplier_account_id')->nullable();
+            $table->foreignId('purchase_bill_id')->nullable();
+            $table->foreignId('sale_bill_id')->nullable();
             $table->double('total', 8, 2)->default(0);
             $table->softDeletes();
             $table->timestamps();

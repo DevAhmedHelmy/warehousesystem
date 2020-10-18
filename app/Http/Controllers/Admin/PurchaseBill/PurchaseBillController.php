@@ -11,6 +11,8 @@ use App\Models\InvoicePurchaseBill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PurchaseBillRequest;
 use DB;
+use App\Models\SupplierAccount;
+use App\Models\AccountTransaction;
 class PurchaseBillController extends Controller
 {
     /**
@@ -53,8 +55,8 @@ class PurchaseBillController extends Controller
     public function store(PurchaseBillRequest $request)
     {
         $data = $request->all();
-
-        $purchaseBill = PurchaseBill::create([
+        $purchaseBill = PurchaseBill::create(
+            [
                 'bill_number' => $data['bill_number'],
                 'discount' => ($data['bill_discount'])??0,
                 'tax' => ($data['bill_tax'])??0,
@@ -62,53 +64,67 @@ class PurchaseBillController extends Controller
                 'supplier_id' =>$data['supplier_id'],
                 'stock_id' =>$data['stock_id'],
                 'bill_type' => $data['bill_type']
-                ]);
+        ]);
 
         if($purchaseBill && $request->product_id != '')
         {
             $rows =[];
             DB::transaction(function () use($data,$purchaseBill,$request){
                 foreach ($request->product_id as $key => $value) {
-                    InvoicePurchaseBill::create([
-                    'quantity' => $data['quantity'][$key],
-                    'discount' => ($data['discount'][$key])??0,
-                    'tax' => ($data['tax'][$key])??0,
-                    'total' => $data['total'][$key],
-                    'price'=> $data['price'][$key],
-                    'product_id' => $data['product_id'][$key],
-                    'stock_id' => $data['stock_id'],
-                    'purchase_bill_id' => $purchaseBill->id
-                ]);
+                    InvoicePurchaseBill::create(
+                    [
+                        'quantity' => $data['quantity'][$key],
+                        'discount' => ($data['discount'][$key])??0,
+                        'tax' => ($data['tax'][$key])??0,
+                        'total' => $data['total'][$key],
+                        'price'=> $data['price'][$key],
+                        'product_id' => $data['product_id'][$key],
+                        'stock_id' => $data['stock_id'],
+                        'purchase_bill_id' => $purchaseBill->id
+                    ]);
 
                     $product = \DB::table('stock_products')
-                     ->where('stock_id', $data['stock_id'])
-                     ->where('product_id', $data['product_id'][$key])
-                     ->orderBy('created_at', 'desc')
-                     ->first();
+                                ->where('stock_id', $data['stock_id'])
+                                ->where('product_id', $data['product_id'][$key])
+                                ->orderBy('created_at', 'desc')
+                                ->first();
 
                     if ($product !== null) {
-                        $rows[] = ['first_balance'=>$product->end_balance,
-                                'additions'=>$data['quantity'][$key],
-                                'end_balance'=> $product->end_balance + $data['quantity'][$key],
-                                'product_id'=>$data['product_id'][$key],
-                                'stock_id'=>$data['stock_id'],
-                                'purchase_id' => $purchaseBill->id,
-                                'created_at'=>now(),
-                                'updated_at'=>now(),
-                             ];
+                        $rows[] =
+                        [
+                            'first_balance'=>$product->end_balance,
+                            'additions'=>$data['quantity'][$key],
+                            'end_balance'=> $product->end_balance + $data['quantity'][$key],
+                            'product_id'=>$data['product_id'][$key],
+                            'stock_id'=>$data['stock_id'],
+                            'purchase_id' => $purchaseBill->id,
+                            'created_at'=>now(),
+                            'updated_at'=>now(),
+                        ];
                     } else {
                         abort(403);
                     }
                 }
                 \DB::table('stock_products')->insert($rows);
 
-                
-
-
+                if($purchaseBill->bill_type == 'cash')
+                {
+                    $account =  SupplierAccount::create(
+                        [
+                            'supplier_id' => $purchaseBill->supplier_id,
+                            
+                        ]);
+                    if($account){
+                        AccountTransaction::create(
+                            [
+                                'supplier_account_id' => $account->id,
+                                'purchase_bill_id' => $purchaseBill->id,
+                                'total' => $purchaseBill->total
+                            ]);
+                    }
+                }
             });
         }
-
-
         return redirect()->route('purchasebills.index')
                         ->with('success',trans('general.created_Successfully'));
     }
