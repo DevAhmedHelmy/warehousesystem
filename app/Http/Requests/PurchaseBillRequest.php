@@ -44,6 +44,7 @@ class PurchaseBillRequest extends FormRequest
                     'product_id' => ['required','exists:products,id'],
                     'stock_id' => ['required','exists:stocks,id'],
                     'total' => ['required'],
+                    'bill_type' => ['required']
                 ];
             }
             case 'PUT':
@@ -59,7 +60,8 @@ class PurchaseBillRequest extends FormRequest
                     'quantity'=> ['required'],
                     'product_id' => ['required','exists:products,id'],
                     'stock_id' => ['required','exists:stocks,id'],
-                    'total' => ['required']
+                    'total' => ['required'],
+                    'bill_type' => ['required']
                 ];
             }
             default:

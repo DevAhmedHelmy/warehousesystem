@@ -30,11 +30,15 @@ Route::group(['middleware' => ['auth','role:Admin']], function() {
     Route::resource('categories','Admin\Category\CategoryController');
     Route::resource('branches','Admin\Branch\BranchController');
     Route::resource('units','Admin\Unit\UnitController');
+    
     Route::resource('products','Admin\Product\ProductController');
+    
     Route::resource('clients','Admin\Client\ClientController');
+    Route::resource('clients_account','Admin\Client\ClientAccountController');
     Route::resource('suppliers','Admin\Supplier\SupplierController');
     Route::resource('salebills','Admin\SaleBill\SaleBillController');
     Route::resource('purchasebills','Admin\PurchaseBill\PurchaseBillController');
+    Route::get('stocks/{stock_id}/product/transactions/{product_id}','Admin\Stock\StockController@transaction');
     Route::resource('stocks','Admin\Stock\StockController');
 });
 

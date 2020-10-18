@@ -6,9 +6,11 @@ use App\Models\Client;
 use App\Models\Company;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\InvoicePurchaseBill;
 use App\Models\SaleBill;
 use App\Models\Supplier;
 use App\Models\InvoiceSaleBill;
+use App\Models\PurchaseBill;
 use App\Models\Unit;
 use Illuminate\Database\Seeder;
 
@@ -36,11 +38,14 @@ class DatabaseSeeder extends Seeder
         Stock::all()->each(function ($stock) use ($products) {
             $stock->products()->attach(
                 $products->random(rand(1, 5))->pluck('id')->toArray(),
-                ['first_balance' => 5,'end_balance'=>5]
+                ['first_balance' => 5,'end_balance'=>5,'purchaseBill_id'=>rand(1,5),'created_at'=>now(),
+                'updated_at'=>now()]
             );
         });
         factory(SaleBill::class, 5)->create();
         factory(InvoiceSaleBill::class, 5)->create();
+        factory(PurchaseBill::class, 5)->create();
+        factory(InvoicePurchaseBill::class, 5)->create();
 
 
     }

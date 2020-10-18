@@ -61,6 +61,7 @@ class PurchaseBillController extends Controller
                 'total' => $data['bill_total'],
                 'supplier_id' =>$data['supplier_id'],
                 'stock_id' =>$data['stock_id'],
+                'bill_type' => $data['bill_type']
                 ]);
 
         if($purchaseBill && $request->product_id != '')
@@ -87,18 +88,23 @@ class PurchaseBillController extends Controller
 
                     if ($product !== null) {
                         $rows[] = ['first_balance'=>$product->end_balance,
-                              'additions'=>$data['quantity'][$key],
-                              'end_balance'=> $product->end_balance + $data['quantity'][$key],
-                              'product_id'=>$data['product_id'][$key],
-                              'stock_id'=>$data['stock_id'],
-                              'created_at'=>now(),
-                              'updated_at'=>now(),
+                                'additions'=>$data['quantity'][$key],
+                                'end_balance'=> $product->end_balance + $data['quantity'][$key],
+                                'product_id'=>$data['product_id'][$key],
+                                'stock_id'=>$data['stock_id'],
+                                'purchase_id' => $purchaseBill->id,
+                                'created_at'=>now(),
+                                'updated_at'=>now(),
                              ];
                     } else {
                         abort(403);
                     }
                 }
                 \DB::table('stock_products')->insert($rows);
+
+                
+
+
             });
         }
 

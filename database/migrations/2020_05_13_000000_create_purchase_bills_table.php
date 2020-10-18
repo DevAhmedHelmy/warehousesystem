@@ -21,6 +21,8 @@ class CreatePurchaseBillsTable extends Migration
             $table->double('total', 8, 2)->default(0);
             $table->foreignId('supplier_id');
             $table->foreignId('stock_id');
+            $table->enum('bill_type',['cash','installment'])->default('cash');
+            $table->string('transaction_type')->default('purchases');
             $table->softDeletes();
             $table->timestamps();
         });

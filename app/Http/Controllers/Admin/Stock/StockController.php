@@ -55,9 +55,8 @@ class StockController extends Controller
      */
     public function show(Stock $stock)
     {
-        $products = $stock->getProducts();
-         dd($products);
-        return view('admin.stocks.show',['stock' => $stock]);
+        $products = $stock->getProducts(); 
+        return view('admin.stocks.show',['stock' => $stock, 'products' => $products]);
     }
 
     /**
@@ -69,6 +68,14 @@ class StockController extends Controller
     public function edit(Stock $stock)
     {
 
+    }
+
+
+    public function transaction($stock_id, $product_id)
+    {
+        $stock = Stock::findOrfail($stock_id);
+        $transactions = $stock->products()->wherePivot('product_id',$product_id)->latest()->get();
+        return view('admin.stocks.transactions',['transactions' => $transactions]);
     }
 
     /**

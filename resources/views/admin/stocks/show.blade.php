@@ -68,7 +68,7 @@
 
         {{-- /.card-body --}}
     </div>
-    @if(isset($stock->products))
+    @if(isset($products))
     <div class="card card-outline card-success">
         <div class="card-header">
           <h3 class="card-title">@lang('general.products')</h3>
@@ -95,7 +95,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($stock->products as $product)
+                        @foreach($products as $product)
                         <tr>
                             <th scope="row">{{$product->id}}</th>
                             <td>{{$product->name}}</td>
@@ -104,8 +104,9 @@
                             <td>{{$product->pivot->outgoing}}</td>
                             <td>{{$product->pivot->end_balance}}</td>
                             <td>
-
                                 <a href="{{ route('products.show', $product->id) }}" class="btn btn-info btn-sm" data-target='tooltip' title="{{ trans('general.show') }}"><i class="fa fa-eye fa-sm"></i></a>
+                                
+                                <a href="{{ url('stocks/'.$stock->id.'/product/transactions/' .$product->id) }}" class="btn btn-success btn-sm" data-target='tooltip' title="{{ trans('general.product_transactions') }}"><i class="fa fa-exchange fa-sm"></i></a>
                             </td>
                         </tr>
                         @endforeach

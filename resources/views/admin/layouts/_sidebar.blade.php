@@ -211,6 +211,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('clients_account.index') }}" class="nav-link">
+                                <i class="fa fa-pie-chart nav-icon"></i>
+                                <p>@lang('general.clients_account')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="pages/charts/flot.html" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>@lang('general.Sales_returns')</p>

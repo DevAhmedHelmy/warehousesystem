@@ -63,13 +63,20 @@
                         @enderror
                     </div>
 
+                     
+
+
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mt-4 d-flex justify-content-between">
                     <div class="col form-group">
                         <label>@lang('general.stocks')</label>
                         <select class="form-control select2" name="stock_id">
                             <option value="">@lang('general.choose')</option>
                             @foreach($stocks as $stock)
                                 <option data-products="{{ json_encode($stock->products) }}"
-                                 @if($stock->id == old('stock_id',$saleBill->stock_id) ) selected @endif value="{{$stock->id}}">{{$stock->name}}</option>
+                                @if($stock->id == old('stock_id',$saleBill->stock_id) ) selected @endif value="{{$stock->id}}">{{$stock->name}}</option>
                             @endforeach
 
                         </select>
@@ -79,8 +86,22 @@
                             </span>
                         @enderror
                     </div>
+                     <div class="col form-group">
+                        <label>@lang('general.bill_types')</label>
+                        <select class="form-control select2" name="bill_type">
+                            <option value="">@lang('general.choose')</option>
+                             
+                                <option @if($stock->bill_type == old('bill_type',$saleBill->bill_type) ) selected @endif value="cash">@lang('general.cash')</option>
+                                <option @if($stock->bill_type == old('bill_type',$saleBill->bill_type) ) selected @endif value="installment">@lang('general.installment')</option>
+                             
 
-
+                        </select>
+                        @error('stock_id')
+                            <span class="invalid-feedback" style="display:block;" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
             </div>
             @forelse ($saleBill->invoiceSaleBills as $item)

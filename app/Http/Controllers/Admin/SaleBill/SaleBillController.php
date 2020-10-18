@@ -10,6 +10,7 @@ use App\Models\InvoiceSaleBill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SaleBillRequest;
 use App\Models\Stock;
+use App\Models\ClientAccount;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 
@@ -75,6 +76,7 @@ class SaleBillController extends Controller
                 'total' => $data['bill_total'],
                 'client_id' =>$data['client_id'],
                 'stock_id' =>$data['stock_id'],
+                'bill_type' => $data['bill_type']
                 ]);
 
         if($saleBill && $request->product_id != '')
@@ -105,6 +107,7 @@ class SaleBillController extends Controller
                               'end_balance'=> $product->end_balance - $data['quantity'][$key],
                               'product_id'=>$data['product_id'][$key],
                               'stock_id'=>$data['stock_id'],
+                              'saleBill_id' => $saleBill->id,
                               'created_at'=>now(),
                               'updated_at'=>now(),
                              ];
@@ -113,6 +116,15 @@ class SaleBillController extends Controller
                     }
                 }
                 \DB::table('stock_products')->insert($rows);
+
+                if($saleBill->bill_type == 'cash')
+                {
+                    ClientAccount::create([
+                        'client_id' => $saleBill->client_id,
+                        'sale_bill_id' => $saleBill->id,
+                        'total' => $saleBill->total
+                    ]);
+                } 
             });
         }
 
