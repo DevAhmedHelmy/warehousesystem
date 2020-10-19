@@ -29,7 +29,7 @@
         {{-- /.card-header --}}
 
             <div class="card-body">
-                
+
 
             </div>
 
@@ -38,6 +38,7 @@
 
 
     @if(isset($clients_account->accounts))
+
     <div class="card card-outline card-success">
         <div class="card-header">
           <h3 class="card-title">@lang('general.products')</h3>
@@ -55,21 +56,21 @@
                     <thead>
                         <tr>
                             <th>@lang('general.No')</th>
-                            <th>@lang('general.name')</th>
-                            <th>@lang('general.first_balance')</th>
-                            <th>@lang('general.additions')</th>
-                            <th>@lang('general.outgoing')</th>
-                            <th>@lang('general.end_balance')</th>
-                            <th>@lang('general.controll')</th>
+                            <th>@lang('general.bill_number')</th>
+                            <th>@lang('general.transaction_type')</th>
+                            <th>@lang('general.bill_type')</th>
+                            <th>@lang('general.total')</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($clients_account->accounts as $account)
                         <tr>
                             <th scope="row">{{$account->id}}</th>
+                            <th> {{ isset($account->saleBill->bill_number) ? $account->saleBill->bill_number : $account->purchasBill->bill_number}}</th>
+                            <th> {{ isset($account->saleBill->transaction_type) ? $account->saleBill->transaction_type : $account->purchasBill->transaction_type}}</th>
+                            <th> {{ isset($account->saleBill->bill_type) ? $account->saleBill->bill_type : $account->purchasBill->bill_type}}</th>
                             <td>{{$account->total}}</td>
-                             
-                             
                         </tr>
                         @endforeach
                     </tbody>
@@ -86,7 +87,7 @@
         <div class="card-body">
             @lang('general.no_data_found')
         </div>
-        <!-- /.card-body -->
+
       </div>
 
     @endif

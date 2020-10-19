@@ -56,7 +56,7 @@
                             @endcan
                         </ul>
                     </li>
-                
+
                 {{--  basic information  --}}
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -67,7 +67,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                         
+
                          {{--  !main pages  --}}
                             @can('unit-list')
                             <li class="nav-item">
@@ -169,6 +169,12 @@
                             <a href="{{ route('purchasebills.index') }}" class="nav-link {{active_menu('purchasebills')[2]}}">
                                 <i class="fa fa-pie-chart nav-icon"></i>
                                 <p>@lang('general.purchases_bills')</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa fa-pie-chart nav-icon"></i>
+                                <p>@lang('general.suppliers_account')</p>
                             </a>
                         </li>
                         <li class="nav-item">
