@@ -31,18 +31,16 @@
                 <tbody>
                     <tr>
                         <th style="width: 10%">@lang('general.No')</th>
+                        <th>@lang('general.account_number')</th>
                         <th>@lang('general.name')</th>
-                        <th>@lang('general.address')</th>
-                        <th>@lang('general.phone')</th>
-                        <th>@lang('general.client_type')</th>
 
                         <th>@lang('general.Action')</th>
                     </tr>
                         @foreach ($accounts as $key => $account)
                             <tr>
                                 <td>{{ ++$i }}</td>
+                                <td>{{ $account->client->id }}</td>
                                 <td>{{ $account->client->name }}</td>
-                                <td>{{ $account->client->name }}</td> 
                                 <td>
                                     <a class="btn btn-info btn-sm" href="{{ route('clients_account.show',$account->id) }}"><i class="fa fa-eye fa-sm"></i> @lang('general.Show')</a>
                                 </td>
