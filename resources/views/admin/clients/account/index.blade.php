@@ -7,8 +7,8 @@
         </div>
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-left">
-            <li class="breadcrumb-item"><a href="{{ route('home') }}">@lang('general.dashboard')</a></li>
-            <li class="breadcrumb-item active">@lang('general.clients')</li>
+            <li class="breadcrumb-item"><a href="#">@lang('general.sales')</a></li>
+            <li class="breadcrumb-item active">@lang('general.clients_account')</li>
             </ol>
         </div>
     </div>
@@ -20,9 +20,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                @can('client-create')
-                    <a class="btn btn-success" href="{{ route('clients.create') }}"><i class="fa fa-plus"></i> @lang('general.Create_New_client')</a>
-                @endcan
+                 @lang('general.clients_account')
             </h3>
         </div>
 
